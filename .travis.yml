@@ -4,6 +4,9 @@ language: python
 python:
   - "3.6"
 
+before_install:
+  - sudo /sbin/ldconfig -v
+
 install:
   - pip3 install -r requirements.txt
 
