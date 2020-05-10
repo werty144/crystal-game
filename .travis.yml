@@ -3,6 +3,7 @@ python:
   - "3.6"
 
 install:
+  - apt-get install libmtdev1
   - pip3 install -r requirements.txt
 
 script:
