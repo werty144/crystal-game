@@ -13,3 +13,18 @@
         Rectangle:
             size: self.size
             pos: self.pos
+
+<MyTriangle>:
+    canvas:
+        Color:
+            rgba: self.r, self.g, self.b, self.a
+        Triangle:
+            points: self.points
+
+<Polygon>:
+    canvas:
+        Color:
+            rgba: 1, 0, 0, 1
+        Line:
+            points: self.points + self.points[:2]
+            width: 2
