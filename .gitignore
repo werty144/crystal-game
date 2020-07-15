@@ -1,2 +1,4 @@
 venv/*
 .idea/*
+PyCharm_kv_completion.jar
+__pycache__/
