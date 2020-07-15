@@ -11,7 +11,7 @@ class Box:
         self.rules = []
 
     def __str__(self):
-        return 'Box' + str(self.id)
+        return 'Box' + str(self.kind)
 
     def add_rule(self, rule):
         if rule not in self.rules:
