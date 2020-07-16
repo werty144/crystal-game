@@ -5,6 +5,8 @@ DOWN = 'DOWN'
 RIGHT = 'RIGHT'
 LEFT = 'LEFT'
 
-project_path = dirname(dirname(dirname(abspath(__file__))))
-levels_path = join(project_path, 'resources', 'levels')
-images_path = join(project_path, 'resources', 'images')
+PROJECT_PATH = dirname(dirname(dirname(abspath(__file__))))
+LEVELS_PATH = join(PROJECT_PATH, 'resources', 'levels')
+IMAGES_PATH = join(PROJECT_PATH, 'resources', 'images')
+
+FRAME_RATE_SEC = 0.01
