@@ -10,8 +10,10 @@ from kivy.properties import *
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
+from kivy.graphics import *
 
 from src.backend.Engine import Engine
+from src.backend.ScreenUtils import ScreenUtils
 from src.backend.constants import *
 
 Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
@@ -30,10 +32,14 @@ class BoxWidget(Image):
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
+    screen_utils = ScreenUtils(3)
 
     def start(self):
         self.engine = Engine(0)
         for obj in self.engine.all_game_objects():
+            obj_center = self.screen_utils.get_center(obj.i, obj.j)
+            obj.x = obj_center[0]
+            obj.y = obj_center[1]
             obj_widget = BoxWidget(join(IMAGES_PATH, 'yan.jpg'), (obj.x, obj.y), (obj.size, obj.size))
             setattr(obj_widget, 'game_id', obj.game_id)
             self.game_widgets.append(obj_widget)
@@ -70,6 +76,10 @@ class GameScreen(Screen):
         playground = Playground()
         self.add_widget(playground)
         playground.start()
+        points = playground.screen_utils.create_table()
+        for a, b in points:
+            with self.canvas:
+                Line(points=[a[0], a[1], b[0], b[1]])
 
 
 sm = ScreenManager()
