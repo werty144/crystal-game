@@ -2,20 +2,25 @@ from src.backend.Box import Box
 from src.backend.LevelParser import parse
 from src.backend.Rule import Rule
 from src.backend.constants import *
+from src.backend.Animation import *
+from src.backend.Geometry import *
+import time
 
 
 class Engine:
     def __init__(self, cur_lvl):
         self.field, self.target = parse(cur_lvl)
         self.boxes = []
+        self.animations = []
         for i in range(self.field.rows):
             for box in self.field[i]:
                 if box is not None:
                     self.boxes.append(box)
+        # Example of adding animation
+        self.add_animation(Steady_linear_movement_animation(self.boxes[0], Point(400, 300)))
 
-    # TODO add implementation
-    def add_animation(self, box, start, finish):
-        pass
+    def add_animation(self, animation):
+        self.animations.append(animation)
 
     def box_fall(self, box):
         i = box.i
@@ -101,12 +106,14 @@ class Engine:
                 self.field[i][j] = Box(100, 200, 150, i, j, rule.result_box_kinds[1])
 
     def tick(self):
-        # for test purposes
-        print(self.field)
-        self.adjust_rule(self.field[1][1], self.field[1][1].rules[1])
-        print(self.field)
-
-        self.boxes[0].x += 2
+        to_remove = []
+        for animation in self.animations:
+            if animation.finished:
+                to_remove.append(animation)
+                continue
+            animation.tick(FRAME_RATE_SEC)
+        for animation in to_remove:
+            self.animations.remove(animation)
 
     def all_game_objects(self):
         return self.boxes

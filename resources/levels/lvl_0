@@ -16,7 +16,7 @@
                 "i": 1,
                 "j": 1,
                 "kind": 6,
-                "id": 7,
+                "id": 1,
                 "animations": [],
                 "rules": [
                     {
@@ -39,18 +39,14 @@
                     }
                 ]
             },
-            null
-        ],
-        [
-            null,
             {
-                "x": 100,
+                "x": 300,
                 "y": 200,
                 "size": 150,
-                "i": 2,
+                "i": 1,
                 "j": 1,
                 "kind": 6,
-                "id": 7,
+                "id": 2,
                 "animations": [],
                 "rules": [
                     {
@@ -63,8 +59,8 @@
                         ]
                     },
                     {
-                        "marginal": false,
-                        "direction": "UP",
+                        "marginal": true,
+                        "direction": "LEFT",
                         "initial_box_kind": 6,
                         "result_box_kinds": [
                             6,
@@ -72,7 +68,11 @@
                         ]
                     }
                 ]
-            },
+            }
+        ],
+        [
+            null,
+            null,
             null
         ]
     ]

@@ -32,7 +32,7 @@ def box_from(named_tpl):
 
 
 def parse(cur_lvl):
-    with open(join(levels_path, f'lvl_{cur_lvl}')) as f:
+    with open(join(LEVELS_PATH, f'lvl_{cur_lvl}')) as f:
         text = f.read()
     field_text, target_text = text.split('target:\n')
     pre_field = json.loads(field_text, object_hook=decoder)

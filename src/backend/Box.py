@@ -1,12 +1,12 @@
 class Box:
-    def __init__(self, x, y, size, i, j, kind, id=0):
+    def __init__(self, x, y, side_size, i, j, kind, id=0):
         self.x = x
         self.y = y
-        self.size = size
+        self.size = (side_size, side_size)
         self.i = i
         self.j = j
         self.kind = kind
-        self.id = id
+        self.game_id = id
         self.animations = []
         self.rules = []
 
