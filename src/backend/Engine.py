@@ -50,7 +50,7 @@ class Engine:
 
     '''Needs to be applied after each rule to source box'''
     def remove_box(self, box):
-        pass
+        self.boxes.remove(box)
 
     def get_spare_id(self):
         id_list = [box.game_id for box in self.boxes]
@@ -117,7 +117,10 @@ class Engine:
                     self.add_animation(Steady_linear_movement_animation(self.field[i][j],
                                                                         Point(finish_point[0], finish_point[1]),
                                                                         start_point=Point(start_point[0], start_point[1])))
-                self.field[box.i][j].kind = rule.result_box_kinds[0]
+                i = box.i
+                self.remove_box(self.field[i][j])
+                self.add_box(Box(100, i, j, rule.result_box_kinds[0], game_id=self.get_spare_id()))
+                # self.field[box.i][j].kind = rule.result_box_kinds[0]
         elif rule.marginal:
             i = box.i
             j = box.j
@@ -155,6 +158,7 @@ class Engine:
                                                          start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
                 self.apply_fall(i, j + 1)
+                self.remove_box(self.field[i][j])
                 self.add_box(Box(100, i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
             elif rule.direction == LEFT:
@@ -190,6 +194,7 @@ class Engine:
                                                          start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
                 self.apply_fall(i, j - 1)
+                self.remove_box(self.field[i][j])
                 self.add_box(Box(100, i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
     def tick(self):
