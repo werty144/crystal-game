@@ -28,6 +28,7 @@ class Engine:
         # self.add_animation(anim1 + anim2 + anim3)
 
         self.adjust_rule(self.field[1][1], self.field[1][1].rules[1])
+        print(self.field)
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -64,8 +65,16 @@ class Engine:
             i += 1
         if i != box.i:
             p = self.screen_utils.get_start_point(i, box.j)
+            box.i = i
             return p
         return self.screen_utils.get_start_point(box.i, box.j)
+
+    def apply_fall(self, i, j):
+        new_i = self.field[i][j].i
+        new_j = self.field[i][j].j
+        if new_i != i or new_j != j:
+            self.field[new_i][new_j] = self.field[i][j]
+            self.field[i][j] = None
 
     def adjust_rule(self, box, rule):
         if rule.initial_box_kind != box.kind:
@@ -87,6 +96,7 @@ class Engine:
                     finish_point = self.box_fall(self.field([i][j]))
                     self.add_animation(Steady_linear_movement_animation(self.field([i][j]),
                                                                         Point(finish_point[0], finish_point[1])))
+                    self.apply_fall(i, j)
             else:
                 for i in range(0, box.i - rule_len + 1):
                     if self.field[i + rule_len - 1][j] is None:
@@ -125,9 +135,13 @@ class Engine:
                     self.field[i][k] = self.field[i][k - 1]
                     finish_point = self.screen_utils.get_start_point(i, k)
                     anim1 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    start_point = finish_point
                     finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
+                                                             start_point=Point(start_point[0], start_point[1]))
                     self.add_animation(anim1 + anim2)
+                    self.apply_fall(i, k)
+
                 # TODO fix generation parameters, add rules generation when adding new box
                 self.add_box(Box(100, i, j + 1, rule.result_box_kinds[0],
                                  game_id=self.get_spare_id()))
@@ -135,9 +149,12 @@ class Engine:
                 finish_point = self.screen_utils.get_start_point(i, j + 1)
                 anim1 = Steady_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
                                                          start_point=Point(start_point[0], start_point[1]))
+                start_point = finish_point
                 finish_point = self.box_fall(self.field[i][j + 1])
-                anim2 = Steady_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]))
+                anim2 = Steady_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
+                                                         start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
+                self.apply_fall(i, j + 1)
                 self.add_box(Box(100, i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
             elif rule.direction == LEFT:
@@ -154,9 +171,12 @@ class Engine:
                     self.field[i][k] = self.field[i][k + 1]
                     finish_point = self.screen_utils.get_start_point(i, k)
                     anim1 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    start_point = finish_point
                     finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
+                                                             start_point=Point(start_point[0], start_point[1]))
                     self.add_animation(anim1 + anim2)
+                    self.apply_fall(i, k)
                 # TODO fix generation parameters, add rules generation when adding new box
                 self.add_box(Box(100, i, j - 1, rule.result_box_kinds[0],
                                            game_id=self.get_spare_id()))
@@ -164,9 +184,12 @@ class Engine:
                 finish_point = self.screen_utils.get_start_point(i, j - 1)
                 anim1 = Steady_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
                                                          start_point=Point(start_point[0], start_point[1]))
+                start_point = finish_point
                 finish_point = self.box_fall(self.field[i][j - 1])
-                anim2 = Steady_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]))
+                anim2 = Steady_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
+                                                         start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
+                self.apply_fall(i, j - 1)
                 self.add_box(Box(100, i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
     def tick(self):
