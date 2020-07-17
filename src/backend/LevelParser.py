@@ -18,11 +18,16 @@ def decoder(dct):
     return namedtuple('Something', dct.keys())(*dct.values())
 
 
-# Bad one. Hardly relies on box field order and amount
+# Bad one.
 def box_from(named_tpl):
     if named_tpl is None:
         return None
-    box = Box(*(list(named_tpl)[:7]))
+    box = Box(None, None, None, None, None, None)
+    for field in named_tpl._fields:
+        if field == 'rules':
+            continue
+        setattr(box, field, getattr(named_tpl, field))
+
     for rule_tpl in getattr(named_tpl, 'rules'):
         rule = Rule(None, None, None)
         for key, value in rule_tpl._asdict().items():

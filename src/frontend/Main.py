@@ -19,16 +19,6 @@ from src.backend.constants import *
 Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 
 
-class BoxWidget(Image):
-    source_dir = StringProperty()
-
-    def __init__(self, source_dir, pos, size):
-        super().__init__()
-        self.source_dir = source_dir
-        self.pos = pos
-        self.size = size
-
-
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
@@ -36,18 +26,12 @@ class Playground(Widget):
 
     def start(self):
         self.engine = Engine(0)
-        for obj in self.engine.all_game_objects():
-            obj_center = self.screen_utils.get_center(obj.i, obj.j)
-            obj.x = obj_center[0]
-            obj.y = obj_center[1]
-            obj_widget = BoxWidget(join(IMAGES_PATH, 'yan.jpg'), (obj.x, obj.y), (obj.size, obj.size))
-            setattr(obj_widget, 'game_id', obj.game_id)
-            self.game_widgets.append(obj_widget)
-            self.add_widget(obj_widget)
+        self.add_missing_game_widgets()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
         self.engine.tick()
+        self.add_missing_game_widgets()
         self.update_all_game_widgets()
 
     def update_all_game_widgets(self):
@@ -64,6 +48,18 @@ class Playground(Widget):
         for attr, value in game_object.__dict__.items():
             if hasattr(game_widget, attr):
                 setattr(game_widget, attr, value)
+
+    def add_missing_game_widgets(self):
+        for obj in self.engine.all_game_objects():
+            if any(widg.game_id == obj.game_id for widg in self.game_widgets):
+                continue
+            wimg = Image()
+            setattr(wimg, 'game_id', obj.game_id)
+            for attr, value in obj.__dict__.items():
+                if hasattr(wimg, attr):
+                    setattr(wimg, attr, value)
+            self.game_widgets.append(wimg)
+            self.add_widget(wimg)
 
 
 class MenuScreen(Screen):

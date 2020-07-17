@@ -6,6 +6,11 @@ from src.backend.constants import *
 from src.backend.Animation import *
 from src.backend.Geometry import *
 import time
+from src.backend.Exception import *
+
+
+def map_kind_to_texture_source(kind):
+    return join(IMAGES_PATH, 'yan.jpg')
 
 
 class Engine:
@@ -14,18 +19,42 @@ class Engine:
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows)
+        self.init_boxes()
+
+        box = self.field[1][1]
+        anim1 = Steady_linear_movement_animation(box, Point(200, 200))
+        anim2 = Steady_linear_movement_animation(box, Point(200, 300), start_point=Point(200, 200))
+        anim3 = Steady_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
+        self.add_animation(anim1 + anim2 + anim3)
+
+        # self.adjust_rule(self.field[1][1], self.field[1][1].rules[1])
+
+    def init_boxes(self):
         for i in range(self.field.rows):
             for box in self.field[i]:
                 if box is not None:
-                    self.boxes.append(box)
-        print(self.field)
-        self.adjust_rule(self.field[1][1], self.field[1][1].rules[1])
-        print(self.field)
-        # Example of adding animation
-        # self.add_animation(Steady_linear_movement_animation(self.boxes[0], Point(400, 300)))
+                    self.add_box(box)
 
     def add_animation(self, animation):
         self.animations.append(animation)
+
+    def add_box(self, box):
+        if any(obj.game_id == box.game_id for obj in self.all_game_objects()):
+            raise AlreadyExistsException('Object with such id already exists')
+        box_center = self.screen_utils.get_center(box.i, box.j)
+        box.x, box.y = box_center[0], box_center[1]
+        box.source = map_kind_to_texture_source(box.kind)
+        self.boxes.append(box)
+
+    '''Needs to be applied after each rule to source box'''
+    def remove_box(self, box):
+        pass
+
+    def get_spare_id(self):
+        id_list = [box.game_id for box in self.boxes]
+        for i in range(1, len(id_list) + 2):
+            if i not in id_list:
+                return i
 
     def box_fall(self, box):
         i = box.i
@@ -66,8 +95,9 @@ class Engine:
                 for i in range(box.i - rule_len + 1, box.i):
                     # TODO fix generation parameters, add rules generation when adding new box
                     p = self.screen_utils.get_center(box.i, j)
-                    self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[box.i - i])
-                    self.boxes.append(self.field[i][j])
+                    self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[box.i - i],
+                                           game_id=self.get_spare_id())
+                    self.add_box(self.field[i][j])
                     p = self.screen_utils.get_center(i, j)
                     self.add_animation(Steady_linear_movement_animation(self.field[i][j], Point(p[0], p[1])))
                 self.field[box.i][j].kind = rule.result_box_kinds[0]
@@ -91,12 +121,13 @@ class Engine:
                     self.box_fall(self.field[i][k])
                 # TODO fix generation parameters, add rules generation when adding new box
                 p = self.screen_utils.get_center(i, j + 1)
-                self.field[i][j + 1] = Box(p[0], p[1], 100, i, j + 1, rule.result_box_kinds[1])
-                self.boxes.append(self.field[i][j + 1])
+                self.field[i][j + 1] = Box(p[0], p[1], 100, i, j + 1, rule.result_box_kinds[1],
+                                           game_id=self.get_spare_id())
+                self.add_box(self.field[i][j + 1])
                 self.box_fall(self.field[i][j + 1])
                 p = self.screen_utils.get_center(i, j)
-                self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[0])
-                self.boxes.append(self.field[i][j])
+                self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[0], game_id=self.get_spare_id())
+                self.add_box(self.field[i][j])
                 self.add_animation(Steady_linear_movement_animation(self.field[i][j], Point(p[0], p[1])))
 
             elif rule.direction == LEFT:
@@ -116,13 +147,14 @@ class Engine:
                     self.box_fall(self.field[i][k])
                 # TODO fix generation parameters, add rules generation when adding new box
                 p = self.screen_utils.get_center(i, j)
-                self.field[i][j - 1] = Box(p[0], p[1], 100, i, j - 1, rule.result_box_kinds[0])
+                self.field[i][j - 1] = Box(p[0], p[1], 100, i, j - 1, rule.result_box_kinds[0],
+                                           game_id=self.get_spare_id())
                 p = self.screen_utils.get_center(i, j - 1)
                 self.add_animation(Steady_linear_movement_animation(self.field[i][j - 1], Point(p[0], p[1])))
-                self.boxes.append(self.field[i][j - 1])
+                self.add_box(self.field[i][j - 1])
                 self.box_fall(self.field[i][j - 1])
-                self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[1])
-                self.boxes.append(self.field[i][j])
+                self.field[i][j] = Box(p[0], p[1], 100, i, j, rule.result_box_kinds[1], game_id=self.get_spare_id())
+                self.add_box(self.field[i][j])
 
     def tick(self):
         to_remove = []
