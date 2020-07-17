@@ -21,13 +21,13 @@ class Engine:
         self.screen_utils = ScreenUtils(self.field.rows)
         self.init_boxes()
 
-        box = self.field[1][1]
+        # box = self.field[1][1]
         # anim1 = Steady_linear_movement_animation(box, Point(200, 200))
         # anim2 = Steady_linear_movement_animation(box, Point(200, 300), start_point=Point(200, 200))
         # anim3 = Steady_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
         # self.add_animation(anim1 + anim2 + anim3)
 
-        self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
+        self.adjust_rule(self.field[1][1], self.field[1][1].rules[1])
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -57,6 +57,7 @@ class Engine:
             if i not in id_list:
                 return i
 
+    # TODO fix appearing of the box on the screen after adding
     def box_fall(self, box):
         i = box.i
         while i + 1 < self.field.rows and self.field[i + 1][box.j] is None:
