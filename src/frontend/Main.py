@@ -22,7 +22,7 @@ Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
-    screen_utils = ScreenUtils(3)
+    screen_utils = ScreenUtils(4)
 
     def start(self):
         self.engine = Engine(0)
