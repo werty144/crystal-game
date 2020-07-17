@@ -7,9 +7,9 @@ class ScreenUtils:
         self.table_size = min(self.window_sizes[0], self.window_sizes[1])
         self.cells_number = cells_number
         self.points_centers = []
-        self.init_centers()
+        self.init_start_points()
 
-    def init_centers(self):
+    def init_start_points(self):
         size = self.table_size / self.cells_number
         indent = abs(self.window_sizes[0] - self.window_sizes[1]) / 2
         for i in range(self.cells_number):
@@ -21,7 +21,7 @@ class ScreenUtils:
                 else:
                     self.points_centers[i].append((indent + size * j, size * k))
 
-    def get_center(self, i, j):
+    def get_start_point(self, i, j):
         return self.points_centers[i][j]
 
     def create_table(self):

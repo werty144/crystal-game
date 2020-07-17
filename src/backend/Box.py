@@ -1,7 +1,7 @@
 class Box:
-    def __init__(self, x, y, side_size, i, j, kind, game_id=0):
-        self.x = x
-        self.y = y
+    def __init__(self, side_size, i, j, kind, game_id=0):
+        self.x = 0
+        self.y = 0
         self.size = (side_size, side_size)
         self.i = i
         self.j = j
