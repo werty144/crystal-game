@@ -40,6 +40,7 @@ class Playground(Widget):
                                            if obj.game_id == game_widget.game_id), None)
             if corresponding_game_obj is None:
                 self.remove_widget(game_widget)
+                self.game_widgets.remove(game_widget)
                 continue
             self.update_game_widget(game_widget, corresponding_game_obj)
 
