@@ -14,9 +14,8 @@ def map_kind_to_texture_source(kind):
 
 
 class Engine:
-    def __init__(self, cur_lvl, screen_utils):
+    def __init__(self, cur_lvl):
         self.field, self.target = parse(cur_lvl)
-        self.screen_utils = screen_utils
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows)
@@ -27,7 +26,7 @@ class Engine:
         # anim3 = Steady_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
         # self.add_animation(anim1 + anim2 + anim3)
 
-        self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
+        # self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
         # print(self.field)
 
     def init_boxes(self):
