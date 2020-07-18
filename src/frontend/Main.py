@@ -27,7 +27,7 @@ class Playground(Widget):
 
     def start(self):
         self.screen_utils = ScreenUtils(4)
-        self.engine = Engine(0, self.screen_utils)
+        self.engine = Engine(0)
         self.add_missing_game_widgets()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
