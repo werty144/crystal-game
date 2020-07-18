@@ -1,8 +1,15 @@
 {
-    "cols": 3,
-    "rows": 3,
+    "cols": 4,
+    "rows": 4,
     "field": [
         [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
             null,
             null,
             null
@@ -13,7 +20,7 @@
                 "x": 100,
                 "y": 200,
                 "size": [100, 100],
-                "i": 1,
+                "i": 2,
                 "j": 1,
                 "kind": 6,
                 "game_id": 1,
@@ -24,8 +31,38 @@
                         "direction": "UP",
                         "initial_box_kind": 6,
                         "result_box_kinds": [
-                            6,
-                            7
+                            7,
+                            8
+                        ]
+                    },
+                    {
+                        "marginal": true,
+                        "direction": "RIGHT",
+                        "initial_box_kind": 6,
+                        "result_box_kinds": [
+                            7,
+                            8
+                        ]
+                    }
+                ]
+            },
+            {
+                "x": 200,
+                "y": 200,
+                "size": [100, 100],
+                "i": 2,
+                "j": 2,
+                "kind": 6,
+                "game_id": 2,
+                "animations": [],
+                "rules": [
+                    {
+                        "marginal": false,
+                        "direction": "UP",
+                        "initial_box_kind": 6,
+                        "result_box_kinds": [
+                            7,
+                            8
                         ]
                     },
                     {
@@ -33,7 +70,7 @@
                         "direction": "LEFT",
                         "initial_box_kind": 6,
                         "result_box_kinds": [
-                            6,
+                            7,
                             8
                         ]
                     }
@@ -47,10 +84,10 @@
                 "x": 200,
                 "y": 200,
                 "size": [100, 100],
-                "i": 2,
+                "i": 3,
                 "j": 1,
                 "kind": 6,
-                "game_id": 2,
+                "game_id": 3,
                 "animations": [],
                 "rules": [
                     {
@@ -58,8 +95,8 @@
                         "direction": "UP",
                         "initial_box_kind": 6,
                         "result_box_kinds": [
-                            6,
-                            7
+                            7,
+                            8
                         ]
                     },
                     {
@@ -67,7 +104,37 @@
                         "direction": "LEFT",
                         "initial_box_kind": 6,
                         "result_box_kinds": [
-                            6,
+                            7,
+                            8
+                        ]
+                    }
+                ]
+            },
+            {
+                "x": 200,
+                "y": 200,
+                "size": [100, 100],
+                "i": 3,
+                "j": 2,
+                "kind": 6,
+                "game_id": 4,
+                "animations": [],
+                "rules": [
+                    {
+                        "marginal": false,
+                        "direction": "UP",
+                        "initial_box_kind": 6,
+                        "result_box_kinds": [
+                            7,
+                            8
+                        ]
+                    },
+                    {
+                        "marginal": true,
+                        "direction": "LEFT",
+                        "initial_box_kind": 6,
+                        "result_box_kinds": [
+                            7,
                             8
                         ]
                     }
