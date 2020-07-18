@@ -19,6 +19,7 @@ from kivy.uix.scrollview import ScrollView
 from src.backend.Engine import Engine
 from src.backend.ScreenUtils import ScreenUtils
 from src.backend.constants import *
+from src.frontend.RuleWidget import *
 
 Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 
@@ -82,19 +83,25 @@ class BoxWidget(ButtonBehavior, Image):
     def on_release(self):
         if self.scroll_view is not None:
             return
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        layout = GridLayout(cols=1, spacing=50, size_hint_y=None)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
         for i in range(len(self.rules)):
-            btn = Button(text=str(i), size_hint_y=None, height=40)
-            btn.bind(on_release=self.btn_on_release)
-            layout.add_widget(btn)
+            rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
+            rule_widget.height = 50
+            rule_widget.size_hint_y = None
+            layout.add_widget(rule_widget)
         pos, size = self.playground.screen_utils.get_scrollview_size()
         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         self.scroll_view.add_widget(layout)
+        with self.scroll_view.canvas.before:
+            Color(1, 1, 1, 1)  # green; colors range from 0-1 instead of 0-255
+            self.rect = Rectangle(size=self.scroll_view.size,
+                                  pos=self.scroll_view.pos)
         self.playground.add_widget(self.scroll_view)
 
-    def btn_on_release(self, instance):
+    def btn_on_release(self):
+        print('HERR')
         self.playground.remove_widget(self.scroll_view)
         self.scroll_view = None
 
