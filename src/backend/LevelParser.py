@@ -22,7 +22,7 @@ def decoder(dct):
 def box_from(named_tpl):
     if named_tpl is None:
         return None
-    box = Box(None, None, None, None, None)
+    box = Box(None, None, None, None)
     for field in named_tpl._fields:
         if field == 'rules':
             continue

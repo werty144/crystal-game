@@ -24,7 +24,7 @@ class ScreenUtils:
     def get_start_point(self, i, j):
         return self.points_centers[i][j]
 
-    def create_table(self):
+    def create_grid(self):
         size = self.table_size / self.cells_number
         points = []
         indent = abs(self.window_sizes[0] - self.window_sizes[1]) / 2
@@ -37,3 +37,6 @@ class ScreenUtils:
                 points.append(((indent, size * i), (indent + self.table_size, size * i)))
 
         return points
+
+    def get_cell_side_length(self):
+        return self.table_size / self.cells_number

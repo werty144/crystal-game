@@ -7,6 +7,7 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import *
+from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
@@ -22,10 +23,11 @@ Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
-    screen_utils = ScreenUtils(4)
+    screen_utils = ObjectProperty()
 
     def start(self):
-        self.engine = Engine(0)
+        self.screen_utils = ScreenUtils(4)
+        self.engine = Engine(0, self.screen_utils)
         self.add_missing_game_widgets()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
@@ -40,6 +42,7 @@ class Playground(Widget):
                                            if obj.game_id == game_widget.game_id), None)
             if corresponding_game_obj is None:
                 self.remove_widget(game_widget)
+                self.game_widgets.remove(game_widget)
                 continue
             self.update_game_widget(game_widget, corresponding_game_obj)
 
@@ -67,15 +70,27 @@ class MenuScreen(Screen):
 
 
 class GameScreen(Screen):
+    playground = ObjectProperty()
+    grid = ObjectProperty()
 
     def on_enter(self, *args):
-        playground = Playground()
-        self.add_widget(playground)
-        playground.start()
-        points = playground.screen_utils.create_table()
+        self.playground = Playground()
+        self.grid = InstructionGroup()
+        self.add_widget(self.playground)
+        self.playground.start()
+        self.make_grid()
+
+    def make_grid(self):
+        points = self.playground.screen_utils.create_grid()
         for a, b in points:
             with self.canvas:
-                Line(points=[a[0], a[1], b[0], b[1]])
+                self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
+        self.canvas.add(self.grid)
+
+    def restart(self):
+        self.remove_widget(self.playground)
+        self.canvas.remove(self.grid)
+        self.on_enter()
 
 
 sm = ScreenManager()

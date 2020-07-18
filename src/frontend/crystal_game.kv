@@ -6,3 +6,11 @@
         Button:
             text: 'Quit'
             on_press: app.stop()
+
+<GameScreen>:
+    Button:
+        text: 'restart'
+        on_press: self.parent.restart()
+        size_hint: (None, None)
+        size: (100, 100)
+        pos: (700, 500)
