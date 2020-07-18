@@ -21,12 +21,12 @@ class Engine:
         self.screen_utils = ScreenUtils(self.field.rows)
         self.init_boxes()
         # box = self.field[1][1]
-        # anim1 = Steady_linear_movement_animation(box, Point(200, 200))
-        # anim2 = Steady_linear_movement_animation(box, Point(200, 300), start_point=Point(200, 200))
-        # anim3 = Steady_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
+        # anim1 = Smooth_linear_movement_animation(box, Point(200, 200))
+        # anim2 = Smooth_linear_movement_animation(box, Point(200, 300), start_point=Point(200, 200))
+        # anim3 = Smooth_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
         # self.add_animation(anim1 + anim2 + anim3)
 
-        # self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
+        self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
         # print(self.field)
 
     def init_boxes(self):
@@ -96,8 +96,8 @@ class Engine:
                     if self.field[i][j] is None:
                         break
                     finish_point = self.box_fall(self.field([i][j]))
-                    self.add_animation(Steady_linear_movement_animation(self.field([i][j]),
-                                                                        Point(finish_point[0], finish_point[1])))
+                    self.add_animation(Falling_linear_movement_animation(self.field([i][j]),
+                                                                         Point(finish_point[0], finish_point[1])))
                     self.apply_fall(i, j)
             else:
                 for i in range(0, box.i - rule_len + 1):
@@ -106,7 +106,7 @@ class Engine:
                     self.field[i][j] = self.field[i + rule_len - 1][j]
                     start_point = self.screen_utils.get_start_point(i + rule_len - 1, j)
                     finish_point = self.screen_utils.get_start_point(i, j)
-                    self.add_animation(Steady_linear_movement_animation(self.field[i][j],
+                    self.add_animation(Smooth_linear_movement_animation(self.field[i][j],
                                                                         Point(finish_point[0], finish_point[1]),
                                                                         start_point=Point(start_point[0],
                                                                                           start_point[1])))
@@ -117,7 +117,7 @@ class Engine:
                                      game_id=self.get_spare_id()))
                     start_point = self.screen_utils.get_start_point(box.i, j)
                     finish_point = self.screen_utils.get_start_point(i, j)
-                    self.add_animation(Steady_linear_movement_animation(self.field[i][j],
+                    self.add_animation(Smooth_linear_movement_animation(self.field[i][j],
                                                                         Point(finish_point[0], finish_point[1]),
                                                                         start_point=Point(start_point[0],
                                                                                           start_point[1])))
@@ -140,12 +140,12 @@ class Engine:
                 for k in range(first_none, j + 1, -1):
                     self.field[i][k] = self.field[i][k - 1]
                     finish_point = self.screen_utils.get_start_point(i, k)
-                    anim1 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    anim1 = Smooth_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
                     self.field[i][k].j = k
                     start_point = finish_point
                     finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
-                                                             start_point=Point(start_point[0], start_point[1]))
+                    anim2 = Falling_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
+                                                              start_point=Point(start_point[0], start_point[1]))
                     self.add_animation(anim1 + anim2)
                     self.apply_fall(i, k)
 
@@ -154,12 +154,12 @@ class Engine:
                                  game_id=self.get_spare_id()))
                 start_point = self.screen_utils.get_start_point(i, j)
                 finish_point = self.screen_utils.get_start_point(i, j + 1)
-                anim1 = Steady_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
+                anim1 = Smooth_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
                                                          start_point=Point(start_point[0], start_point[1]))
                 start_point = finish_point
                 finish_point = self.box_fall(self.field[i][j + 1])
-                anim2 = Steady_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
-                                                         start_point=Point(start_point[0], start_point[1]))
+                anim2 = Falling_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
+                                                          start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
                 self.apply_fall(i, j + 1)
                 self.remove_box(self.field[i][j])
@@ -178,12 +178,12 @@ class Engine:
                 for k in range(first_none, j - 1):
                     self.field[i][k] = self.field[i][k + 1]
                     finish_point = self.screen_utils.get_start_point(i, k)
-                    anim1 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
+                    anim1 = Smooth_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
                     self.field[i][k].j = k
                     start_point = finish_point
                     finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Steady_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
-                                                             start_point=Point(start_point[0], start_point[1]))
+                    anim2 = Falling_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
+                                                              start_point=Point(start_point[0], start_point[1]))
                     self.add_animation(anim1 + anim2)
                     self.apply_fall(i, k)
                 # TODO fix generation parameters, add rules generation when adding new box
@@ -191,12 +191,12 @@ class Engine:
                                  game_id=self.get_spare_id()))
                 start_point = self.screen_utils.get_start_point(i, j)
                 finish_point = self.screen_utils.get_start_point(i, j - 1)
-                anim1 = Steady_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
+                anim1 = Smooth_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
                                                          start_point=Point(start_point[0], start_point[1]))
                 start_point = finish_point
                 finish_point = self.box_fall(self.field[i][j - 1])
-                anim2 = Steady_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
-                                                         start_point=Point(start_point[0], start_point[1]))
+                anim2 = Falling_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
+                                                          start_point=Point(start_point[0], start_point[1]))
                 self.add_animation(anim1 + anim2)
                 self.apply_fall(i, j - 1)
                 self.remove_box(self.field[i][j])
