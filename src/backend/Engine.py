@@ -202,6 +202,11 @@ class Engine:
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
+    def get_rules(self, obj_id):
+        for box in self.boxes:
+            if box.game_id == obj_id:
+                return box.rules
+
     def tick(self):
         to_remove = []
         for animation in self.animations:

@@ -8,10 +8,13 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import *
 from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.graphics import *
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.scrollview import ScrollView
 
 from src.backend.Engine import Engine
 from src.backend.ScreenUtils import ScreenUtils
@@ -56,13 +59,44 @@ class Playground(Widget):
         for obj in self.engine.all_game_objects():
             if any(widg.game_id == obj.game_id for widg in self.game_widgets):
                 continue
-            wimg = Image()
-            setattr(wimg, 'game_id', obj.game_id)
-            for attr, value in obj.__dict__.items():
-                if hasattr(wimg, attr):
-                    setattr(wimg, attr, value)
+            wimg = BoxWidget(obj, self)
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
+
+
+class BoxWidget(ButtonBehavior, Image):
+    def __init__(self, obj, playground):
+        super(BoxWidget, self).__init__()
+        self.engine = playground.engine
+        self.playground = playground
+        setattr(self, 'game_id', obj.game_id)
+        for attr, value in obj.__dict__.items():
+            if hasattr(self, attr):
+                setattr(self, attr, value)
+        self.rules = self.engine.get_rules(self.game_id)
+        self.scroll_view = None
+
+    def on_press(self):
+        pass
+
+    def on_release(self):
+        if self.scroll_view is not None:
+            return
+        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        # Make sure the height is such that there is something to scroll.
+        layout.bind(minimum_height=layout.setter('height'))
+        for i in range(len(self.rules)):
+            btn = Button(text=str(i), size_hint_y=None, height=40)
+            btn.bind(on_release=self.btn_on_release)
+            layout.add_widget(btn)
+        pos, size = self.playground.screen_utils.get_scrollview_size()
+        self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
+        self.scroll_view.add_widget(layout)
+        self.playground.add_widget(self.scroll_view)
+
+    def btn_on_release(self, instance):
+        self.playground.remove_widget(self.scroll_view)
+        self.scroll_view = None
 
 
 class MenuScreen(Screen):
@@ -76,9 +110,9 @@ class GameScreen(Screen):
     def on_enter(self, *args):
         self.playground = Playground()
         self.grid = InstructionGroup()
-        self.add_widget(self.playground)
         self.playground.start()
         self.make_grid()
+        self.add_widget(self.playground)
 
     def make_grid(self):
         points = self.playground.screen_utils.create_grid()

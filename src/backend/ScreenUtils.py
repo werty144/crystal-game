@@ -40,3 +40,8 @@ class ScreenUtils:
 
     def get_cell_side_length(self):
         return self.table_size / self.cells_number
+
+    def get_scrollview_size(self):
+        h = self.window_sizes[1]
+        w = self.window_sizes[0] / 3
+        return (w, 0), (w, h)
