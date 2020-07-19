@@ -30,9 +30,9 @@ class Playground(Widget):
     game_widgets = ListProperty()
     screen_utils = ObjectProperty()
 
-    def start(self):
+    def start(self, lvl):
         self.screen_utils = ScreenUtils(4)
-        self.engine = Engine(0)
+        self.engine = Engine(lvl)
         self.add_missing_game_widgets()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
@@ -121,18 +121,23 @@ class MenuScreen(Screen):
 
 
 class LevelsScreen(Screen):
-    def go_to_lvl(self):
+    cur_lvl = NumericProperty()
+
+    def go_to_lvl(self, lvl):
+        self.cur_lvl = lvl
         sm.current = 'game'
 
 
 class GameScreen(Screen):
     playground = ObjectProperty()
     grid = ObjectProperty()
+    lvl = NumericProperty()
 
     def on_enter(self, *args):
+        self.lvl = sm.get_screen('levels').cur_lvl
         self.playground = Playground()
         self.grid = InstructionGroup()
-        self.playground.start()
+        self.playground.start(self.lvl)
         self.make_grid()
         self.add_widget(self.playground)
 
@@ -147,6 +152,10 @@ class GameScreen(Screen):
         self.remove_widget(self.playground)
         self.canvas.remove(self.grid)
         self.on_enter()
+
+    def clean(self):
+        self.remove_widget(self.playground)
+        self.canvas.remove(self.grid)
 
 
 sm = ScreenManager()
