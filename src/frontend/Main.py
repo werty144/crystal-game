@@ -8,10 +8,12 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import *
 from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.graphics import *
+from kivy.uix.scrollview import ScrollView
 
 from src.backend.Engine import Engine
 from src.backend.ScreenUtils import ScreenUtils
@@ -69,6 +71,11 @@ class MenuScreen(Screen):
     pass
 
 
+class LevelsScreen(Screen):
+    def go_to_lvl(self):
+        sm.current = 'game'
+
+
 class GameScreen(Screen):
     playground = ObjectProperty()
     grid = ObjectProperty()
@@ -95,6 +102,7 @@ class GameScreen(Screen):
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
+sm.add_widget(LevelsScreen(name='levels'))
 sm.add_widget(GameScreen(name='game'))
 
 

@@ -1,8 +1,9 @@
+#:import Button kivy.uix.button.Button
 <MenuScreen>:
     BoxLayout:
         Button:
-            text: 'Goto game'
-            on_press: root.manager.current = 'game'
+            text: 'Levels'
+            on_press: root.manager.current = 'levels'
         Button:
             text: 'Quit'
             on_press: app.stop()
@@ -14,3 +15,40 @@
         size_hint: (None, None)
         size: (100, 100)
         pos: (700, 500)
+    Button:
+        text: 'back'
+        on_press: root.manager.current = 'levels'
+        size_hint: (None, None)
+        size: (100, 100)
+        pos: (0, 0)
+
+<LevelsScreen>:
+    Button:
+        text: 'back'
+        on_press: root.manager.current = 'menu'
+        size_hint: (None, None)
+        size: (100, 100)
+        pos: (0, 0)
+
+    ScrollView:
+        size_hint: None, None
+        size: 500, 320
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        do_scroll_x: False
+        do_scroll_y: True
+
+        GridLayout:
+            cols: 1
+            padding: 10
+            spacing: 10
+            size_hint_y: None
+            height: self.minimum_height
+            on_parent:
+                for i in range(15): self.add_widget(
+                Button(
+                text = "Level {0}".format(i),
+                size_hint = (None, None),
+                size = (480, 40),
+                on_press=lambda _:self.parent.parent.go_to_lvl()
+                )
+                )
