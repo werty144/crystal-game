@@ -27,7 +27,7 @@ class Engine:
         # anim3 = Smooth_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
         # self.add_animation(anim1 + anim2 + anim3)
 
-        self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
+        # self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -53,6 +53,8 @@ class Engine:
 
     def remove_box(self, box):
         self.boxes.remove(box)
+        if self.field[box.i][box.j] == box:
+            self.field[box.i][box.j] = None
 
     def get_spare_id(self):
         id_list = [box.game_id for box in self.boxes]
@@ -78,6 +80,28 @@ class Engine:
             self.field[new_i][new_j] = self.field[i][j]
             self.field[i][j] = None
 
+    def move_up(self, box, i, j):
+        self.field[i][j] = box
+        start_point = self.screen_utils.get_start_point(box.i, box.j)
+        finish_point = self.screen_utils.get_start_point(i, j)
+        self.add_animation(Smooth_linear_movement_animation(box,
+                                                            Point(finish_point[0], finish_point[1]),
+                                                            start_point=Point(start_point[0],
+                                                                              start_point[1])))
+        box.i = i
+
+    def move_aside(self, box, i, j):
+        self.field[i][j] = box
+        finish_point = self.screen_utils.get_start_point(i, j)
+        anim1 = Smooth_linear_movement_animation(box, Point(finish_point[0], finish_point[1]))
+        box.j = j
+        start_point = finish_point
+        finish_point = self.box_fall(box)
+        anim2 = Falling_linear_movement_animation(box, Point(finish_point[0], finish_point[1]),
+                                                  start_point=Point(start_point[0], start_point[1]))
+        self.add_animation(anim1 + anim2)
+        self.apply_fall(i, j)
+
     def adjust_rule(self, box, rule):
         if rule.initial_box_kind != box.kind:
             # TODO throw error
@@ -87,11 +111,14 @@ class Engine:
         rule_len = len(rule.result_box_kinds)
         if rule.direction == UP:
             j = box.j
+            # Can't use rule
             if rule_len > 1 and self.field[rule_len - 2][box.j] is not None:
                 # TODO can't use rule
                 return
+            # Eps rule
             if rule_len == 0:
-                self.field[box.i][box.j] = None
+                self.remove_box(box)
+                # Apply box_fall for each box
                 for i in range(box.i, -1, -1):
                     if self.field[i][j] is None:
                         break
@@ -100,19 +127,14 @@ class Engine:
                                                                          Point(finish_point[0], finish_point[1])))
                     self.apply_fall(i, j)
             else:
+                # Move every box above initial by rule_len - 1
                 for i in range(0, box.i - rule_len + 1):
                     if self.field[i + rule_len - 1][j] is None:
                         continue
-                    self.field[i][j] = self.field[i + rule_len - 1][j]
-                    start_point = self.screen_utils.get_start_point(i + rule_len - 1, j)
-                    finish_point = self.screen_utils.get_start_point(i, j)
-                    self.add_animation(Smooth_linear_movement_animation(self.field[i][j],
-                                                                        Point(finish_point[0], finish_point[1]),
-                                                                        start_point=Point(start_point[0],
-                                                                                          start_point[1])))
-                    self.field[i][j].i = i
+                    self.move_up(self.field[i + rule_len - 1][j], i, j)
+                # Add boxes according to the rule
                 for i in range(box.i - rule_len + 1, box.i):
-                    # TODO fix generation parameters, add rules generation when adding new box
+                    # TODO add rules generation when adding new box
                     self.add_box(Box(i, j, rule.result_box_kinds[box.i - i],
                                      game_id=self.get_spare_id()))
                     start_point = self.screen_utils.get_start_point(box.i, j)
@@ -121,6 +143,7 @@ class Engine:
                                                                         Point(finish_point[0], finish_point[1]),
                                                                         start_point=Point(start_point[0],
                                                                                           start_point[1])))
+                # Change initial box
                 i = box.i
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[0], game_id=self.get_spare_id()))
@@ -128,8 +151,10 @@ class Engine:
             i = box.i
             j = box.j
             if rule.direction == RIGHT:
+                # No empty cols to the right
                 if j == cols - 1:
                     return
+                # Check if can apply rule
                 first_none = -1
                 for k in range(j, cols):
                     if self.field[i][k] is None:
@@ -138,32 +163,14 @@ class Engine:
                 if first_none == -1:
                     return
                 for k in range(first_none, j + 1, -1):
-                    self.field[i][k] = self.field[i][k - 1]
-                    finish_point = self.screen_utils.get_start_point(i, k)
-                    anim1 = Smooth_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
-                    self.field[i][k].j = k
-                    start_point = finish_point
-                    finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Falling_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
-                                                              start_point=Point(start_point[0], start_point[1]))
-                    self.add_animation(anim1 + anim2)
-                    self.apply_fall(i, k)
+                    self.move_aside(self.field[i][k - 1], i, k)
 
                 # TODO fix generation parameters, add rules generation when adding new box
-                self.add_box(Box(i, j + 1, rule.result_box_kinds[0],
-                                 game_id=self.get_spare_id()))
-                start_point = self.screen_utils.get_start_point(i, j)
-                finish_point = self.screen_utils.get_start_point(i, j + 1)
-                anim1 = Smooth_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
-                                                         start_point=Point(start_point[0], start_point[1]))
-                start_point = finish_point
-                finish_point = self.box_fall(self.field[i][j + 1])
-                anim2 = Falling_linear_movement_animation(self.field[i][j + 1], Point(finish_point[0], finish_point[1]),
-                                                          start_point=Point(start_point[0], start_point[1]))
-                self.add_animation(anim1 + anim2)
-                self.apply_fall(i, j + 1)
                 self.remove_box(self.field[i][j])
-                self.add_box(Box(i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[1],
+                                 game_id=self.get_spare_id()))
+                self.move_aside(self.field[i][j], i, j + 1)
+                self.add_box(Box(i, j, rule.result_box_kinds[0], game_id=self.get_spare_id()))
 
             elif rule.direction == LEFT:
                 if j == 0:
@@ -176,31 +183,18 @@ class Engine:
                 if first_none == -1:
                     return
                 for k in range(first_none, j - 1):
-                    self.field[i][k] = self.field[i][k + 1]
-                    finish_point = self.screen_utils.get_start_point(i, k)
-                    anim1 = Smooth_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]))
-                    self.field[i][k].j = k
-                    start_point = finish_point
-                    finish_point = self.box_fall(self.field[i][k])
-                    anim2 = Falling_linear_movement_animation(self.field[i][k], Point(finish_point[0], finish_point[1]),
-                                                              start_point=Point(start_point[0], start_point[1]))
-                    self.add_animation(anim1 + anim2)
-                    self.apply_fall(i, k)
-                # TODO fix generation parameters, add rules generation when adding new box
-                self.add_box(Box(i, j - 1, rule.result_box_kinds[0],
-                                 game_id=self.get_spare_id()))
-                start_point = self.screen_utils.get_start_point(i, j)
-                finish_point = self.screen_utils.get_start_point(i, j - 1)
-                anim1 = Smooth_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
-                                                         start_point=Point(start_point[0], start_point[1]))
-                start_point = finish_point
-                finish_point = self.box_fall(self.field[i][j - 1])
-                anim2 = Falling_linear_movement_animation(self.field[i][j - 1], Point(finish_point[0], finish_point[1]),
-                                                          start_point=Point(start_point[0], start_point[1]))
-                self.add_animation(anim1 + anim2)
-                self.apply_fall(i, j - 1)
+                    self.move_aside(self.field[i][k + 1], i, k)
+                # TODO add rules generation when adding new box
                 self.remove_box(self.field[i][j])
+                self.add_box(Box(i, j, rule.result_box_kinds[0],
+                                 game_id=self.get_spare_id()))
+                self.move_aside(self.field[i][j], i, j - 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
+
+    def get_box(self, obj_id):
+        for box in self.boxes:
+            if box.game_id == obj_id:
+                return box
 
     @staticmethod
     def box_to_string(maybe_box):

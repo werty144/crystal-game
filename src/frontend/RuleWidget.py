@@ -13,6 +13,7 @@ from src.backend.constants import *
 class RuleWidget(ButtonBehavior, BoxLayout):
     def __init__(self, rule: Rule, on_press_func):
         super().__init__()
+        self.rule = rule
         self.on_press_func = on_press_func
         self.add_widget(Image(source=map_kind_to_texture_source(rule.initial_box_kind)))
         self.add_widget(Image(source=join(IMAGES_PATH, ARROW_IMAGE)))
@@ -22,7 +23,7 @@ class RuleWidget(ButtonBehavior, BoxLayout):
             child.size_hint = (1, None)
 
     def on_press(self):
-        self.on_press_func()
+        self.on_press_func(self.rule)
 
     def on_release(self):
         pass
