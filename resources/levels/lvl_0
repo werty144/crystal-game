@@ -22,26 +22,26 @@
                 "size": [100, 100],
                 "i": 2,
                 "j": 1,
-                "kind": 6,
+                "kind": 1,
                 "game_id": 1,
                 "animations": [],
                 "rules": [
                     {
                         "marginal": false,
                         "direction": "UP",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 1,
                         "result_box_kinds": [
-                            7,
-                            8
+                            5,
+                            5
                         ]
                     },
                     {
                         "marginal": true,
                         "direction": "RIGHT",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 1,
                         "result_box_kinds": [
-                            7,
-                            8
+                            2,
+                            3
                         ]
                     }
                 ]
@@ -52,26 +52,26 @@
                 "size": [100, 100],
                 "i": 2,
                 "j": 2,
-                "kind": 6,
+                "kind": 4,
                 "game_id": 2,
                 "animations": [],
                 "rules": [
                     {
                         "marginal": false,
                         "direction": "UP",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 4,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     },
                     {
                         "marginal": true,
                         "direction": "LEFT",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 4,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     }
                 ]
@@ -86,26 +86,26 @@
                 "size": [100, 100],
                 "i": 3,
                 "j": 1,
-                "kind": 6,
+                "kind": 1,
                 "game_id": 3,
                 "animations": [],
                 "rules": [
                     {
                         "marginal": false,
                         "direction": "UP",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 1,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     },
                     {
                         "marginal": true,
                         "direction": "LEFT",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 1,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     }
                 ]
@@ -116,26 +116,26 @@
                 "size": [100, 100],
                 "i": 3,
                 "j": 2,
-                "kind": 6,
+                "kind": 5,
                 "game_id": 4,
                 "animations": [],
                 "rules": [
                     {
                         "marginal": false,
                         "direction": "UP",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 5,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     },
                     {
                         "marginal": true,
                         "direction": "LEFT",
-                        "initial_box_kind": 6,
+                        "initial_box_kind": 5,
                         "result_box_kinds": [
-                            7,
-                            8
+                            1,
+                            2
                         ]
                     }
                 ]
@@ -145,6 +145,7 @@
     ]
 }
 target:
-None 6 None
-None 6 None
-None None None
+None None None None
+None None None None
+None 3 2 None
+None 1 5 4

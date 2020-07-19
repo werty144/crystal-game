@@ -10,6 +10,7 @@ from kivy.properties import *
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
+from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.graphics import *
@@ -39,6 +40,7 @@ class Playground(Widget):
         self.engine.tick()
         self.add_missing_game_widgets()
         self.update_all_game_widgets()
+        self.check_win()
 
     def update_all_game_widgets(self):
         for game_widget in self.game_widgets:
@@ -64,6 +66,11 @@ class Playground(Widget):
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
 
+    def check_win(self):
+        if self.engine.win and not self.engine.any_animation_in_progress():
+            self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
+                            center_y=self.height*5/6 + self.y))
+
 
 class BoxWidget(ButtonBehavior, Image):
     def __init__(self, obj, playground):
@@ -74,7 +81,8 @@ class BoxWidget(ButtonBehavior, Image):
         for attr, value in obj.__dict__.items():
             if hasattr(self, attr):
                 setattr(self, attr, value)
-        self.rules = self.engine.get_rules(self.game_id)
+        self.box = self.engine.get_box(self.game_id)
+        self.rules = self.box.rules
         self.scroll_view = None
 
     def on_press(self):
@@ -83,9 +91,11 @@ class BoxWidget(ButtonBehavior, Image):
     def on_release(self):
         if self.scroll_view is not None:
             return
-        layout = GridLayout(cols=1, spacing=50, size_hint_y=None)
-        # Make sure the height is such that there is something to scroll.
+        layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
+        if len(self.rules) == 0:
+            # Write that there is no rules
+            return
         for i in range(len(self.rules)):
             rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
             rule_widget.height = 50
@@ -95,13 +105,13 @@ class BoxWidget(ButtonBehavior, Image):
         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         self.scroll_view.add_widget(layout)
         with self.scroll_view.canvas.before:
-            Color(1, 1, 1, 1)  # green; colors range from 0-1 instead of 0-255
+            Color(1, 1, 1, 1)
             self.rect = Rectangle(size=self.scroll_view.size,
                                   pos=self.scroll_view.pos)
         self.playground.add_widget(self.scroll_view)
 
-    def btn_on_release(self):
-        print('HERR')
+    def btn_on_release(self, rule):
+        self.playground.engine.adjust_rule(self.box, rule)
         self.playground.remove_widget(self.scroll_view)
         self.scroll_view = None
 
