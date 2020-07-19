@@ -110,6 +110,11 @@ class MenuScreen(Screen):
     pass
 
 
+class LevelsScreen(Screen):
+    def go_to_lvl(self):
+        sm.current = 'game'
+
+
 class GameScreen(Screen):
     playground = ObjectProperty()
     grid = ObjectProperty()
@@ -136,6 +141,7 @@ class GameScreen(Screen):
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
+sm.add_widget(LevelsScreen(name='levels'))
 sm.add_widget(GameScreen(name='game'))
 
 
