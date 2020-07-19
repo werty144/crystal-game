@@ -49,7 +49,9 @@ class Animation:
 class Parametric_along_curve_animation(Animation):
 
     def movement_function(self, obj, time_passed, total_duration):
-        cur_point = self.curve_function(time_passed / total_duration)
+        if time_passed > total_duration:
+            print('ANIMATION WARNING. time_passed is greater than total_duration')
+        cur_point = self.curve_function(float(np.clip(time_passed / total_duration, 0, 1)))
         obj.x, obj.y = cur_point.x, cur_point.y
 
     '''curve function takes argument from [0,1]'''
@@ -64,28 +66,36 @@ class Parametric_along_curve_animation(Animation):
         self.parametric_functions.append(parametric_function)
 
 
-class Steady_linear_movement_animation(Parametric_along_curve_animation):
-    def __init__(self, obj, end_point, duration=1, start_point=None):
+class Linear_movement_animation(Parametric_along_curve_animation):
+    def __init__(self, obj, end_point, distribution_function, duration=1, start_point=None):
         if start_point is None:
             start_point = Point(obj.x, obj.y)
         segment = Segment(start_point, end_point)
-        super().__init__(obj, segment.divide_in_ratio, duration)
+        super().__init__(obj, lambda t_ratio: segment.divide_in_ratio(distribution_function(t_ratio)), duration)
 
 
-class Smooth_linear_movement_animation(Parametric_along_curve_animation):
+class Steady_linear_movement_animation(Linear_movement_animation):
     def __init__(self, obj, end_point, duration=1, start_point=None):
-        if start_point is None:
-            start_point = Point(obj.x, obj.y)
-        segment = Segment(start_point, end_point)
-        super().__init__(obj, lambda t_ratio: segment.divide_in_ratio(smooth(t_ratio)), duration)
+        super().__init__(obj, end_point, linear, duration, start_point)
 
 
-class Falling_linear_movement_animation(Parametric_along_curve_animation):
+class Smooth_linear_movement_animation(Linear_movement_animation):
     def __init__(self, obj, end_point, duration=1, start_point=None):
-        if start_point is None:
-            start_point = Point(obj.x, obj.y)
-        segment = Segment(start_point, end_point)
-        super().__init__(obj, lambda t_ratio: segment.divide_in_ratio(falling(t_ratio)), duration)
+        super().__init__(obj, end_point, smooth, duration, start_point)
+
+
+class Falling_linear_movement_animation(Linear_movement_animation):
+    def __init__(self, obj, end_point, duration=0.4, start_point=None):
+        super().__init__(obj, end_point, falling, duration, start_point)
+
+
+class Rush_into_linear_movement_animation(Linear_movement_animation):
+    def __init__(self, obj, end_point, duration=1, start_point=None):
+        super().__init__(obj, end_point, rush_into, duration, start_point)
+
+
+def linear(t):
+    return t
 
 
 def falling(t):

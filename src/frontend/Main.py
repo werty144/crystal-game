@@ -9,6 +9,7 @@ from kivy.lang import Builder
 from kivy.properties import *
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.graphics import *
@@ -35,6 +36,7 @@ class Playground(Widget):
         self.engine.tick()
         self.add_missing_game_widgets()
         self.update_all_game_widgets()
+        self.check_win()
 
     def update_all_game_widgets(self):
         for game_widget in self.game_widgets:
@@ -63,6 +65,11 @@ class Playground(Widget):
                     setattr(wimg, attr, value)
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
+
+    def check_win(self):
+        if self.engine.win and not self.engine.any_animation_in_progress():
+            self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
+                            center_y=self.height*5/6 + self.y))
 
 
 class MenuScreen(Screen):

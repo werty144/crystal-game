@@ -10,7 +10,7 @@ from src.backend.Exception import *
 
 
 def map_kind_to_texture_source(kind):
-    return join(IMAGES_PATH, 'yan.jpg')
+    return KIND_IMAGE_MAP[kind]
 
 
 class Engine:
@@ -19,6 +19,7 @@ class Engine:
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows)
+        self.win = False
         self.init_boxes()
         # box = self.field[1][1]
         # anim1 = Smooth_linear_movement_animation(box, Point(200, 200))
@@ -27,7 +28,6 @@ class Engine:
         # self.add_animation(anim1 + anim2 + anim3)
 
         self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
-        # print(self.field)
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -202,7 +202,18 @@ class Engine:
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
 
-    def tick(self):
+    @staticmethod
+    def box_to_string(maybe_box):
+        if maybe_box is None:
+            return 'None'
+        return str(maybe_box.kind)
+
+    def check_win(self):
+        cur_field = [[self.box_to_string(box) for box in row] for row in self.field]
+        if cur_field == self.target:
+            self.win = True
+
+    def process_animations(self):
         to_remove = []
         for animation in self.animations:
             if animation.finished:
@@ -211,6 +222,13 @@ class Engine:
             animation.tick(FRAME_RATE_SEC)
         for animation in to_remove:
             self.animations.remove(animation)
+
+    def tick(self):
+        self.check_win()
+        self.process_animations()
+
+    def any_animation_in_progress(self):
+        return len(self.animations) > 0
 
     def all_game_objects(self):
         return self.boxes
