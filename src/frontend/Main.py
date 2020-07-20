@@ -91,6 +91,8 @@ class BoxWidget(ButtonBehavior, Image):
     def on_release(self):
         if self.scroll_view is not None:
             return
+        pos, size = self.playground.screen_utils.get_scrollview_size()
+        self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         if len(self.rules) == 0:
@@ -98,11 +100,7 @@ class BoxWidget(ButtonBehavior, Image):
             return
         for i in range(len(self.rules)):
             rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
-            rule_widget.height = 50
-            rule_widget.size_hint_y = None
             layout.add_widget(rule_widget)
-        pos, size = self.playground.screen_utils.get_scrollview_size()
-        self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         self.scroll_view.add_widget(layout)
         with self.scroll_view.canvas.before:
             Color(1, 1, 1, 1)
@@ -144,13 +142,11 @@ class GameScreen(Screen):
     def make_grid(self):
         points = self.playground.screen_utils.create_grid()
         for a, b in points:
-            with self.canvas:
-                self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
+            self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
         self.canvas.add(self.grid)
 
     def restart(self):
-        self.remove_widget(self.playground)
-        self.canvas.remove(self.grid)
+        self.clean()
         self.on_enter()
 
     def clean(self):
@@ -162,6 +158,7 @@ sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(LevelsScreen(name='levels'))
 sm.add_widget(GameScreen(name='game'))
+sm.current = 'levels'
 
 
 class Crystal_game(App):
