@@ -114,11 +114,11 @@ class Engine:
             if rule_len == 0:
                 self.remove_box(box)
                 # Apply box_fall for each box
-                for i in range(box.i, -1, -1):
+                for i in range(box.i - 1, -1, -1):
                     if self.field[i][j] is None:
                         break
-                    finish_point = self.box_fall(self.field([i][j]))
-                    self.add_animation(Falling_linear_movement_animation(self.field([i][j]),
+                    finish_point = self.box_fall(self.field[i][j])
+                    self.add_animation(Falling_linear_movement_animation(self.field[i][j],
                                                                          Point(finish_point[0], finish_point[1])))
                     self.apply_fall(i, j)
             else:
