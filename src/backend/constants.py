@@ -19,6 +19,16 @@ KIND_IMAGE_MAP = {
     5: join(IMAGES_PATH, 'purple_yan.png')
 }
 
+KIND_ATLAS_ID_MAP = {
+    1: 'red_yan',
+    2: 'green_yan',
+    3: 'blue_yan',
+    4: 'yellow_yan',
+    5: 'purple_yan',
+}
+
+BOX_ATLAS_URL = 'atlas://' + IMAGES_PATH + '/boxesatlas/'
+
 UP_ARROW_IMAGE = join(IMAGES_PATH, 'up_arrow.png')
 RIGHT_ARROW_IMAGE = join(IMAGES_PATH, 'right_arrow.png')
 LEFT_ARROW_IMAGE = join(IMAGES_PATH, 'left_arrow.png')

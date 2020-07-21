@@ -10,7 +10,7 @@ from src.backend.Exception import *
 
 
 def map_kind_to_texture_source(kind):
-    return KIND_IMAGE_MAP[kind]
+    return BOX_ATLAS_URL + KIND_ATLAS_ID_MAP[kind]
 
 
 class Engine:
