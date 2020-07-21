@@ -25,7 +25,7 @@ from src.frontend.RuleWidget import *
 Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 
 
-class Playground(ButtonBehavior, Widget):
+class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
     screen_utils = ObjectProperty()
@@ -34,6 +34,7 @@ class Playground(ButtonBehavior, Widget):
         self.screen_utils = ScreenUtils(4)
         self.engine = Engine(lvl)
         self.add_missing_game_widgets()
+        self.scroll_view = None
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -71,11 +72,10 @@ class Playground(ButtonBehavior, Widget):
             self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
                             center_y=self.height*5/6 + self.y))
 
-    def on_release(self):
-        for obj in self.game_widgets:
-            if type(obj) is BoxWidget and obj.scroll_view is not None:
-                self.remove_widget(obj.scroll_view)
-                obj.scroll_view = None
+    def on_touch_up(self, touch):
+        if self.scroll_view is not None and not self.scroll_view.collide_point(touch.pos[0], touch.pos[1]):
+            self.remove_widget(self.scroll_view)
+            self.scroll_view = None
 
 
 class BoxWidget(ButtonBehavior, Image):
@@ -89,36 +89,36 @@ class BoxWidget(ButtonBehavior, Image):
                 setattr(self, attr, value)
         self.box = obj
         self.rules = self.box.rules
-        self.scroll_view = None
+        self.playground.scroll_view = None
 
     def on_press(self):
         pass
 
     def on_release(self):
-        if self.scroll_view is not None:
+        if self.playground.scroll_view is not None:
             return
         pos, size = self.playground.screen_utils.get_scrollview_size()
-        self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
+        self.playground.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
         if len(self.rules) == 0:
             # Write that there is no rules
-            self.scroll_view = None
+            self.playground.scroll_view = None
             return
         for i in range(len(self.rules)):
             rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
             layout.add_widget(rule_widget)
-        self.scroll_view.add_widget(layout)
-        with self.scroll_view.canvas.before:
+        self.playground.scroll_view.add_widget(layout)
+        with self.playground.scroll_view.canvas.before:
             Color(1, 1, 1, 1)
-            self.rect = Rectangle(size=self.scroll_view.size,
-                                  pos=self.scroll_view.pos)
-        self.playground.add_widget(self.scroll_view)
+            self.rect = Rectangle(size=self.playground.scroll_view.size,
+                                  pos=self.playground.scroll_view.pos)
+        self.playground.add_widget(self.playground.scroll_view)
 
     def btn_on_release(self, rule):
         self.box = self.playground.engine.adjust_rule(self.box, rule)
-        self.playground.remove_widget(self.scroll_view)
-        self.scroll_view = None
+        self.playground.remove_widget(self.playground.scroll_view)
+        self.playground.scroll_view = None
 
 
 class MenuScreen(Screen):
