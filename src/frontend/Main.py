@@ -97,6 +97,7 @@ class BoxWidget(ButtonBehavior, Image):
         layout.bind(minimum_height=layout.setter('height'))
         if len(self.rules) == 0:
             # Write that there is no rules
+            self.scroll_view = None
             return
         for i in range(len(self.rules)):
             rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
@@ -109,7 +110,7 @@ class BoxWidget(ButtonBehavior, Image):
         self.playground.add_widget(self.scroll_view)
 
     def btn_on_release(self, rule):
-        self.playground.engine.adjust_rule(self.box, rule)
+        self.box = self.playground.engine.adjust_rule(self.box, rule)
         self.playground.remove_widget(self.scroll_view)
         self.scroll_view = None
 

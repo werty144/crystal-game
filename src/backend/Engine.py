@@ -100,7 +100,7 @@ class Engine:
     def adjust_rule(self, box, rule):
         if rule.initial_box_kind != box.kind:
             # TODO throw error
-            return
+            return box
         rows = self.field.rows
         cols = self.field.cols
         rule_len = len(rule.result_box_kinds)
@@ -109,7 +109,7 @@ class Engine:
             # Can't use rule
             if rule_len > 1 and self.field[rule_len - 2][box.j] is not None:
                 # TODO can't use rule
-                return
+                return box
             # Eps rule
             if rule_len == 0:
                 self.remove_box(box)
@@ -140,13 +140,14 @@ class Engine:
                 i = box.i
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[0]))
+                box = self.field[i][j]
         elif rule.marginal:
             i = box.i
             j = box.j
             if rule.direction == RIGHT:
                 # No empty cols to the right
                 if j == cols - 1:
-                    return
+                    return box
                 # Check if can apply rule
                 first_none = -1
                 for k in range(j, cols):
@@ -154,32 +155,35 @@ class Engine:
                         first_none = k
                         break
                 if first_none == -1:
-                    return
+                    return box
                 for k in range(first_none, j + 1, -1):
                     self.move_aside(self.field[i][k - 1], i, k)
 
                 # TODO fix generation parameters, add rules generation when adding new box
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
+                box = self.field[i][j]
                 self.move_aside(self.field[i][j], i, j + 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[0]))
 
             elif rule.direction == LEFT:
                 if j == 0:
-                    return
+                    return box
                 first_none = -1
                 for k in range(j, -1, -1):
                     if self.field[i][k] is None:
                         first_none = k
                         break
                 if first_none == -1:
-                    return
+                    return box
                 for k in range(first_none, j - 1):
                     self.move_aside(self.field[i][k + 1], i, k)
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[0]))
+                box = self.field[i][j]
                 self.move_aside(self.field[i][j], i, j - 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
+        return box
 
     def get_box(self, obj_id):
         for box in self.boxes:
