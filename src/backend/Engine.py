@@ -15,19 +15,12 @@ def map_kind_to_texture_source(kind):
 
 class Engine:
     def __init__(self, cur_lvl):
-        self.field, self.target = parse(cur_lvl)
+        self.field, self.target, self.kind_to_rules = parse(cur_lvl)
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows)
         self.win = False
         self.init_boxes()
-        # box = self.field[1][1]
-        # anim1 = Smooth_linear_movement_animation(box, Point(200, 200))
-        # anim2 = Smooth_linear_movement_animation(box, Point(200, 300), start_point=Point(200, 200))
-        # anim3 = Smooth_linear_movement_animation(box, Point(300, 300), start_point=Point(200, 300))
-        # self.add_animation(anim1 + anim2 + anim3)
-
-        # self.adjust_rule(self.field[2][1], self.field[2][1].rules[1])
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -41,11 +34,13 @@ class Engine:
     def add_box(self, box):
         if any(obj.game_id == box.game_id for obj in self.all_game_objects()):
             raise AlreadyExistsException('Object with such id already exists')
+        box.game_id = self.get_spare_id()
         box_center = self.screen_utils.get_start_point(box.i, box.j)
         box.x, box.y = box_center[0], box_center[1]
         cell_side = self.screen_utils.get_cell_side_length()
         box.size = (cell_side, cell_side)
         box.source = map_kind_to_texture_source(box.kind)
+        box.rules = self.kind_to_rules[box.kind]
         self.boxes.append(box)
         self.field[box.i][box.j] = box
 
@@ -134,9 +129,7 @@ class Engine:
                     self.move_up(self.field[i + rule_len - 1][j], i, j)
                 # Add boxes according to the rule
                 for i in range(box.i - rule_len + 1, box.i):
-                    # TODO add rules generation when adding new box
-                    self.add_box(Box(i, j, rule.result_box_kinds[box.i - i],
-                                     game_id=self.get_spare_id()))
+                    self.add_box(Box(i, j, rule.result_box_kinds[box.i - i]))
                     start_point = self.screen_utils.get_start_point(box.i, j)
                     finish_point = self.screen_utils.get_start_point(i, j)
                     self.add_animation(Smooth_linear_movement_animation(self.field[i][j],
@@ -146,7 +139,7 @@ class Engine:
                 # Change initial box
                 i = box.i
                 self.remove_box(self.field[i][j])
-                self.add_box(Box(i, j, rule.result_box_kinds[0], game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[0]))
         elif rule.marginal:
             i = box.i
             j = box.j
@@ -167,10 +160,9 @@ class Engine:
 
                 # TODO fix generation parameters, add rules generation when adding new box
                 self.remove_box(self.field[i][j])
-                self.add_box(Box(i, j, rule.result_box_kinds[1],
-                                 game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[1]))
                 self.move_aside(self.field[i][j], i, j + 1)
-                self.add_box(Box(i, j, rule.result_box_kinds[0], game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[0]))
 
             elif rule.direction == LEFT:
                 if j == 0:
@@ -184,12 +176,10 @@ class Engine:
                     return
                 for k in range(first_none, j - 1):
                     self.move_aside(self.field[i][k + 1], i, k)
-                # TODO add rules generation when adding new box
                 self.remove_box(self.field[i][j])
-                self.add_box(Box(i, j, rule.result_box_kinds[0],
-                                 game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[0]))
                 self.move_aside(self.field[i][j], i, j - 1)
-                self.add_box(Box(i, j, rule.result_box_kinds[1], game_id=self.get_spare_id()))
+                self.add_box(Box(i, j, rule.result_box_kinds[1]))
 
     def get_box(self, obj_id):
         for box in self.boxes:

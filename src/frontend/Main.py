@@ -81,7 +81,7 @@ class BoxWidget(ButtonBehavior, Image):
         for attr, value in obj.__dict__.items():
             if hasattr(self, attr):
                 setattr(self, attr, value)
-        self.box = self.engine.get_box(self.game_id)
+        self.box = obj
         self.rules = self.box.rules
         self.scroll_view = None
 

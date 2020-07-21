@@ -12,6 +12,15 @@ from src.backend.Rule import Rule
 from src.backend.constants import *
 
 
+def get_arrow_image(rule):
+    if rule.direction == UP:
+        return UP_ARROW_IMAGE
+    if rule.direction == RIGHT:
+        return RIGHT_ARROW_IMAGE
+    if rule.direction == LEFT:
+        return LEFT_ARROW_IMAGE
+
+
 class RuleWidget(ButtonBehavior, BoxLayout):
     def __init__(self, rule: Rule, on_press_func):
         super().__init__()
@@ -19,7 +28,7 @@ class RuleWidget(ButtonBehavior, BoxLayout):
         self.on_press_func = on_press_func
         self.size_hint_y = None
         self.add_widget(Image(source=map_kind_to_texture_source(rule.initial_box_kind)))
-        self.add_widget(Image(source=join(IMAGES_PATH, ARROW_IMAGE)))
+        self.add_widget(Image(source=get_arrow_image(rule)))
         for res_box_kind in rule.result_box_kinds:
             self.add_widget(Image(source=map_kind_to_texture_source(res_box_kind)))
         for child in self.children:
