@@ -57,7 +57,6 @@ class Engine:
             if i not in id_list:
                 return i
 
-    # TODO fix appearing of the box on the screen after adding
     def box_fall(self, box):
         i = box.i
         while i + 1 < self.field.rows and self.field[i + 1][box.j] is None:
@@ -75,17 +74,18 @@ class Engine:
             self.field[new_i][new_j] = self.field[i][j]
             self.field[i][j] = None
 
-    def move_up(self, box, i, j):
-        self.field[i][j] = box
+    def move_up(self, box, i):
+        self.field[i][box.j] = box
         start_point = self.screen_utils.get_start_point(box.i, box.j)
-        finish_point = self.screen_utils.get_start_point(i, j)
+        finish_point = self.screen_utils.get_start_point(i, box.j)
         self.add_animation(Smooth_linear_movement_animation(box,
                                                             Point(finish_point[0], finish_point[1]),
                                                             start_point=Point(start_point[0],
                                                                               start_point[1])))
         box.i = i
 
-    def move_aside(self, box, i, j):
+    def move_aside(self, box, j):
+        i = box.i
         self.field[i][j] = box
         finish_point = self.screen_utils.get_start_point(i, j)
         anim1 = Smooth_linear_movement_animation(box, Point(finish_point[0], finish_point[1]))
@@ -126,7 +126,7 @@ class Engine:
                 for i in range(0, box.i - rule_len + 1):
                     if self.field[i + rule_len - 1][j] is None:
                         continue
-                    self.move_up(self.field[i + rule_len - 1][j], i, j)
+                    self.move_up(self.field[i + rule_len - 1][j], i)
                 # Add boxes according to the rule
                 for i in range(box.i - rule_len + 1, box.i):
                     self.add_box(Box(i, j, rule.result_box_kinds[box.i - i]))
@@ -157,13 +157,12 @@ class Engine:
                 if first_none == -1:
                     return box
                 for k in range(first_none, j + 1, -1):
-                    self.move_aside(self.field[i][k - 1], i, k)
+                    self.move_aside(self.field[i][k - 1], k)
 
-                # TODO fix generation parameters, add rules generation when adding new box
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
                 box = self.field[i][j]
-                self.move_aside(self.field[i][j], i, j + 1)
+                self.move_aside(self.field[i][j], j + 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[0]))
 
             elif rule.direction == LEFT:
@@ -177,11 +176,11 @@ class Engine:
                 if first_none == -1:
                     return box
                 for k in range(first_none, j - 1):
-                    self.move_aside(self.field[i][k + 1], i, k)
+                    self.move_aside(self.field[i][k + 1], k)
                 self.remove_box(self.field[i][j])
                 self.add_box(Box(i, j, rule.result_box_kinds[0]))
                 box = self.field[i][j]
-                self.move_aside(self.field[i][j], i, j - 1)
+                self.move_aside(self.field[i][j], j - 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
         return box
 
