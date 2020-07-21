@@ -25,7 +25,7 @@ from src.frontend.RuleWidget import *
 Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
 
 
-class Playground(Widget):
+class Playground(ButtonBehavior, Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
     screen_utils = ObjectProperty()
@@ -70,6 +70,12 @@ class Playground(Widget):
         if self.engine.win and not self.engine.any_animation_in_progress():
             self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
                             center_y=self.height*5/6 + self.y))
+
+    def on_release(self):
+        for obj in self.game_widgets:
+            if type(obj) is BoxWidget and obj.scroll_view is not None:
+                self.remove_widget(obj.scroll_view)
+                obj.scroll_view = None
 
 
 class BoxWidget(ButtonBehavior, Image):
