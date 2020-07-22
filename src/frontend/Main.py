@@ -39,6 +39,7 @@ class Playground(Widget):
         self.add_missing_game_widgets()
         self.scroll_view = None
         self.make_grid()
+        self.set_target_field_widgets()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -88,17 +89,20 @@ class Playground(Widget):
             self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
         self.canvas.add(self.grid)
 
+    def set_target_field_widgets(self):
+        for box in self.engine.get_target_field_boxes():
+            box_wimg = Image()
+            for attr, value in box.__dict__.items():
+                if hasattr(box_wimg, attr):
+                    setattr(box_wimg, attr, value)
+            self.target_field_widgets.append(box_wimg)
+
     def switch_field(self):
         if not self.is_target_field:
             self.parent.ids.field_switch.text = 'to game field'
             for widg in self.game_widgets:
                 self.remove_widget(widg)
-            for box in self.engine.get_target_field_boxes():
-                box_wimg = Image()
-                for attr, value in box.__dict__.items():
-                    if hasattr(box_wimg, attr):
-                        setattr(box_wimg, attr, value)
-                self.target_field_widgets.append(box_wimg)
+            for box_wimg in self.target_field_widgets:
                 self.add_widget(box_wimg)
         else:
             self.parent.ids.field_switch.text = 'to target field'
