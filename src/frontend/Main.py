@@ -29,12 +29,16 @@ class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
     screen_utils = ObjectProperty()
+    grid = ObjectProperty()
+    target_field_widgets = ListProperty()
+    is_target_field = BooleanProperty(False)
 
     def start(self, lvl):
         self.screen_utils = ScreenUtils(4)
         self.engine = Engine(lvl)
         self.add_missing_game_widgets()
         self.scroll_view = None
+        self.make_grid()
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -76,6 +80,33 @@ class Playground(Widget):
         if self.scroll_view is not None and not self.scroll_view.collide_point(touch.pos[0], touch.pos[1]):
             self.remove_widget(self.scroll_view)
             self.scroll_view = None
+
+    def make_grid(self):
+        self.grid = InstructionGroup()
+        points = self.screen_utils.create_grid()
+        for a, b in points:
+            self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
+        self.canvas.add(self.grid)
+
+    def switch_field(self):
+        if not self.is_target_field:
+            self.parent.ids.field_switch.text = 'to game field'
+            for widg in self.game_widgets:
+                self.remove_widget(widg)
+            for box in self.engine.get_target_field_boxes():
+                box_wimg = Image()
+                for attr, value in box.__dict__.items():
+                    if hasattr(box_wimg, attr):
+                        setattr(box_wimg, attr, value)
+                self.target_field_widgets.append(box_wimg)
+                self.add_widget(box_wimg)
+        else:
+            self.parent.ids.field_switch.text = 'to target field'
+            for widg in self.target_field_widgets:
+                self.remove_widget(widg)
+            for widg in self.game_widgets:
+                self.add_widget(widg)
+        self.is_target_field = not self.is_target_field
 
 
 class BoxWidget(ButtonBehavior, Image):
@@ -135,30 +166,28 @@ class LevelsScreen(Screen):
 
 class GameScreen(Screen):
     playground = ObjectProperty()
-    grid = ObjectProperty()
     lvl = NumericProperty()
 
     def on_enter(self, *args):
         self.lvl = sm.get_screen('levels').cur_lvl
         self.playground = Playground()
-        self.grid = InstructionGroup()
         self.playground.start(self.lvl)
-        self.make_grid()
         self.add_widget(self.playground)
-
-    def make_grid(self):
-        points = self.playground.screen_utils.create_grid()
-        for a, b in points:
-            self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
-        self.canvas.add(self.grid)
+        self.set_buttons()
 
     def restart(self):
         self.clean()
+        self.set_buttons()
         self.on_enter()
 
     def clean(self):
         self.remove_widget(self.playground)
-        self.canvas.remove(self.grid)
+
+    def switch_field(self):
+        self.playground.switch_field()
+
+    def set_buttons(self):
+        self.ids.field_switch.text = 'to target field'
 
 
 sm = ScreenManager()

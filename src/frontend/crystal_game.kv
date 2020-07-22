@@ -22,6 +22,14 @@
         size: (100, 100)
         pos: (0, 0)
 
+    Button:
+        id: field_switch
+        text: 'to target field'
+        on_press: self.parent.switch_field()
+        size_hint: (None, None)
+        size: (100, 100)
+        pos: (0, 500)
+
 <LevelsScreen>:
     Button:
         text: 'back'

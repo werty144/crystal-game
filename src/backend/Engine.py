@@ -219,3 +219,19 @@ class Engine:
 
     def all_game_objects(self):
         return self.boxes
+
+    def get_target_field_boxes(self):
+        res = []
+        for i, row in enumerate(self.target):
+            for j, maybe_box_kind in enumerate(row):
+                if maybe_box_kind == 'None':
+                    continue
+                box_kind = int(maybe_box_kind)
+                box = Box(i, j, box_kind)
+                box_center = self.screen_utils.get_start_point(box.i, box.j)
+                box.x, box.y = box_center[0], box_center[1]
+                cell_side = self.screen_utils.get_cell_side_length()
+                box.size = (cell_side, cell_side)
+                box.source = map_kind_to_texture_source(box.kind)
+                res.append(box)
+        return res
