@@ -32,13 +32,14 @@ class Playground(Widget):
     grid = ObjectProperty()
     target_field_widgets = ListProperty()
     is_target_field = BooleanProperty(False)
+    scroll_view = Property(None, allownone=True)
 
     def start(self, lvl):
         self.engine = Engine(lvl)
         self.add_missing_game_widgets()
-        self.scroll_view = None
         self.make_grid()
         self.set_target_field_widgets()
+        self.make_scroll_view(self.engine.get_all_rules(), lambda _: None)
         Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -67,7 +68,7 @@ class Playground(Widget):
         for obj in self.engine.all_game_objects():
             if any(widg.game_id == obj.game_id for widg in self.game_widgets):
                 continue
-            wimg = BoxWidget(obj, self)
+            wimg = BoxWidget(obj)
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
 
@@ -75,11 +76,6 @@ class Playground(Widget):
         if self.engine.win and not self.engine.any_animation_in_progress():
             self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
                             center_y=self.height*5/6 + self.y))
-
-    def on_touch_up(self, touch):
-        if self.scroll_view is not None and not self.scroll_view.collide_point(touch.pos[0], touch.pos[1]):
-            self.remove_widget(self.scroll_view)
-            self.scroll_view = None
 
     def make_grid(self):
         self.grid = InstructionGroup()
@@ -111,48 +107,48 @@ class Playground(Widget):
                 self.add_widget(widg)
         self.is_target_field = not self.is_target_field
 
+    def make_scroll_view(self, rules, click_on_rule_function):
+        pos, size = self.screen_utils.get_scrollview_size()
+        self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
+        layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
+        layout.bind(minimum_height=layout.setter('height'))
+        if len(rules) == 0:
+            # Write that there is no rules
+            self.scroll_view = None
+            return
+        for rule in rules:
+            rule_widget = RuleWidget(rule, click_on_rule_function)
+            layout.add_widget(rule_widget)
+        self.scroll_view.add_widget(layout)
+        with self.scroll_view.canvas.before:
+            Color(1, 1, 1, 1)
+            Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
+        self.add_widget(self.scroll_view)
+
+    def show_all_rules(self):
+        self.make_scroll_view(self.engine.get_all_rules(), lambda rule: None)
+
 
 class BoxWidget(ButtonBehavior, Image):
-    def __init__(self, obj, playground):
+    def __init__(self, obj):
         super(BoxWidget, self).__init__()
-        self.engine = playground.engine
-        self.playground = playground
         setattr(self, 'game_id', obj.game_id)
         for attr, value in obj.__dict__.items():
             if hasattr(self, attr):
                 setattr(self, attr, value)
         self.box = obj
         self.rules = self.box.rules
-        self.playground.scroll_view = None
-
-    def on_press(self):
-        pass
 
     def on_release(self):
-        if self.playground.scroll_view is not None:
-            return
-        pos, size = self.playground.engine.screen_utils.get_scrollview_size()
-        self.playground.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
-        layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
-        layout.bind(minimum_height=layout.setter('height'))
-        if len(self.rules) == 0:
-            # Write that there is no rules
-            self.playground.scroll_view = None
-            return
-        for i in range(len(self.rules)):
-            rule_widget = RuleWidget(self.rules[i], self.btn_on_release)
-            layout.add_widget(rule_widget)
-        self.playground.scroll_view.add_widget(layout)
-        with self.playground.scroll_view.canvas.before:
-            Color(1, 1, 1, 1)
-            self.rect = Rectangle(size=self.playground.scroll_view.size,
-                                  pos=self.playground.scroll_view.pos)
-        self.playground.add_widget(self.playground.scroll_view)
+        self.parent.make_scroll_view(self.rules, self.btn_on_release)
+
 
     def btn_on_release(self, rule):
-        self.box = self.playground.engine.adjust_rule(self.box, rule)
-        self.playground.remove_widget(self.playground.scroll_view)
-        self.playground.scroll_view = None
+        playground = self.parent
+        engine = playground.engine
+        self.box = engine.adjust_rule(self.box, rule)
+        playground.remove_widget(playground.scroll_view)
+        playground.scroll_view = None
 
 
 class MenuScreen(Screen):
@@ -188,6 +184,9 @@ class GameScreen(Screen):
 
     def switch_field(self):
         self.playground.switch_field()
+
+    def show_all_rules(self):
+        self.playground.show_all_rules()
 
     def set_buttons(self):
         self.ids.field_switch.text = 'to target field'
