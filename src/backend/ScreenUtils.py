@@ -41,4 +41,4 @@ class ScreenUtils:
     def get_scrollview_size(self):
         h = Window.size[1] * 3 / 4
         w = Window.size[0] / 3
-        return (2 * w, 0), (w, h)
+        return (2 * w - 10, 75), (w, h)

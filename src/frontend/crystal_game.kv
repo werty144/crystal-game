@@ -14,7 +14,7 @@
         on_press: self.parent.restart()
         size_hint: (None, None)
         size: (100, 100)
-        pos: (700, 500)
+        pos: (0, 500)
     Button:
         text: 'back'
         on_press: root.manager.current = 'levels';self.parent.clean()
@@ -28,14 +28,14 @@
         on_press: self.parent.switch_field()
         size_hint: (None, None)
         size: (100, 100)
-        pos: (0, 500)
+        pos: (0, 400)
 
     Button:
         text: 'all rules'
         on_press: self.parent.show_all_rules()
         size_hint: (None, None)
         size: (100, 100)
-        pos: (0, 400)
+        pos: (0, 300)
 
 <LevelsScreen>:
     Button:

@@ -18,7 +18,7 @@ class Engine:
         self.field, self.target, self.kind_to_rules = parse(cur_lvl)
         self.boxes = []
         self.animations = []
-        self.screen_utils = ScreenUtils(self.field.rows, self.field.cols, (100, 0), (400, 600))
+        self.screen_utils = ScreenUtils(self.field.rows, self.field.cols, (110, 100), (400, 400))
         self.win = False
         self.init_boxes()
 

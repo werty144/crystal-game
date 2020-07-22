@@ -108,6 +108,8 @@ class Playground(Widget):
         self.is_target_field = not self.is_target_field
 
     def make_scroll_view(self, rules, click_on_rule_function):
+        if self.scroll_view is not None:
+            self.remove_widget(self.scroll_view)
         pos, size = self.engine.screen_utils.get_scrollview_size()
         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
@@ -140,14 +142,13 @@ class BoxWidget(ButtonBehavior, Image):
         self.rules = self.box.rules
 
     def on_release(self):
-        self.parent.make_scroll_view(self.rules, self.btn_on_release)
+        self.parent.make_scroll_view(self.rules, self.click_on_rule_function)
 
-    def btn_on_release(self, rule):
+    def click_on_rule_function(self, rule):
         playground = self.parent
         engine = playground.engine
         self.box = engine.adjust_rule(self.box, rule)
-        playground.remove_widget(playground.scroll_view)
-        playground.scroll_view = None
+        playground.make_scroll_view(engine.get_all_rules(), lambda _: None)
 
 
 class MenuScreen(Screen):
