@@ -35,7 +35,6 @@ class Playground(Widget):
 
     def start(self, lvl):
         self.engine = Engine(lvl)
-        self.screen_utils = ScreenUtils(self.engine.field.rows, self.engine.field.cols, (100, 0), (400, 600))
         self.add_missing_game_widgets()
         self.scroll_view = None
         self.make_grid()
@@ -84,7 +83,7 @@ class Playground(Widget):
 
     def make_grid(self):
         self.grid = InstructionGroup()
-        points = self.screen_utils.create_grid()
+        points = self.engine.screen_utils.create_grid()
         for a, b in points:
             self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
         self.canvas.add(self.grid)
@@ -132,7 +131,7 @@ class BoxWidget(ButtonBehavior, Image):
     def on_release(self):
         if self.playground.scroll_view is not None:
             return
-        pos, size = self.playground.screen_utils.get_scrollview_size()
+        pos, size = self.playground.engine.screen_utils.get_scrollview_size()
         self.playground.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))
