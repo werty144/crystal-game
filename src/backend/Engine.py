@@ -235,3 +235,6 @@ class Engine:
                 box.source = map_kind_to_texture_source(box.kind)
                 res.append(box)
         return res
+
+    def get_all_rules(self):
+        return [rule for rules in self.kind_to_rules.values() for rule in rules]
