@@ -35,7 +35,6 @@ class Playground(Widget):
     scroll_view = Property(None, allownone=True)
 
     def start(self, lvl):
-        self.screen_utils = ScreenUtils(4)
         self.engine = Engine(lvl)
         self.add_missing_game_widgets()
         self.make_grid()
@@ -80,7 +79,7 @@ class Playground(Widget):
 
     def make_grid(self):
         self.grid = InstructionGroup()
-        points = self.screen_utils.create_grid()
+        points = self.engine.screen_utils.create_grid()
         for a, b in points:
             self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
         self.canvas.add(self.grid)
@@ -142,6 +141,7 @@ class BoxWidget(ButtonBehavior, Image):
 
     def on_release(self):
         self.parent.make_scroll_view(self.rules, self.btn_on_release)
+
 
     def btn_on_release(self, rule):
         playground = self.parent

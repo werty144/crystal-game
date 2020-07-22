@@ -2,46 +2,43 @@ from kivy.core.window import Window
 
 
 class ScreenUtils:
-    def __init__(self, cells_number):
-        self.window_sizes = Window.size
-        self.table_size = min(self.window_sizes[0], self.window_sizes[1])
-        self.cells_number = cells_number
+    def __init__(self, rows_number, cols_number, start_point, size):
+        self.size = size
+        self.rows_number = rows_number
+        self.cols_number = cols_number
         self.points_centers = []
+        self.start = start_point
         self.init_start_points()
 
     def init_start_points(self):
-        size = self.table_size / self.cells_number
-        indent = abs(self.window_sizes[0] - self.window_sizes[1]) / 2
-        for i in range(self.cells_number):
+        cell_width = self.size[0] / self.cols_number
+        cell_heigth = self.size[1] / self.rows_number
+        for i in range(self.rows_number):
             self.points_centers.append([])
-            k = self.cells_number - i - 1
-            for j in range(self.cells_number):
-                if self.window_sizes[0] < self.window_sizes[1]:
-                    self.points_centers[i].append((size * j, indent + size * k))
-                else:
-                    self.points_centers[i].append((indent + size * j, size * k))
+            k = self.rows_number - i - 1
+            for j in range(self.cols_number):
+                self.points_centers[i].append((self.start[0] + cell_width * j, self.start[1] + cell_heigth * k))
 
     def get_start_point(self, i, j):
         return self.points_centers[i][j]
 
     def create_grid(self):
-        size = self.table_size / self.cells_number
+        cell_width = self.size[0] / self.cols_number
+        cell_heigth = self.size[1] / self.rows_number
         points = []
-        indent = abs(self.window_sizes[0] - self.window_sizes[1]) / 2
-        for i in range(self.cells_number + 1):
-            if self.window_sizes[0] < self.window_sizes[1]:
-                points.append(((size * i, indent), (size * i, indent + self.table_size)))
-                points.append(((0, indent + size * i), (self.table_size, indent + size * i)))
-            else:
-                points.append(((indent + size * i, 0), (indent + size * i, self.table_size)))
-                points.append(((indent, size * i), (indent + self.table_size, size * i)))
+        for i in range(self.cols_number + 1):
+            points.append(((self.start[0] + cell_width * i, self.start[1]),
+                           (self.start[0] + cell_width * i, self.start[1] + cell_heigth * self.rows_number)))
+        for i in range(self.rows_number + 1):
+            points.append(((self.start[0], self.start[1] + cell_heigth * i),
+                           (self.start[0] + cell_width * self.cols_number, self.start[1] + cell_heigth * i)))
 
         return points
 
-    def get_cell_side_length(self):
-        return self.table_size / self.cells_number
+    def get_cell_size(self):
+        return (self.size[0] / self.cols_number, self.size[1] / self.rows_number)
 
     def get_scrollview_size(self):
-        h = self.window_sizes[1]
-        w = self.window_sizes[0] / 3
-        return (w, 0), (w, h)
+        h = Window.size[1] * 3 / 4
+        w = Window.size[0] / 3
+        return (2 * w, 0), (w, h)
