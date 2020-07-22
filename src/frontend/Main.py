@@ -34,8 +34,8 @@ class Playground(Widget):
     is_target_field = BooleanProperty(False)
 
     def start(self, lvl):
-        self.screen_utils = ScreenUtils(4)
         self.engine = Engine(lvl)
+        self.screen_utils = ScreenUtils(self.engine.field.rows, self.engine.field.cols, (100, 0), (400, 600))
         self.add_missing_game_widgets()
         self.scroll_view = None
         self.make_grid()

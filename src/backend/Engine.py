@@ -18,7 +18,7 @@ class Engine:
         self.field, self.target, self.kind_to_rules = parse(cur_lvl)
         self.boxes = []
         self.animations = []
-        self.screen_utils = ScreenUtils(self.field.rows)
+        self.screen_utils = ScreenUtils(self.field.rows, self.field.cols, (100, 0), (400, 600))
         self.win = False
         self.init_boxes()
 
@@ -37,8 +37,8 @@ class Engine:
         box.game_id = self.get_spare_id()
         box_center = self.screen_utils.get_start_point(box.i, box.j)
         box.x, box.y = box_center[0], box_center[1]
-        cell_side = self.screen_utils.get_cell_side_length()
-        box.size = (cell_side, cell_side)
+        cell_size = self.screen_utils.get_cell_size()
+        box.size = cell_size
         box.source = map_kind_to_texture_source(box.kind)
         box.rules = self.kind_to_rules[box.kind]
         self.boxes.append(box)
@@ -230,8 +230,8 @@ class Engine:
                 box = Box(i, j, box_kind)
                 box_center = self.screen_utils.get_start_point(box.i, box.j)
                 box.x, box.y = box_center[0], box_center[1]
-                cell_side = self.screen_utils.get_cell_side_length()
-                box.size = (cell_side, cell_side)
+                cell_size = self.screen_utils.get_cell_size()
+                box.size = cell_size
                 box.source = map_kind_to_texture_source(box.kind)
                 res.append(box)
         return res
