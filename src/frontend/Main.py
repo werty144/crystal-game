@@ -104,7 +104,13 @@ class Playground(Widget):
         layout.bind(minimum_height=layout.setter('height'))
         if len(rules) == 0:
             # Write that there is no rules
-            self.scroll_view = None
+            self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
+            label = Label(text='No rules', color=(0, 0, 0, 1), font_size=(0.4 * min(self.height / 4, self.width)))
+            self.scroll_view.add_widget(label)
+            with self.scroll_view.canvas.before:
+                Color(1, 1, 1, 1)
+                Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
+            self.add_widget(self.scroll_view)
             return
         for rule in rules:
             rule_widget = RuleWidget(rule, click_on_rule_function)
