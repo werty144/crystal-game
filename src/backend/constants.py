@@ -9,6 +9,7 @@ PROJECT_PATH = dirname(dirname(dirname(abspath(__file__))))
 LEVELS_PATH = join(PROJECT_PATH, 'resources', 'levels')
 IMAGES_PATH = join(PROJECT_PATH, 'resources', 'images')
 KV_FILE_PATH = join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv')
+STORAGE_PATH = join(PROJECT_PATH, 'resources', 'storage', 'storage.js')
 
 FRAME_RATE_SEC = 0.01
 
