@@ -22,7 +22,7 @@ def get_arrow_image(rule):
 
 
 class RuleWidget(ButtonBehavior, BoxLayout):
-    def __init__(self, rule: Rule, on_press_func):
+    def __init__(self, rule: Rule, on_press_func, max_right_side_len):
         super().__init__()
         self.rule = rule
         self.on_press_func = on_press_func
@@ -31,14 +31,17 @@ class RuleWidget(ButtonBehavior, BoxLayout):
         self.add_widget(Image(source=get_arrow_image(rule)))
         for res_box_kind in rule.result_box_kinds:
             self.add_widget(Image(source=map_kind_to_texture_source(res_box_kind)))
+        for _ in range(max_right_side_len - len(rule.result_box_kinds)):
+            self.add_widget(Widget())
         for child in self.children:
             child.size_hint = (1, None)
             child.bind(size=self.update)
 
     def update(self, *args):
-        for child in self.children:
-            child.height = child.width * child.image_ratio
-        self.height = max([child.norm_image_size[1] for child in self.children])
+        images = list(filter(lambda child: isinstance(child, Image), self.children))
+        for image in images:
+            image.height = image.width * image.image_ratio
+        self.height = max([image.norm_image_size[1] for image in images])
 
     def on_press(self):
         self.on_press_func(self.rule)

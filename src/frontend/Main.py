@@ -112,8 +112,9 @@ class Playground(Widget):
                 Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
             self.add_widget(self.scroll_view)
             return
+        max_right_side_len = max([len(rule.result_box_kinds) for rule in rules])
         for rule in rules:
-            rule_widget = RuleWidget(rule, click_on_rule_function)
+            rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len)
             layout.add_widget(rule_widget)
         self.scroll_view.add_widget(layout)
         with self.scroll_view.canvas.before:
