@@ -1,28 +1,15 @@
-import os
-import time
-from os.path import dirname, abspath, join
-# os.environ["KIVY_NO_CONSOLELOG"] = "1"
-from kivy.config import Config
-from kivy.app import App
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import *
-from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.widget import Widget
 from kivy.graphics import *
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.scrollview import ScrollView
-
 from src.backend.Engine import Engine
-from src.backend.ScreenUtils import ScreenUtils
-from src.backend.constants import *
 from src.frontend.RuleWidget import *
 
-Builder.load_file(join(PROJECT_PATH, 'src', 'frontend', 'crystal_game.kv'))
+Builder.load_file(KV_FILE_PATH)
 
 
 class Playground(Widget):
@@ -32,7 +19,8 @@ class Playground(Widget):
     grid = ObjectProperty()
     target_field_widgets = ListProperty()
     is_target_field = BooleanProperty(False)
-    scroll_view = Property(None, allownone=True)
+    scroll_view = Property(None)
+    update_event = ObjectProperty(None, allownone=True)
 
     def start(self, lvl):
         self.engine = Engine(lvl)
@@ -40,7 +28,7 @@ class Playground(Widget):
         self.make_grid()
         self.set_target_field_widgets()
         self.make_scroll_view(self.engine.get_all_rules(), lambda _: None)
-        Clock.schedule_interval(self.update, FRAME_RATE_SEC)
+        self.update_event = Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
         self.engine.tick()
@@ -74,8 +62,8 @@ class Playground(Widget):
 
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
-            self.add_widget(Label(text='You win!', font_size='100sp', center_x=self.width/2 + self.x,
-                            center_y=self.height*5/6 + self.y))
+            self.update_event.cancel()
+            self.parent.show_winning_widget()
 
     def make_grid(self):
         self.grid = InstructionGroup()
@@ -155,20 +143,25 @@ class MenuScreen(Screen):
     pass
 
 
+class WinningWidget(FloatLayout):
+    def on_touch_down(self, touch):
+        super().on_touch_down(touch)
+        return True
+
+
 class LevelsScreen(Screen):
-    cur_lvl = NumericProperty()
 
     def go_to_lvl(self, lvl):
-        self.cur_lvl = lvl
+        sm.get_screen('game').lvl = lvl
         sm.current = 'game'
 
 
 class GameScreen(Screen):
-    playground = ObjectProperty()
+    playground = ObjectProperty(None, allownone=True)
     lvl = NumericProperty()
+    winning_widget = ObjectProperty(None, allownone=True)
 
     def on_enter(self, *args):
-        self.lvl = sm.get_screen('levels').cur_lvl
         self.playground = Playground()
         self.playground.start(self.lvl)
         self.add_widget(self.playground)
@@ -180,7 +173,13 @@ class GameScreen(Screen):
         self.on_enter()
 
     def clean(self):
-        self.remove_widget(self.playground)
+        if self.playground is not None:
+            self.playground.update_event.cancel()
+            self.remove_widget(self.playground)
+            self.playground = None
+        if self.winning_widget is not None:
+            self.remove_widget(self.winning_widget)
+            self.winning_widget = None
 
     def switch_field(self):
         self.playground.switch_field()
@@ -190,6 +189,15 @@ class GameScreen(Screen):
 
     def set_buttons(self):
         self.ids.field_switch.text = 'to target field'
+
+    def show_winning_widget(self):
+        self.winning_widget = WinningWidget()
+        self.add_widget(self.winning_widget)
+
+    def go_to_next_lvl(self):
+        self.clean()
+        self.lvl += 1
+        self.on_enter()
 
 
 sm = ScreenManager()
