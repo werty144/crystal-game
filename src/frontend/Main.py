@@ -82,13 +82,13 @@ class Playground(Widget):
 
     def switch_field(self):
         if not self.is_target_field:
-            self.parent.ids.field_switch.text = 'to game field'
+            self.parent.ids.field_switch.text = 'to game\nfield'
             for widg in self.game_widgets:
                 self.remove_widget(widg)
             for box_wimg in self.target_field_widgets:
                 self.add_widget(box_wimg)
         else:
-            self.parent.ids.field_switch.text = 'to target field'
+            self.parent.ids.field_switch.text = 'to target\nfield'
             for widg in self.target_field_widgets:
                 self.remove_widget(widg)
             for widg in self.game_widgets:
@@ -200,7 +200,7 @@ class GameScreen(Screen):
         self.playground.show_all_rules()
 
     def set_buttons(self):
-        self.ids.field_switch.text = 'to target field'
+        self.ids.field_switch.text = 'to target\nfield'
 
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()

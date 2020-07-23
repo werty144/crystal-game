@@ -9,33 +9,32 @@
             on_press: app.stop()
 
 <GameScreen>:
-    Button:
-        text: 'restart'
-        on_press: self.parent.restart()
-        size_hint: (None, None)
-        size: (100, 100)
-        pos: (0, 500)
-    Button:
-        text: 'back'
-        on_press: root.manager.current = 'levels';self.parent.clean()
-        size_hint: (None, None)
-        size: (100, 100)
-        pos: (0, 0)
-
-    Button:
-        id: field_switch
-        text: 'to target field'
-        on_press: self.parent.switch_field()
-        size_hint: (None, None)
-        size: (100, 100)
-        pos: (0, 400)
-
-    Button:
-        text: 'all rules'
-        on_press: self.parent.show_all_rules()
-        size_hint: (None, None)
-        size: (100, 100)
-        pos: (0, 300)
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 1/10
+        Button:
+            text: 'restart'
+            on_press: root.restart()
+            size_hint: None, None
+            size: self.parent.width, self.parent.width
+        Button:
+            id: field_switch
+            text: 'to target\nfield'
+            halign: 'center'
+            on_press: root.switch_field()
+            size_hint: None, None
+            size: self.parent.width, self.parent.width
+        Button:
+            text: 'all rules'
+            on_press: root.show_all_rules()
+            size_hint: None, None
+            size: self.parent.width, self.parent.width
+        Widget:
+        Button:
+            text: 'back'
+            on_press: root.manager.current = 'levels';root.clean()
+            size_hint: None, None
+            size: self.parent.width, self.parent.width
 
 <LevelsScreen>:
     Button:
