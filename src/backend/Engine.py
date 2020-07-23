@@ -16,6 +16,7 @@ def map_kind_to_texture_source(kind):
 class Engine:
     def __init__(self, cur_lvl):
         self.field, self.target, self.kind_to_rules = parse(cur_lvl)
+        self.lvl = cur_lvl
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows, self.field.cols, (110, 100), (400, 400))

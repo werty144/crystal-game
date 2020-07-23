@@ -1,3 +1,5 @@
+import re
+
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import *
@@ -6,6 +8,7 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.graphics import *
 from kivy.uix.scrollview import ScrollView
+from kivy.storage.jsonstore import JsonStore
 from src.backend.Engine import Engine
 from src.frontend.RuleWidget import *
 
@@ -62,6 +65,8 @@ class Playground(Widget):
 
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
+            storage.put('lvl' + str(self.engine.lvl), status='Passed')
+            storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
             self.update_event.cancel()
             self.parent.show_winning_widget()
 
@@ -163,8 +168,26 @@ class WinningWidget(FloatLayout):
 
 class LevelsScreen(Screen):
 
+    def on_enter(self, *args):
+        btn_list = self.children[0].children[0].children
+        for obj in btn_list:
+            if type(obj) is Button:
+                lvl = int(re.search(r'\d+', obj.text).group())
+                obj.background_color = self.get_button_color(lvl)
+
+    @staticmethod
+    def get_button_color(lvl):
+        if storage.get('lvl' + str(lvl))['status'] == 'Passed':
+            return 1, 1, 0, 1
+        elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
+            return 1, 0, 1, 1
+        return 1, 1, 1, 1
+
     @staticmethod
     def go_to_lvl(lvl):
+        if storage.get('lvl' + str(lvl))['status'] == 'Locked':
+            # Level is locked
+            return
         sm.get_screen('game').lvl = lvl
         sm.current = 'game'
 
@@ -212,6 +235,16 @@ class GameScreen(Screen):
         self.lvl += 1
         self.on_enter()
 
+
+storage = JsonStore(STORAGE_PATH)
+
+# Call only once at first start
+def init_storage():
+    storage.put('lvl0', status='Unlocked')
+    for i in range(1, 15):
+        storage.put('lvl' + str(i), status='Locked')
+
+init_storage()
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
