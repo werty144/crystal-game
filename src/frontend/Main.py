@@ -118,6 +118,11 @@ class Playground(Widget):
     def show_all_rules(self):
         self.make_scroll_view(self.engine.get_all_rules(), lambda rule: None)
 
+    def on_touch_down(self, touch):
+        if self.engine.any_animation_in_progress():
+            return True
+        return super(Playground, self).on_touch_down(touch)
+
 
 class BoxWidget(ButtonBehavior, Image):
     def __init__(self, obj):
@@ -151,7 +156,8 @@ class WinningWidget(FloatLayout):
 
 class LevelsScreen(Screen):
 
-    def go_to_lvl(self, lvl):
+    @staticmethod
+    def go_to_lvl(lvl):
         sm.get_screen('game').lvl = lvl
         sm.current = 'game'
 
