@@ -63,6 +63,7 @@
                 text = "Level {0}".format(i),
                 size_hint = (None, None),
                 size = (480, 40),
+                background_color = self.parent.parent.get_button_color(i),
                 on_press=lambda _, lvl=i:self.parent.parent.go_to_lvl(lvl)
                 )
                 )
