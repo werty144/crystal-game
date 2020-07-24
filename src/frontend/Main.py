@@ -1,4 +1,7 @@
 import re
+import os
+os.environ['KIVY_AUDIO'] = 'sdl2'
+from kivy.core.audio import SoundLoader
 from kivy.lang import Builder
 from kivy.properties import *
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -77,6 +80,13 @@ class GameScreen(Screen):
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()
         self.add_widget(self.winning_widget)
+        sound = SoundLoader.load(join(SOUND_PATH, 'moan.ogg'))
+        if sound:
+            print("Sound found at %s" % sound.source)
+            print("Sound is %.3f seconds" % sound.length)
+            sound.play()
+        else:
+            print('fail')
 
     def go_to_next_lvl(self):
         self.clean()

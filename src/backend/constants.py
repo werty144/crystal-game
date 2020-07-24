@@ -9,6 +9,7 @@ PROJECT_PATH = dirname(dirname(dirname(abspath(__file__))))
 FRONTEND_PATH = join(PROJECT_PATH, 'src', 'frontend')
 LEVELS_PATH = join(PROJECT_PATH, 'resources', 'levels')
 IMAGES_PATH = join(PROJECT_PATH, 'resources', 'images')
+SOUND_PATH = join(PROJECT_PATH, 'resources', 'sound')
 KV_FILE_PATH = join(FRONTEND_PATH, 'crystal_game.kv')
 STORAGE_PATH = join(PROJECT_PATH, 'resources', 'storage', 'storage.js')
 
