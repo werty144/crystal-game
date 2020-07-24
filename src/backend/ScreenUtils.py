@@ -24,7 +24,9 @@ class ScreenUtils:
         free_width = window_width * free_width_coef
         assert free_width >= self.size[0]
         x = window_width * FIELD_PARAMETERS['x_coef'] + (free_width - self.size[0]) / 2
-        y = window_height * FIELD_PARAMETERS['bot_margin_coef']
+        free_height = window_height * (1 - FIELD_PARAMETERS['bot_margin_coef'] - FIELD_PARAMETERS['top_margin_coef'])
+        assert free_height >= self.size[1]
+        y = window_height * FIELD_PARAMETERS['bot_margin_coef'] + (free_height - self.size[1]) / 2
         return x, y
 
     def __init__(self, rows_number, cols_number):
