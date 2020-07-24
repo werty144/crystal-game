@@ -19,7 +19,7 @@ class Engine:
         self.lvl = cur_lvl
         self.boxes = []
         self.animations = []
-        self.screen_utils = ScreenUtils(self.field.rows, self.field.cols, (110, 100), (400, 400))
+        self.screen_utils = ScreenUtils(self.field.rows, self.field.cols)
         self.win = False
         self.init_boxes()
 

@@ -36,3 +36,22 @@ BOX_ATLAS_URL = 'atlas://' + IMAGES_PATH + '/boxesatlas/'
 UP_ARROW_IMAGE = join(IMAGES_PATH, 'up_arrow.png')
 RIGHT_ARROW_IMAGE = join(IMAGES_PATH, 'right_arrow.png')
 LEFT_ARROW_IMAGE = join(IMAGES_PATH, 'left_arrow.png')
+
+BUTTONS_WIDTH_COEF = 1 / 10
+
+STANDARD_MARGIN = 1 / 80
+
+SCROLL_VIEW_PARAMETERS = {
+    'horizontal_coef': 1 / 4,
+    'right_margin_coef': STANDARD_MARGIN,
+    'bot_margin_coef': STANDARD_MARGIN,
+    'top_margin_coef': STANDARD_MARGIN
+}
+
+FIELD_PARAMETERS = {
+    'horizontal_coef': 1 - BUTTONS_WIDTH_COEF - STANDARD_MARGIN * 2 - SCROLL_VIEW_PARAMETERS['horizontal_coef'] -
+                       SCROLL_VIEW_PARAMETERS['right_margin_coef'],
+    'bot_margin_coef': STANDARD_MARGIN,
+    'top_margin_coef': STANDARD_MARGIN,
+    'x_coef': BUTTONS_WIDTH_COEF + STANDARD_MARGIN
+}

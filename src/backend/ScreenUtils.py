@@ -1,13 +1,40 @@
 from kivy.core.window import Window
+from src.backend.constants import SCROLL_VIEW_PARAMETERS, FIELD_PARAMETERS
 
 
 class ScreenUtils:
-    def __init__(self, rows_number, cols_number, start_point, size):
-        self.size = size
+    def compute_size(self):
+        rows_number = self.rows_number
+        cols_number = self.cols_number
+        window_width = Window.size[0]
+        window_height = Window.size[1]
+        free_width_coef = FIELD_PARAMETERS['horizontal_coef']
+        potential_width = window_width * free_width_coef
+        potential_height = potential_width * (rows_number / cols_number)
+        max_height = window_height * (1 - FIELD_PARAMETERS['top_margin_coef'] - FIELD_PARAMETERS['bot_margin_coef'])
+        if potential_height <= max_height:
+            return potential_width, potential_height
+        shorten_width = max_height * (cols_number / rows_number)
+        return shorten_width, max_height
+
+    def compute_start_point(self):
+        window_width = Window.size[0]
+        window_height = Window.size[1]
+        free_width_coef = FIELD_PARAMETERS['horizontal_coef']
+        free_width = window_width * free_width_coef
+        assert free_width >= self.size[0]
+        x = window_width * FIELD_PARAMETERS['x_coef'] + (free_width - self.size[0]) / 2
+        free_height = window_height * (1 - FIELD_PARAMETERS['bot_margin_coef'] - FIELD_PARAMETERS['top_margin_coef'])
+        assert free_height >= self.size[1]
+        y = window_height * FIELD_PARAMETERS['bot_margin_coef'] + (free_height - self.size[1]) / 2
+        return x, y
+
+    def __init__(self, rows_number, cols_number):
         self.rows_number = rows_number
         self.cols_number = cols_number
+        self.size = self.compute_size()
+        self.start = self.compute_start_point()
         self.points_centers = []
-        self.start = start_point
         self.init_start_points()
 
     def init_start_points(self):
@@ -36,9 +63,17 @@ class ScreenUtils:
         return points
 
     def get_cell_size(self):
-        return (self.size[0] / self.cols_number, self.size[1] / self.rows_number)
+        return self.size[0] / self.cols_number, self.size[1] / self.rows_number
 
-    def get_scrollview_size(self):
-        h = Window.size[1] * 3 / 4
-        w = Window.size[0] / 3
-        return (2 * w - 10, 75), (w, h)
+    @staticmethod
+    def get_scrollview_pos_n_size():
+        window_width = Window.size[0]
+        window_height = Window.size[1]
+        horizontal_coef = SCROLL_VIEW_PARAMETERS['horizontal_coef']
+        right_margin_coef = SCROLL_VIEW_PARAMETERS['right_margin_coef']
+        bot_margin_coef = SCROLL_VIEW_PARAMETERS['bot_margin_coef']
+        top_margin_coef = SCROLL_VIEW_PARAMETERS['top_margin_coef']
+        h = window_height * (1 - top_margin_coef - bot_margin_coef)
+        w = window_width * horizontal_coef
+        return (window_width * (1 - horizontal_coef - right_margin_coef), window_height * bot_margin_coef),\
+               (w, h)
