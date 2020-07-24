@@ -104,7 +104,7 @@ class Playground(Widget):
     def make_scroll_view(self, rules, click_on_rule_function):
         if self.scroll_view is not None:
             self.remove_widget(self.scroll_view)
-        pos, size = self.engine.screen_utils.get_scrollview_size()
+        pos, size = self.engine.screen_utils.get_scrollview_pos_n_size()
         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
         layout.bind(minimum_height=layout.setter('height'))

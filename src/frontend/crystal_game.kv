@@ -1,4 +1,5 @@
 #:import Button kivy.uix.button.Button
+#: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 <MenuScreen>:
     BoxLayout:
         Button:
@@ -11,7 +12,7 @@
 <GameScreen>:
     BoxLayout:
         orientation: 'vertical'
-        size_hint_x: 1/10
+        size_hint_x: buttons_width_coef
         Button:
             text: 'restart'
             on_press: root.restart()
