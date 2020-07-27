@@ -83,6 +83,9 @@ class GameScreen(Screen):
         self.lvl += 1
         self.on_enter()
 
+    def undo(self):
+        self.playground.undo()
+
 
 storage = JsonStore(STORAGE_PATH)
 

@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from src.backend.Box import Box
 from src.backend.LevelParser import parse
 from src.backend.Rule import Rule
@@ -22,6 +24,7 @@ class Engine:
         self.screen_utils = ScreenUtils(self.field.rows, self.field.cols)
         self.win = False
         self.init_boxes()
+        self.positions_stack = [deepcopy(self.field)]
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -51,6 +54,10 @@ class Engine:
         self.boxes.remove(box)
         if self.field[box.i][box.j] == box:
             self.field[box.i][box.j] = None
+
+    def clear_boxes(self):
+        for box in self.boxes.copy():
+            self.remove_box(box)
 
     def get_spare_id(self):
         id_list = [box.game_id for box in self.boxes]
@@ -183,6 +190,7 @@ class Engine:
                 box = self.field[i][j]
                 self.move_aside(self.field[i][j], j - 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
+        self.positions_stack.append(deepcopy(self.field))
         return box
 
     def get_box(self, obj_id):
@@ -239,3 +247,29 @@ class Engine:
 
     def get_all_rules(self):
         return [rule for rules in self.kind_to_rules.values() for rule in rules]
+
+    def boxes_from_field(self):
+        assert self.boxes == []
+        for row in self.field:
+            for maybe_box in row:
+                if maybe_box is not None:
+                    self.boxes.append(maybe_box)
+
+    '''Need to compute real coordinates of boxes, 
+    because position is added to stack before animating process, 
+    thus x, y do not match i, j'''
+    def compute_field_from_position(self, position):
+        pre_field = deepcopy(position)
+        for row in pre_field:
+            for maybe_box in row:
+                if maybe_box is not None:
+                    maybe_box.x, maybe_box.y = self.screen_utils.get_start_point(maybe_box.i, maybe_box.j)
+        return pre_field
+
+    def undo(self):
+        if len(self.positions_stack) == 1:
+            return
+        self.clear_boxes()
+        self.positions_stack.pop()
+        self.field = self.compute_field_from_position(self.positions_stack[-1])
+        self.boxes_from_field()

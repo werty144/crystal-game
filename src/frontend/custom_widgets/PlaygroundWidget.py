@@ -131,6 +131,9 @@ class Playground(Widget):
     def show_all_rules(self):
         self.make_scroll_view(self.engine.get_all_rules(), lambda rule: None)
 
+    def undo(self):
+        self.engine.undo()
+
     def on_touch_down(self, touch):
         if self.engine.any_animation_in_progress():
             return True
