@@ -2,6 +2,11 @@
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 <MenuScreen>:
     BoxLayout:
+        size_hint: 0.5, 0.3
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: '10dp'
+        spacing:'10dp'
         Button:
             text: 'Levels'
             on_press: root.manager.current = 'levels'
@@ -51,26 +56,25 @@
         pos: (0, 0)
 
     ScrollView:
-        size_hint: None, None
-        size: 500, 320
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        size_hint: 0.7, 0.7
+        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
         do_scroll_x: False
         do_scroll_y: True
 
         GridLayout:
-            cols: 1
-            padding: 10
-            spacing: 10
             size_hint_y: None
             height: self.minimum_height
+            cols: 4
+            padding: '10dp'
+            spacing: '10dp'
+            row_default_height: self.parent.height / 5
+            row_force_default: True
             on_parent:
                 for i in range(30): self.add_widget(
                 Button(
                 text = "Level {0}".format(i),
-                size_hint = (None, None),
-                size = (480, 40),
-                background_color = self.parent.parent.get_button_color(i),
-                on_press=lambda _, lvl=i:self.parent.parent.go_to_lvl(lvl)
+                background_color = root.get_button_color(i),
+                on_press=lambda _, lvl=i:root.go_to_lvl(lvl)
                 )
                 )
 
