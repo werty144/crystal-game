@@ -52,6 +52,7 @@ class Playground(Widget):
 
     @staticmethod
     def update_game_widget(game_widget, game_object):
+        game_widget.box = game_object
         for attr, value in game_object.__dict__.items():
             if hasattr(game_widget, attr):
                 setattr(game_widget, attr, value)
