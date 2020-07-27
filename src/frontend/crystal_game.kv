@@ -30,6 +30,11 @@
             on_press: root.show_all_rules()
             size_hint: None, None
             size: self.parent.width, self.parent.width
+        Button:
+            text: 'undo'
+            on_press: root.undo()
+            size_hint: None, None
+            size: self.parent.width, self.parent.width
         Widget:
         Button:
             text: 'back'
