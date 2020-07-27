@@ -1,36 +1,35 @@
 {
-    "cols": 1,
-    "rows": 8,
+    "cols": 4,
+    "rows": 4,
     "field": [
         [
+            null,
+            null,
+            null,
             null
         ],
         [
+            null,
+            null,
+            null,
             null
         ],
         [
-            null
-        ],
-        [
-            null
-        ],
-        [
-            null
-        ],
-        [
-            null
-        ],
-        [
+            null,
+            null,
+            null,
             null
         ],
         [
             {
-                "i": 7,
+                "i": 3,
                 "j": 0,
                 "kind": 1
-            }
+            },
+            null,
+            null,
+            null
         ]
-
     ]
 }
 kind_to_rules:
@@ -41,20 +40,27 @@ kind_to_rules:
             "direction": "UP",
             "initial_box_kind": 1,
             "result_box_kinds": [
-                2, 1
+                1, 2
+            ]
+        },
+        {
+            "marginal": true,
+            "direction": "RIGHT",
+            "initial_box_kind": 1,
+            "result_box_kinds": [
+                3, 3
             ]
         }
     ],
     "2": [
         {
-            "marginal": false,
-            "direction": "UP",
+            "marginal": true,
+            "direction": "RIGHT",
             "initial_box_kind": 2,
             "result_box_kinds": [
-                3, 3
+                3, 1
             ]
         }
-
     ],
     "3": [
         {
@@ -62,27 +68,13 @@ kind_to_rules:
             "direction": "UP",
             "initial_box_kind": 3,
             "result_box_kinds": [
-                4
-            ]
-        }
-    ],
-    "4": [
-        {
-            "marginal": false,
-            "direction": "UP",
-            "initial_box_kind": 4,
-            "result_box_kinds": [
-                1, 2
+                2
             ]
         }
     ]
 }
 target:
-1
-2
-3
-4
-3
-4
-3
-4
+None None None None
+None None None None
+3 3 3 3
+3 3 3 3
