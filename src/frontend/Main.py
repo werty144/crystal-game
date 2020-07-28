@@ -80,13 +80,14 @@ class GameScreen(Screen):
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()
         self.add_widget(self.winning_widget)
-        sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
-        if sound:
-            print("Sound found at %s" % sound.source)
-            print("Sound is %.3f seconds" % sound.length)
-            sound.play()
-        else:
-            print('fail')
+        # TODO solve problem with
+        # sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
+        # if sound:
+        #     print("Sound found at %s" % sound.source)
+        #     print("Sound is %.3f seconds" % sound.length)
+        #     sound.play()
+        # else:
+        #     print('fail')
 
     def go_to_next_lvl(self):
         self.clean()
