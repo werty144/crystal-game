@@ -52,6 +52,7 @@ class Playground(Widget):
 
     @staticmethod
     def update_game_widget(game_widget, game_object):
+        game_widget.box = game_object
         for attr, value in game_object.__dict__.items():
             if hasattr(game_widget, attr):
                 setattr(game_widget, attr, value)
@@ -130,6 +131,9 @@ class Playground(Widget):
 
     def show_all_rules(self):
         self.make_scroll_view(self.engine.get_all_rules(), lambda rule: None)
+
+    def undo(self):
+        self.engine.undo()
 
     def on_touch_down(self, touch):
         if self.engine.any_animation_in_progress():

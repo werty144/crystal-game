@@ -36,6 +36,14 @@ kind_to_rules:
             "result_box_kinds": [
                 3, 3
             ]
+        },
+        {
+            "marginal": false,
+            "direction": "UP",
+            "initial_box_kind": 1,
+            "result_box_kinds": [
+                2, 1
+            ]
         }
     ],
     "2": [
@@ -61,9 +69,9 @@ kind_to_rules:
     ]
 }
 target:
-3
-3
-3
-3
+1
+1
+2
+2
 3
 3

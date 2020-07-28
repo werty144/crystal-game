@@ -93,6 +93,9 @@ class GameScreen(Screen):
         self.lvl += 1
         self.on_enter()
 
+    def undo(self):
+        self.playground.undo()
+
 
 storage = JsonStore(STORAGE_PATH)
 
@@ -100,7 +103,7 @@ storage = JsonStore(STORAGE_PATH)
 # Call only once at first start
 def init_storage():
     storage.put('lvl0', status='Unlocked')
-    for i in range(1, 15):
+    for i in range(1, 30):
         storage.put('lvl' + str(i), status='Locked')
 
 
