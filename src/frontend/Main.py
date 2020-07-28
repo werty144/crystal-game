@@ -80,7 +80,7 @@ class GameScreen(Screen):
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()
         self.add_widget(self.winning_widget)
-        sound = SoundLoader.load(join(SOUND_PATH, 'moan.ogg'))
+        sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
         if sound:
             print("Sound found at %s" % sound.source)
             print("Sound is %.3f seconds" % sound.length)
@@ -118,6 +118,6 @@ class Crystal_game(App):
     def build(self):
         return sm
 
-
-if __name__ == '__main__':
-    Crystal_game().run()
+#
+# if __name__ == '__main__':
+#     Crystal_game().run()
