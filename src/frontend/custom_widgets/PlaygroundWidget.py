@@ -32,7 +32,7 @@ class Playground(Widget):
         self.make_grid()
         self.set_target_field_widgets()
         self.scroll_views = {}
-        self.make_scroll_view(self.engine.get_all_rules(), lambda _: None)
+        self.make_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
         self.update_event = Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -103,13 +103,13 @@ class Playground(Widget):
                 self.add_widget(widg)
         self.is_target_field = not self.is_target_field
 
-    def make_scroll_view(self, rules, click_on_rule_function):
-        hash = str(rules)
+    def make_scroll_view(self, rules, click_on_rule_function, obj_hash):
         if self.scroll_view is not None:
             self.remove_widget(self.scroll_view)
-        if hash in self.scroll_views:
-            self.scroll_view = self.scroll_views[hash]
+        if obj_hash in self.scroll_views:
+            self.scroll_view = self.scroll_views[obj_hash]
             self.add_widget(self.scroll_view)
+            return
         pos, size = self.engine.screen_utils.get_scrollview_pos_n_size()
         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
         layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
@@ -133,10 +133,10 @@ class Playground(Widget):
             Color(1, 1, 1, 1)
             Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
         self.add_widget(self.scroll_view)
-        self.scroll_views[hash] = self.scroll_view
+        self.scroll_views[obj_hash] = self.scroll_view
 
     def show_all_rules(self):
-        self.make_scroll_view(self.engine.get_all_rules(), lambda _: None)
+        self.make_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
 
     def undo(self):
         self.engine.undo()
