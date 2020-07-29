@@ -70,7 +70,8 @@ class Playground(Widget):
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
             self.storage.put('lvl' + str(self.engine.lvl), status='Passed')
-            self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
+            if self.storage.get('lvl' + str(self.engine.lvl + 1))['status'] == 'Locked':
+                self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
             self.update_event.cancel()
             self.parent.show_winning_widget()
 
