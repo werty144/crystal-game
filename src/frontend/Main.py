@@ -68,9 +68,6 @@ class GameScreen(Screen):
     def switch_field(self):
         self.playground.switch_field()
 
-    def show_all_rules(self):
-        self.playground.show_all_rules()
-
     def set_buttons(self):
         self.ids.field_switch.text = 'to target\nfield'
 

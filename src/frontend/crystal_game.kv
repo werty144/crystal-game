@@ -32,11 +32,6 @@
             size_hint: None, None
             size: self.parent.width, self.parent.width
         Button:
-            text: 'all rules'
-            on_press: root.show_all_rules()
-            size_hint: None, None
-            size: self.parent.width, self.parent.width
-        Button:
             text: 'undo'
             on_press: root.undo()
             size_hint: None, None
@@ -132,3 +127,11 @@
             padding: (0, 50)
             size_hint_y: None
             height: self.minimum_height
+    Button:
+        size_hint: None, None
+        height: 70
+        width: root.ids.rule_scroll_view.width
+        pos_hint: None, None
+        pos: root.ids.rule_scroll_view.pos
+        text: 'All rules'
+        on_press: root.parent.show_all_rules()
