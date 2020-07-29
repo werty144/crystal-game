@@ -47,6 +47,7 @@ class GameScreen(Screen):
     playground = ObjectProperty(None, allownone=True)
     lvl = NumericProperty()
     winning_widget = ObjectProperty(None, allownone=True)
+    sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
 
     def on_enter(self, *args):
         self.playground = Playground(storage=storage)
@@ -60,6 +61,7 @@ class GameScreen(Screen):
         self.on_enter()
 
     def clean(self):
+        self.sound.stop()
         if self.playground is not None:
             self.playground.update_event.cancel()
             self.remove_widget(self.playground)
@@ -80,14 +82,8 @@ class GameScreen(Screen):
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()
         self.add_widget(self.winning_widget)
-        # TODO solve problem with
-        # sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
-        # if sound:
-        #     print("Sound found at %s" % sound.source)
-        #     print("Sound is %.3f seconds" % sound.length)
-        #     sound.play()
-        # else:
-        #     print('fail')
+        if self.sound:
+            self.sound.play()
 
     def go_to_next_lvl(self):
         self.clean()

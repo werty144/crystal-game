@@ -105,38 +105,6 @@ class Playground(Widget):
                 self.add_widget(widg)
         self.is_target_field = not self.is_target_field
 
-    # def make_scroll_view(self, rules, click_on_rule_function, obj_hash):
-    #     if self.scroll_view is not None:
-    #         self.remove_widget(self.scroll_view)
-    #     if obj_hash in self.scroll_views:
-    #         self.scroll_view = self.scroll_views[obj_hash]
-    #         self.add_widget(self.scroll_view)
-    #         return
-    #     pos, size = self.engine.screen_utils.get_scrollview_pos_n_size()
-    #     self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
-    #     layout = GridLayout(cols=1, spacing=50, padding=(0, 50), size_hint_y=None)
-    #     layout.bind(minimum_height=layout.setter('height'))
-    #     if len(rules) == 0:
-    #         # Write that there is no rules
-    #         self.scroll_view = ScrollView(size_hint=(None, None), size=(size[0], size[1]), pos=(pos[0], pos[1]))
-    #         label = Label(text='No rules', color=(0, 0, 0, 1), font_size=(0.4 * min(self.height / 4, self.width)))
-    #         self.scroll_view.add_widget(label)
-    #         with self.scroll_view.canvas.before:
-    #             Color(1, 1, 1, 1)
-    #             Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
-    #         self.add_widget(self.scroll_view)
-    #         return
-    #     max_right_side_len = max([len(rule.result_box_kinds) for rule in rules])
-    #     for rule in rules:
-    #         rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len)
-    #         layout.add_widget(rule_widget)
-    #     self.scroll_view.add_widget(layout)
-    #     with self.scroll_view.canvas.before:
-    #         Color(1, 1, 1, 1)
-    #         Rectangle(size=self.scroll_view.size, pos=self.scroll_view.pos)
-    #     self.add_widget(self.scroll_view)
-    #     self.scroll_views[obj_hash] = self.scroll_view
-
     def show_all_rules(self):
         self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
 
