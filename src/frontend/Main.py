@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.storage.jsonstore import JsonStore
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.RuleWidget import *
+from src.frontend.custom_widgets.TutorialWidget import Tutorial
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
 
 Builder.load_file(KV_FILE_PATH)
@@ -84,6 +85,24 @@ class GameScreen(Screen):
         self.playground.undo()
 
 
+class TutorialScreen(GameScreen):
+    def on_enter(self, *args):
+        self.playground = Tutorial()
+        self.playground.start()
+        self.add_widget(self.playground)
+        self.set_buttons()
+
+    def show_winning_widget(self):
+        self.winning_widget = WinningWidget()
+        self.winning_widget.ids.next_lvl_button.text = 'Lvl 0'
+        self.add_widget(self.winning_widget)
+
+    def go_to_next_lvl(self):
+        self.clean()
+        sm.get_screen('game').lvl = 0
+        sm.current = 'game'
+
+
 storage = JsonStore(STORAGE_PATH)
 
 
@@ -94,13 +113,14 @@ def init_storage():
         storage.put('lvl' + str(i), status='Locked')
 
 
-init_storage()
+# init_storage()
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(LevelsScreen(name='levels'))
 sm.add_widget(GameScreen(name='game'))
-sm.current = 'levels'
+sm.add_widget(TutorialScreen(name='tutorial'))
+# sm.current = 'levels'
 
 
 class Crystal_game(App):
