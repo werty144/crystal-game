@@ -273,3 +273,8 @@ class Engine:
         self.positions_stack.pop()
         self.field = self.compute_field_from_position(self.positions_stack[-1])
         self.boxes_from_field()
+
+    def finish_all_animations(self):
+        for animation in self.animations.copy():
+            animation.set_all_functions_to_final_state()
+            self.animations.remove(animation)

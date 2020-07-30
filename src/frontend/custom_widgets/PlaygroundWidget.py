@@ -126,5 +126,6 @@ class Playground(Widget):
 
     def on_touch_down(self, touch):
         if self.engine.any_animation_in_progress():
+            self.engine.finish_all_animations()
             return True
         return super(Playground, self).on_touch_down(touch)
