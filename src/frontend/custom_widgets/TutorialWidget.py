@@ -55,7 +55,7 @@ class Task(FloatLayout):
         wp, ws = self.calculate_focus_window_pos_n_size()
         return wp[0] <= touch_x <= wp[0] + ws[0] and wp[1] <= touch_y <= wp[1] + ws[1]
 
-    def on_touch_down(self, touch):
+    def on_touch_up(self, touch):
         if self.on_touch_option == 'pass':
             self.parent.need_next_task = True
             return True
@@ -131,9 +131,6 @@ class Tutorial(Playground):
         if not self.engine.any_animation_in_progress() and self.need_next_task:
             self.need_next_task = False
             self.switch_to_next_task()
-            super(Tutorial, self).update(_)
-            if self.engine.any_animation_in_progress():
-                self.remove_widget(self.cur_task)
 
     def switch_to_next_task(self):
         self.remove_widget(self.cur_task)
