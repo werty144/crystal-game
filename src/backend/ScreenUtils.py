@@ -30,12 +30,16 @@ class ScreenUtils:
         return x, y
 
     def __init__(self, rows_number, cols_number):
+        self.window = Window
         self.rows_number = rows_number
         self.cols_number = cols_number
         self.size = self.compute_size()
         self.start = self.compute_start_point()
         self.points_centers = []
         self.init_start_points()
+
+    def get_field_middle_x_ratio(self):
+        return (self.start[0] + self.size[0] / 2) / Window.size[0]
 
     def init_start_points(self):
         cell_width = self.size[0] / self.cols_number

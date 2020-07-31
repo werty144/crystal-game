@@ -19,7 +19,6 @@ from src.frontend.custom_widgets.RuleWidget import RuleWidget
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
-    screen_utils = ObjectProperty()
     grid = ObjectProperty()
     target_field_widgets = ListProperty()
     is_target_field = BooleanProperty(False)
