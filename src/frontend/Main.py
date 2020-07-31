@@ -88,8 +88,8 @@ class GameScreen(Screen):
 class TutorialScreen(GameScreen):
     def on_enter(self, *args):
         self.playground = Tutorial()
-        self.playground.start()
         self.add_widget(self.playground)
+        self.playground.start()
         self.set_buttons()
 
     def show_winning_widget(self):
