@@ -44,14 +44,7 @@ kind_to_rules:
         }
     ],
     "2": [
-        {
-            "marginal": true,
-            "direction": "RIGHT",
-            "initial_box_kind": 2,
-            "result_box_kinds": [
-                2, 2
-            ]
-        }
+
     ],
     "3": [
     ]

@@ -42,14 +42,6 @@ kind_to_rules:
             "result_box_kinds": [
                 1, 2
             ]
-        },
-        {
-            "marginal": true,
-            "direction": "RIGHT",
-            "initial_box_kind": 1,
-            "result_box_kinds": [
-                3, 3
-            ]
         }
     ],
     "2": [
@@ -75,6 +67,6 @@ kind_to_rules:
 }
 target:
 None None None None
-3 3 3 3
+None None None None
 2 2 2 2
 1 1 1 1
