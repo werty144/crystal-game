@@ -19,7 +19,6 @@ from src.frontend.custom_widgets.RuleWidget import RuleWidget
 class Playground(Widget):
     engine = ObjectProperty()
     game_widgets = ListProperty()
-    screen_utils = ObjectProperty()
     grid = ObjectProperty()
     target_field_widgets = ListProperty()
     is_target_field = BooleanProperty(False)
@@ -133,5 +132,6 @@ class Playground(Widget):
 
     def on_touch_down(self, touch):
         if self.engine.any_animation_in_progress():
+            self.engine.finish_all_animations()
             return True
         return super(Playground, self).on_touch_down(touch)

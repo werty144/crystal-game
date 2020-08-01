@@ -3,7 +3,7 @@
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 <MenuScreen>:
     BoxLayout:
-        size_hint: 0.5, 0.3
+        size_hint: 0.5, 0.4
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: '10dp'
@@ -11,6 +11,9 @@
         Button:
             text: 'Levels'
             on_press: root.manager.current = 'levels'
+        Button:
+            text: 'Tutorial'
+            on_press: root.manager.current = 'tutorial'
         Button:
             text: 'Quit'
             on_press: app.stop()
@@ -29,11 +32,6 @@
             text: 'to target\nfield'
             halign: 'center'
             on_press: root.switch_field()
-            size_hint: None, None
-            size: self.parent.width, self.parent.width
-        Button:
-            text: 'all rules'
-            on_press: root.show_all_rules()
             size_hint: None, None
             size: self.parent.width, self.parent.width
         Button:
@@ -109,6 +107,7 @@
                 text: 'restart'
                 on_press: root.parent.restart()
             Button:
+                id: next_lvl_button
                 text: 'next lvl'
                 on_press: root.parent.go_to_next_lvl()
 
@@ -132,3 +131,25 @@
             padding: (0, 50)
             size_hint_y: None
             height: self.minimum_height
+    Button:
+        size_hint: None, None
+        height: 70
+        width: root.ids.rule_scroll_view.width
+        pos_hint: None, None
+        pos: root.ids.rule_scroll_view.pos
+        text: 'All rules'
+        on_press: root.parent.show_all_rules()
+
+<Task>:
+    Label:
+        id: title
+        text: root.title_text
+        color: 0, 0, 0, 1
+        pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
+        size_hint: 0.3, 0.18
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
