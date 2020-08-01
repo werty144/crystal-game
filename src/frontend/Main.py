@@ -113,7 +113,7 @@ def init_storage():
         storage.put('lvl' + str(i), status='Locked')
 
 
-# init_storage()
+init_storage()
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
