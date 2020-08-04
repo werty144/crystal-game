@@ -45,6 +45,3 @@ class RuleWidget(ButtonBehavior, BoxLayout):
 
     def on_press(self):
         self.on_press_func(self.rule)
-
-    def on_release(self):
-        pass

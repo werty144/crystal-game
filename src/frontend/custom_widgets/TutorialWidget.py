@@ -1,3 +1,4 @@
+from kivy.clock import Clock
 from kivy.graphics.context_instructions import Color
 from kivy.graphics.instructions import Instruction, InstructionGroup
 from kivy.graphics.vertex_instructions import Rectangle
@@ -6,6 +7,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 
 from src.backend.ScreenUtils import ScreenUtils
+from src.backend.constants import FRAME_RATE_SEC
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
 
 
@@ -63,6 +65,14 @@ class Task(FloatLayout):
             if not self.touch_is_inside_focus_window(touch):
                 return True
             self.parent.need_next_task = True
+
+            '''Make sure touch_down is totally dispatched before update'''
+            self.parent.update_event.cancel()
+
+            def start_updating(_):
+                self.parent.update_event = Clock.schedule_interval(self.parent.update, FRAME_RATE_SEC)
+            Clock.schedule_once(start_updating, 0.1)
+
             return super(Task, self).on_touch_down(touch)
 
 
