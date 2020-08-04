@@ -55,7 +55,7 @@ class Task(FloatLayout):
         wp, ws = self.calculate_focus_window_pos_n_size()
         return wp[0] <= touch_x <= wp[0] + ws[0] and wp[1] <= touch_y <= wp[1] + ws[1]
 
-    def on_touch_up(self, touch):
+    def on_touch_down(self, touch):
         if self.on_touch_option == 'pass':
             self.parent.need_next_task = True
             return True
