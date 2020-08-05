@@ -7,6 +7,7 @@ from kivy.properties import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.storage.jsonstore import JsonStore
 from kivy.core.window import Window
+from kivy.uix.screenmanager import SlideTransition
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.RuleWidget import *
 from src.frontend.custom_widgets.TutorialWidget import Tutorial
@@ -139,13 +140,16 @@ def on_key(window, key, *args):
         if sm.current_screen.name == "menu":
             return False  # exit the app from this page
         elif sm.current_screen.name == "levels":
+            sm.transition = SlideTransition(direction='right')
             sm.current = "menu"
             return True  # do not exit the app
         elif sm.current_screen.name == "game":
+            sm.transition = SlideTransition(direction='right')
             sm.current = "levels"
             gs.clean()
             return True  # do not exit the app
         elif sm.current_screen.name == "tutorial":
+            sm.transition = SlideTransition(direction='right')
             sm.current = "menu"
             ts.clean()
             return True  # do not exit the app

@@ -1,6 +1,7 @@
 #:import Button kivy.uix.button.Button
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -10,12 +11,12 @@
         spacing: self.height / 40
         Button:
             text: 'Levels'
-            on_press: root.manager.current = 'levels'
+            on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
             background_normal: 'resources/images/button.png'
             background_down: 'resources/images/button_red_pressed.png'
         Button:
             text: 'Tutorial'
-            on_press: root.manager.current = 'tutorial'
+            on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
             background_normal: 'resources/images/button.png'
             background_down: 'resources/images/button_red_pressed.png'
         Button:
@@ -54,7 +55,7 @@
         Widget:
         Button:
             text: 'back'
-            on_press: root.manager.current = 'levels';root.clean()
+            on_press: root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
             background_normal: 'resources/images/button.png'
@@ -63,7 +64,7 @@
 <LevelsScreen>:
     Button:
         text: 'back'
-        on_press: root.manager.current = 'menu'
+        on_press: root.manager.transition.direction = 'right';root.manager.current = 'menu'
         size_hint: (None, None)
         size: (root.width / 8, root.height / 7)
         pos: (0, 0)
