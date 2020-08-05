@@ -31,7 +31,8 @@ class Playground(Widget):
         self.add_missing_game_widgets()
         self.make_grid()
         self.set_target_field_widgets()
-        self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None)
+        self.scroll_views = {}
+        self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
         self.update_event = Clock.schedule_interval(self.update, FRAME_RATE_SEC)
 
     def update(self, _):
@@ -68,7 +69,8 @@ class Playground(Widget):
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
             self.storage.put('lvl' + str(self.engine.lvl), status='Passed')
-            self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
+            if self.storage.get('lvl' + str(self.engine.lvl + 1))['status'] == 'Locked':
+                self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
             self.update_event.cancel()
             self.parent.show_winning_widget()
 
@@ -102,23 +104,29 @@ class Playground(Widget):
                 self.add_widget(widg)
         self.is_target_field = not self.is_target_field
 
-    def make_rules_scroll_view(self, rules, click_on_rule_function):
+    def show_all_rules(self):
+        self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
+
+    def make_rules_scroll_view(self, rules, click_on_rule_function, obj_hash):
         if self.rules_scroll_view is not None:
             self.remove_widget(self.rules_scroll_view)
+        if obj_hash in self.scroll_views:
+            self.rules_scroll_view = self.scroll_views[obj_hash]
+            self.add_widget(self.rules_scroll_view)
+            return
         self.rules_scroll_view = RulesScrollViewWidget()
         self.add_widget(self.rules_scroll_view)
         if len(rules) == 0:
             # Here image instead of label would be, so no need to calculate font size properly
-            label = Label(text='No rules', color=(0, 0, 0, 1), font_size=0.4 * self.rules_scroll_view.width)
-            self.rules_scroll_view.ids.grid.add_widget(label)
+            img = Image(source='resources/images/no_rules.jpg', size_hint=(1, None), allow_stretch=True,
+                        keep_ratio=False)
+            self.rules_scroll_view.ids.grid.add_widget(img)
         else:
             max_right_side_len = max([len(rule.result_box_kinds) for rule in rules] + [1])
             for rule in rules:
                 rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len)
                 self.rules_scroll_view.ids.grid.add_widget(rule_widget)
-
-    def show_all_rules(self):
-        self.make_rules_scroll_view(self.engine.get_all_rules(), lambda rule: None)
+        self.scroll_views[obj_hash] = self.rules_scroll_view
 
     def undo(self):
         self.engine.undo()

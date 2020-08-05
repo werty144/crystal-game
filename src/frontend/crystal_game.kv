@@ -3,20 +3,26 @@
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 <MenuScreen>:
     BoxLayout:
-        size_hint: 0.5, 0.4
+        size_hint: 0.5, 0.6
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: '10dp'
-        spacing:'10dp'
+        spacing: self.height / 40
         Button:
             text: 'Levels'
-            on_press: root.manager.current = 'levels'
+            on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
         Button:
             text: 'Tutorial'
-            on_press: root.manager.current = 'tutorial'
+            on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
         Button:
             text: 'Quit'
             on_press: app.stop()
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
 
 <GameScreen>:
     BoxLayout:
@@ -27,6 +33,8 @@
             on_press: root.restart()
             size_hint: None, None
             size: self.parent.width, self.parent.width
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
         Button:
             id: field_switch
             text: 'to target\nfield'
@@ -34,25 +42,33 @@
             on_press: root.switch_field()
             size_hint: None, None
             size: self.parent.width, self.parent.width
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
         Button:
             text: 'undo'
             on_press: root.undo()
             size_hint: None, None
             size: self.parent.width, self.parent.width
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
         Widget:
         Button:
             text: 'back'
-            on_press: root.manager.current = 'levels';root.clean()
+            on_press: root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
+            background_normal: 'resources/images/button.png'
+            background_down: 'resources/images/button_red_pressed.png'
 
 <LevelsScreen>:
     Button:
         text: 'back'
-        on_press: root.manager.current = 'menu'
+        on_press: root.manager.transition.direction = 'right';root.manager.current = 'menu'
         size_hint: (None, None)
-        size: (100, 100)
+        size: (root.width / 8, root.height / 7)
         pos: (0, 0)
+        background_normal: 'resources/images/button.png'
+        background_down: 'resources/images/button_red_pressed.png'
 
     ScrollView:
         size_hint: 0.7, 0.7
@@ -65,14 +81,15 @@
             height: self.minimum_height
             cols: 4
             padding: '10dp'
-            spacing: '10dp'
+            spacing: self.height / 40
             row_default_height: self.parent.height / 5
             row_force_default: True
             on_parent:
                 for i in range(30): self.add_widget(
                 Button(
                 text = "Level {0}".format(i),
-                background_color = root.get_button_color(i),
+                background_normal = root.get_button_image(i)[0],
+                background_down = root.get_button_image(i)[1],
                 on_press=lambda _, lvl=i:root.go_to_lvl(lvl)
                 )
                 )
@@ -94,22 +111,27 @@
             Rectangle:
                 size: self.size
                 pos: self.pos
-        Label:
-            text: 'You win!'
+        Image:
+            source: 'resources/images/you_win.jpg'
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
-            font_size: 0.7 * min(self.height, self.width/4)
         BoxLayout:
             orientation: 'horizontal'
             Button:
                 text: 'to lvls'
                 on_press: root.parent.manager.current = 'levels';root.parent.clean()
+                background_normal: 'resources/images/button.png'
+                background_down: 'resources/images/button_red_pressed.png'
             Button:
                 text: 'restart'
                 on_press: root.parent.restart()
+                background_normal: 'resources/images/button.png'
+                background_down: 'resources/images/button_red_pressed.png'
             Button:
                 id: next_lvl_button
                 text: 'next lvl'
                 on_press: root.parent.go_to_next_lvl()
+                background_normal: 'resources/images/button.png'
+                background_down: 'resources/images/button_red_pressed.png'
 
 
 <RulesScrollViewWidget>:
@@ -119,26 +141,27 @@
         pos: screen_utils.get_scrollview_pos_n_size()[0]
         size: screen_utils.get_scrollview_pos_n_size()[1]
         canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
             Rectangle:
-                size: self.size
                 pos: self.pos
+                size: self.size
+                source: 'resources/images/notebook.jpg'
         GridLayout:
             id: grid
             cols: 1
-            spacing: 50
-            padding: (0, 50)
+            spacing: self.height / 20
+            padding: '10dp'
             size_hint_y: None
             height: self.minimum_height
     Button:
         size_hint: None, None
-        height: 70
+        height: root.ids.rule_scroll_view.height / 8
         width: root.ids.rule_scroll_view.width
         pos_hint: None, None
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
+        background_normal: 'resources/images/button.png'
+        background_down: 'resources/images/button_red_pressed.png'
 
 <Task>:
     Label:
