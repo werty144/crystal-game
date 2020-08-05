@@ -26,7 +26,9 @@ class LevelsScreen(Screen):
         for obj in btn_list:
             if type(obj) is Button:
                 lvl = int(re.search(r'\d+', obj.text).group())
-                obj.background_color = self.get_button_color(lvl)
+                button_image = self.get_button_image(lvl)
+                obj.background_normal = button_image[0]
+                obj.background_down = button_image[1]
 
     @staticmethod
     def get_button_color(lvl):
@@ -35,6 +37,14 @@ class LevelsScreen(Screen):
         elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
             return 1, 0, 1, 1
         return 1, 1, 1, 1
+
+    @staticmethod
+    def get_button_image(lvl):
+        if storage.get('lvl' + str(lvl))['status'] == 'Passed':
+            return 'resources/images/button_green.png', 'resources/images/button_green_pressed.png'
+        elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
+            return 'resources/images/button_yellow.png', 'resources/images/button_yellow_pressed.png'
+        return 'resources/images/button_red.png', 'resources/images/button_red_pressed.png'
 
     @staticmethod
     def go_to_lvl(lvl):
