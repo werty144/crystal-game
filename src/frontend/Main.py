@@ -147,6 +147,7 @@ def on_key(window, key, *args):
             return True  # do not exit the app
         elif sm.current_screen.name == "tutorial":
             sm.current = "menu"
+            ts.clean()
             return True  # do not exit the app
 
 
@@ -155,7 +156,8 @@ sm.add_widget(MenuScreen(name='menu'))
 sm.add_widget(LevelsScreen(name='levels'))
 gs = GameScreen(name='game')
 sm.add_widget(gs)
-sm.add_widget(TutorialScreen(name='tutorial'))
+ts = TutorialScreen(name='tutorial')
+sm.add_widget(ts)
 Window.bind(on_keyboard=on_key)
 # sm.current = 'levels'
 
