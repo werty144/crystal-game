@@ -24,6 +24,18 @@
             background_normal: 'resources/images/button.png'
             background_down: 'resources/images/button_red_pressed.png'
 
+    BoxLayout:
+        size_hint: 0.3, 0.1
+        pos_hint:  {'center_x': 0.5, 'center_y': 0.3}
+        orientation: 'horizontal'
+        spacing: '10dp'
+        Button:
+            text: 'Eng'
+            on_press: root.switch_lang('eng')
+        Button:
+            text: 'Рус'
+            on_press: root.switch_lang('ru')
+
 <GameScreen>:
     BoxLayout:
         orientation: 'vertical'
