@@ -127,8 +127,8 @@ storage = JsonStore(STORAGE_PATH)
 
 # Call only once at first start
 def init_storage():
-    storage.put('lvl0', status='Unlocked')
-    for i in range(1, 101):
+    storage.put('lvl1', status='Unlocked')
+    for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
 
 
