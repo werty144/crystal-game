@@ -118,7 +118,7 @@
             orientation: 'horizontal'
             Button:
                 text: 'to lvls'
-                on_press: root.parent.manager.current = 'levels';root.parent.clean()
+                on_press: root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
                 background_normal: 'resources/images/button.png'
                 background_down: 'resources/images/button_red_pressed.png'
             Button:
