@@ -14,16 +14,25 @@
         spacing: self.height / 40
         Button:
             text: 'Levels'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * screen_utils.get_image_width_proportion(button_image)
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
             background_normal: button_image
             background_down: button_red_pressed_image
         Button:
             text: 'Tutorial'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * screen_utils.get_image_width_proportion(button_image)
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
             background_normal: button_image
             background_down: button_red_pressed_image
         Button:
             text: 'Quit'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * screen_utils.get_image_width_proportion(button_image)
             on_press: app.stop()
             background_normal: button_image
             background_down: button_red_pressed_image
@@ -68,8 +77,8 @@
     Button:
         text: 'back'
         on_press: root.manager.transition.direction = 'right';root.manager.current = 'menu'
-        size_hint: (None, None)
-        size: (root.width / 8, root.height / 7)
+        size_hint: (0.125, None)
+        height: self.width * screen_utils.get_image_width_proportion(button_image)
         pos: (0, 0)
         background_normal: button_image
         background_down: button_red_pressed_image
@@ -87,10 +96,12 @@
             padding: '10dp'
             spacing: self.height / 40
             row_default_height: self.parent.height / 5
-            row_force_default: True
+            row_force_default: False
             on_parent:
                 for i in range(30): self.add_widget(
                 Button(
+                size_hint = (0.25, None),
+                height = root.get_button_height(self.width, button_red_pressed_image),
                 text = "Level {0}".format(i),
                 background_normal = root.get_button_image(i)[0],
                 background_down = root.get_button_image(i)[1],
@@ -159,7 +170,7 @@
     Button:
         size_hint: None, None
         height: root.ids.rule_scroll_view.height / 8
-        width: root.ids.rule_scroll_view.width
+        width: self.height * screen_utils.get_image_width_proportion(button_image)
         pos_hint: None, None
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'

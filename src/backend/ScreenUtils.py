@@ -1,4 +1,6 @@
 from kivy.core.window import Window
+from kivy.uix.image import Image
+
 from src.backend.constants import SCROLL_VIEW_PARAMETERS, FIELD_PARAMETERS
 
 
@@ -81,3 +83,13 @@ class ScreenUtils:
         w = window_width * horizontal_coef
         return (window_width * (1 - horizontal_coef - right_margin_coef), window_height * bot_margin_coef),\
                (w, h)
+
+    @staticmethod
+    def get_image_width_proportion(filename):
+        image = Image(source=filename)
+        return image.width / image.height
+
+    @staticmethod
+    def get_image_height_proportion(filename):
+        image = Image(source=filename)
+        return image.height / image.width

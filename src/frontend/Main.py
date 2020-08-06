@@ -12,6 +12,7 @@ from src.frontend.custom_widgets.RuleWidget import *
 from src.frontend.custom_widgets.TutorialWidget import Tutorial
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
 from src.backend.constants import *
+from src.backend.ScreenUtils import *
 
 Builder.load_file(KV_FILE_PATH)
 
@@ -30,6 +31,7 @@ class LevelsScreen(Screen):
                 button_image = self.get_button_image(lvl)
                 obj.background_normal = button_image[0]
                 obj.background_down = button_image[1]
+                obj.height = self.get_button_height(obj.width, button_image[0])
 
     @staticmethod
     def get_button_color(lvl):
@@ -46,6 +48,10 @@ class LevelsScreen(Screen):
         elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
             return BUTTON_YELLOW_IMAGE, BUTTON_YELLOW_PRESSED_IMAGE
         return BUTTON_RED_IMAGE, BUTTON_RED_PRESSED_IMAGE
+
+    @staticmethod
+    def get_button_height(width, filename):
+        return width * ScreenUtils.get_image_height_proportion(filename)
 
     @staticmethod
     def go_to_lvl(lvl):
