@@ -1,6 +1,6 @@
 {
     "cols": 4,
-    "rows": 3,
+    "rows": 4,
     "field": [
         [
             null,
@@ -15,13 +15,19 @@
             null
         ],
         [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
             {
-                "i": 2,
-                "j": 0,
+                "i": 3,
+                "j": 2,
                 "kind": 1
             },
-            null,
-            null,
             null
         ]
     ]
@@ -29,27 +35,35 @@
 kind_to_rules:
 {
     "1": [
-
+        {
+            "marginal": true,
+            "direction": "LEFT",
+            "initial_box_kind": 1,
+            "result_box_kinds": [
+                2, 2
+            ]
+        },
         {
             "marginal": true,
             "direction": "RIGHT",
             "initial_box_kind": 1,
             "result_box_kinds": [
-                3, 1
+                3, 3
             ]
-        },
+        }
+    ],
+    "2": [
         {
             "marginal": false,
             "direction": "UP",
-            "initial_box_kind": 1,
+            "initial_box_kind": 2,
             "result_box_kinds": [
-                3
             ]
         },
         {
             "marginal": false,
             "direction": "UP",
-            "initial_box_kind": 1,
+            "initial_box_kind": 2,
             "result_box_kinds": [
                 2, 1
             ]
@@ -61,22 +75,13 @@ kind_to_rules:
             "direction": "UP",
             "initial_box_kind": 3,
             "result_box_kinds": [
-                3, 3, 3
-            ]
-        }
-    ],
-    "2": [
-        {
-            "marginal": true,
-            "direction": "RIGHT",
-            "initial_box_kind": 2,
-            "result_box_kinds": [
-                2, 3
+                1
             ]
         }
     ]
 }
 target:
-None 3 None 3
-3 2 3 2
-2 3 2 3
+None None None None
+None None None None
+None None None None
+None None 3 None

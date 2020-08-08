@@ -36,6 +36,16 @@ BOX_ATLAS_URL = 'atlas://' + IMAGES_PATH + '/boxesatlas/'
 UP_ARROW_IMAGE = join(IMAGES_PATH, 'up_arrow.png')
 RIGHT_ARROW_IMAGE = join(IMAGES_PATH, 'right_arrow.png')
 LEFT_ARROW_IMAGE = join(IMAGES_PATH, 'left_arrow.png')
+BUTTON_YELLOW_PRESSED_IMAGE = join(IMAGES_PATH, 'button_yellow_pressed.png')
+BUTTON_YELLOW_IMAGE = join(IMAGES_PATH, 'button_yellow.png')
+BUTTON_IMAGE = join(IMAGES_PATH, 'button.png')
+BUTTON_GREEN_IMAGE = join(IMAGES_PATH, 'button_green.png')
+BUTTON_GREEN_PRESSED_IMAGE = join(IMAGES_PATH, 'button_green_pressed.png')
+BUTTON_RED_IMAGE = join(IMAGES_PATH, 'button_red.png')
+BUTTON_RED_PRESSED_IMAGE = join(IMAGES_PATH, 'button_red_pressed.png')
+NO_RULES_IMAGE = join(IMAGES_PATH, 'no_rules.jpg')
+NOTEBOOK_IMAGE = join(IMAGES_PATH, 'notebook.jpg')
+YOU_WIN_IMAGE = join(IMAGES_PATH, 'you_win.jpg')
 
 BUTTONS_WIDTH_COEF = 1 / 10
 
