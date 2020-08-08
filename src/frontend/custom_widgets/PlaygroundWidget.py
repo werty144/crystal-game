@@ -1,12 +1,8 @@
 from kivy.clock import Clock
-from kivy.graphics.context_instructions import Color
 from kivy.graphics.instructions import InstructionGroup
-from kivy.graphics.vertex_instructions import Line, Rectangle
-from kivy.properties import ObjectProperty, ListProperty, BooleanProperty, Property
-from kivy.uix.gridlayout import GridLayout
+from kivy.graphics.vertex_instructions import Line
+from kivy.properties import ObjectProperty, ListProperty, BooleanProperty, Property, DictProperty
 from kivy.uix.image import Image
-from kivy.uix.label import Label
-from kivy.uix.scrollview import ScrollView
 from kivy.uix.widget import Widget
 from src.frontend.custom_widgets.RulesScrollViewWidget import RulesScrollViewWidget
 
@@ -25,6 +21,7 @@ class Playground(Widget):
     rules_scroll_view = Property(None)
     update_event = ObjectProperty(None, allownone=True)
     storage = ObjectProperty()
+    scroll_views = DictProperty()
 
     def start(self, lvl):
         self.engine = Engine(lvl)

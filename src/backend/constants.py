@@ -65,3 +65,12 @@ FIELD_PARAMETERS = {
     'top_margin_coef': STANDARD_MARGIN,
     'x_coef': BUTTONS_WIDTH_COEF + STANDARD_MARGIN
 }
+
+
+ENG_ID_TEXTURE_MAP = {
+    'all_rules_btn': join(IMAGES_PATH, 'button_eng.png')
+}
+
+RU_ID_TEXTURE_MAP = {
+    'all_rules_btn': join(IMAGES_PATH, 'button_ru.png')
+}

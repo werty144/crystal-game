@@ -5,6 +5,8 @@
 #: import you_win_image src.backend.constants.YOU_WIN_IMAGE
 #: import notebook_image src.backend.constants.NOTEBOOK_IMAGE
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
+#: import change_language src.Globals.change_language
+#: import set_texture src.Globals.set_texture
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -27,6 +29,24 @@
             on_press: app.stop()
             background_normal: button_image
             background_down: button_red_pressed_image
+
+    BoxLayout:
+        size_hint: 0.3, 0.1
+        pos_hint:  {'right': 1, 'bot': 0}
+        orientation: 'horizontal'
+        spacing: '10dp'
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            text: 'Eng'
+            on_press: change_language('eng')
+        Button:
+            text: 'Рус'
+            on_press: change_language('ru')
 
 <GameScreen>:
     BoxLayout:
@@ -164,7 +184,7 @@
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
-        background_normal: button_image
+        background_normal: set_texture('all_rules_btn')
         background_down: button_red_pressed_image
 
 <Task>:
