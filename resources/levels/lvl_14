@@ -15,7 +15,11 @@
             null
         ],
         [
-            null,
+            {
+                "i": 2,
+                "j": 0,
+                "kind": 1
+            },
             null,
             null,
             null
@@ -25,14 +29,7 @@
 kind_to_rules:
 {
     "1": [
-        {
-            "marginal": false,
-            "direction": "UP",
-            "initial_box_kind": 1,
-            "result_box_kinds": [
-                2, 1
-            ]
-        },
+
         {
             "marginal": true,
             "direction": "RIGHT",
@@ -48,15 +45,13 @@ kind_to_rules:
             "result_box_kinds": [
                 3
             ]
-        }
-    ],
-    "2": [
+        },
         {
-            "marginal": true,
-            "direction": "RIGHT",
-            "initial_box_kind": 2,
+            "marginal": false,
+            "direction": "UP",
+            "initial_box_kind": 1,
             "result_box_kinds": [
-                2, 3
+                2, 1
             ]
         }
     ],
@@ -69,9 +64,12 @@ kind_to_rules:
                 3, 3, 3
             ]
         }
+    ],
+    "2": [
+
     ]
 }
 target:
-None None None None
-None None None None
-None None None None
+3 3 3 3
+2 3 3 2
+2 3 3 2
