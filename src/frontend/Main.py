@@ -114,12 +114,12 @@ class TutorialScreen(GameScreen):
 
     def show_winning_widget(self):
         self.winning_widget = WinningWidget()
-        self.winning_widget.ids.next_lvl_button.text = 'Lvl 0'
+        self.winning_widget.ids.next_lvl_button.text = 'Lvl 1'
         self.add_widget(self.winning_widget)
 
     def go_to_next_lvl(self):
         self.clean()
-        sm.get_screen('game').lvl = 0
+        sm.get_screen('game').lvl = 1
         sm.current = 'game'
 
 
@@ -128,8 +128,8 @@ storage = JsonStore(STORAGE_PATH)
 
 # Call only once at first start
 def init_storage():
-    storage.put('lvl0', status='Unlocked')
-    for i in range(1, 30):
+    storage.put('lvl1', status='Unlocked')
+    for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
 
 
