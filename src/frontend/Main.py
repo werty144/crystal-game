@@ -11,6 +11,7 @@ from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.RuleWidget import *
 from src.frontend.custom_widgets.TutorialWidget import Tutorial
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
+from src.backend.constants import *
 
 Builder.load_file(KV_FILE_PATH)
 
@@ -41,10 +42,10 @@ class LevelsScreen(Screen):
     @staticmethod
     def get_button_image(lvl):
         if storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return 'resources/images/button_green.png', 'resources/images/button_green_pressed.png'
+            return BUTTON_GREEN_IMAGE, BUTTON_GREEN_PRESSED_IMAGE
         elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return 'resources/images/button_yellow.png', 'resources/images/button_yellow_pressed.png'
-        return 'resources/images/button_red.png', 'resources/images/button_red_pressed.png'
+            return BUTTON_YELLOW_IMAGE, BUTTON_YELLOW_PRESSED_IMAGE
+        return BUTTON_RED_IMAGE, BUTTON_RED_PRESSED_IMAGE
 
     @staticmethod
     def go_to_lvl(lvl):
