@@ -1,12 +1,11 @@
-#:import Button kivy.uix.button.Button
+#: import Button kivy.uix.button.Button
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import button_image src.backend.constants.BUTTON_IMAGE
 #: import button_red_pressed_image src.backend.constants.BUTTON_RED_PRESSED_IMAGE
 #: import you_win_image src.backend.constants.YOU_WIN_IMAGE
 #: import notebook_image src.backend.constants.NOTEBOOK_IMAGE
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
-#: import change_language src.Globals.change_language
-#: import set_texture src.Globals.set_texture
+#: import LanguageUtils src.LanguageUtils.LanguageUtils
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -31,22 +30,23 @@
             background_down: button_red_pressed_image
 
     BoxLayout:
-        size_hint: 0.3, 0.1
+        size_hint: 0.15, 0.1
         pos_hint:  {'right': 1, 'bot': 0}
         orientation: 'horizontal'
+        padding: 0, 0, '7dp', '7dp'
         spacing: '10dp'
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
         Button:
-            text: 'Eng'
-            on_press: change_language('eng')
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width * (683 / 1024)
+            on_press: LanguageUtils().change_language('en')
+            background_normal: 'resources/images/en_flag.jpg'
         Button:
-            text: 'Рус'
-            on_press: change_language('ru')
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width * (683 / 1024)
+            on_press: LanguageUtils().change_language('ru')
+            background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
     BoxLayout:
@@ -184,7 +184,7 @@
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
-        background_normal: set_texture('all_rules_btn')
+        background_normal: LanguageUtils().set_texture('all_rules_btn')
         background_down: button_red_pressed_image
 
 <Task>:
