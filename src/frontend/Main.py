@@ -1,132 +1,19 @@
-import re
 import os
-os.environ['KIVY_AUDIO'] = 'sdl2'
-from kivy.core.audio import SoundLoader
-from kivy.lang import Builder
-from kivy.properties import *
-from kivy.uix.screenmanager import ScreenManager, Screen
+
 from kivy.storage.jsonstore import JsonStore
+from kivy.uix.screenmanager import ScreenManager
+
+from src.frontend.Screens.GameScreen import GameScreen
+from src.frontend.Screens.LevelsScreen import LevelsScreen
+from src.frontend.Screens.MenuScreen import MenuScreen
+from src.frontend.Screens.TutorialScreen import TutorialScreen
+
+os.environ['KIVY_AUDIO'] = 'sdl2'
+from kivy.lang import Builder
 from kivy.core.window import Window
-from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.RuleWidget import *
-from src.frontend.custom_widgets.TutorialWidget import Tutorial
-from src.frontend.custom_widgets.WinningWidget import WinningWidget
-from src.backend.constants import *
-from src.backend.ScreenUtils import *
 
 Builder.load_file(KV_FILE_PATH)
-
-
-class MenuScreen(Screen):
-    pass
-
-
-class LevelsScreen(Screen):
-
-    def on_enter(self, *args):
-        btn_list = self.children[0].children[0].children
-        for obj in btn_list:
-            if type(obj) is Button:
-                lvl = int(re.search(r'\d+', obj.text).group())
-                button_image = self.get_button_image(lvl)
-                obj.background_normal = button_image[0]
-                obj.background_down = button_image[1]
-                obj.height = self.get_button_height(obj.width, button_image[0])
-
-    @staticmethod
-    def get_button_color(lvl):
-        if storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return 1, 1, 0, 1
-        elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return 1, 0, 1, 1
-        return 1, 1, 1, 1
-
-    @staticmethod
-    def get_button_image(lvl):
-        if storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return BUTTON_GREEN_IMAGE, BUTTON_GREEN_PRESSED_IMAGE
-        elif storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return BUTTON_YELLOW_IMAGE, BUTTON_YELLOW_PRESSED_IMAGE
-        return BUTTON_RED_IMAGE, BUTTON_RED_PRESSED_IMAGE
-
-    @staticmethod
-    def get_button_height(width, filename):
-        return width * ScreenUtils.get_image_height_proportion(filename)
-
-    @staticmethod
-    def go_to_lvl(lvl):
-        if storage.get('lvl' + str(lvl))['status'] == 'Locked':
-            # Level is locked
-            return
-        sm.transition.direction = 'left'
-        sm.get_screen('game').lvl = lvl
-        sm.current = 'game'
-
-
-class GameScreen(Screen):
-    playground = ObjectProperty(None, allownone=True)
-    lvl = NumericProperty()
-    winning_widget = ObjectProperty(None, allownone=True)
-    sound = SoundLoader.load(join(SOUND_PATH, 'moan.wav'))
-
-    def on_enter(self, *args):
-        self.playground = Playground(storage=storage)
-        self.playground.start(self.lvl)
-        self.add_widget(self.playground)
-        self.set_buttons()
-
-    def restart(self):
-        self.clean()
-        self.set_buttons()
-        self.on_enter()
-
-    def clean(self):
-        self.sound.stop()
-        if self.playground is not None:
-            self.playground.update_event.cancel()
-            self.remove_widget(self.playground)
-            self.playground = None
-        if self.winning_widget is not None:
-            self.remove_widget(self.winning_widget)
-            self.winning_widget = None
-
-    def switch_field(self):
-        self.playground.switch_field()
-
-    def set_buttons(self):
-        self.ids.field_switch.text = 'to target\nfield'
-
-    def show_winning_widget(self):
-        self.winning_widget = WinningWidget()
-        self.add_widget(self.winning_widget)
-        if self.sound:
-            self.sound.play()
-
-    def go_to_next_lvl(self):
-        self.clean()
-        self.lvl += 1
-        self.on_enter()
-
-    def undo(self):
-        self.playground.undo()
-
-
-class TutorialScreen(GameScreen):
-    def on_enter(self, *args):
-        self.playground = Tutorial()
-        self.add_widget(self.playground)
-        self.playground.start()
-        self.set_buttons()
-
-    def show_winning_widget(self):
-        self.winning_widget = WinningWidget()
-        self.winning_widget.ids.next_lvl_button.text = 'Lvl 0'
-        self.add_widget(self.winning_widget)
-
-    def go_to_next_lvl(self):
-        self.clean()
-        sm.get_screen('game').lvl = 0
-        sm.current = 'game'
 
 
 storage = JsonStore(STORAGE_PATH)
@@ -134,8 +21,9 @@ storage = JsonStore(STORAGE_PATH)
 
 # Call only once at first start
 def init_storage():
-    storage.put('lvl0', status='Unlocked')
-    for i in range(1, 30):
+    storage.put('language', status='en')
+    storage.put('lvl1', status='Unlocked')
+    for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
 
 
@@ -143,33 +31,35 @@ init_storage()
 
 
 def on_key(window, key, *args):
+    sm_ = args[0]
+    game_screen = args[1]
     if key == 27:  # the esc key
-        if sm.current_screen.name == "menu":
+        if sm_.current_screen.name == "menu":
             return False  # exit the app from this page
-        elif sm.current_screen.name == "levels":
-            sm.transition.direction = 'right'
-            sm.current = "menu"
+        elif sm_.current_screen.name == "levels":
+            sm_.transition.direction = 'right'
+            sm_.current = "menu"
             return True  # do not exit the app
-        elif sm.current_screen.name == "game":
-            sm.transition.direction = 'right'
-            sm.current = "levels"
-            gs.clean()
+        elif sm_.current_screen.name == "game":
+            sm_.transition.direction = 'right'
+            sm_.current = "levels"
+            game_screen.clean()
             return True  # do not exit the app
-        elif sm.current_screen.name == "tutorial":
-            sm.transition.direction = 'right'
-            sm.current = "menu"
+        elif sm_.current_screen.name == "tutorial":
+            sm_.transition.direction = 'right'
+            sm_.current = "menu"
             ts.clean()
             return True  # do not exit the app
 
 
 sm = ScreenManager()
 sm.add_widget(MenuScreen(name='menu'))
-sm.add_widget(LevelsScreen(name='levels'))
-gs = GameScreen(name='game')
+sm.add_widget(LevelsScreen(name='levels', storage=storage))
+gs = GameScreen(name='game', storage=storage)
 sm.add_widget(gs)
 ts = TutorialScreen(name='tutorial')
 sm.add_widget(ts)
-Window.bind(on_keyboard=on_key)
+Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, *args))
 # sm.current = 'levels'
 
 

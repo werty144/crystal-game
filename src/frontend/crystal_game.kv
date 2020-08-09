@@ -1,10 +1,12 @@
-#:import Button kivy.uix.button.Button
+#: import Button kivy.uix.button.Button
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import button_image src.backend.constants.BUTTON_IMAGE
 #: import button_red_pressed_image src.backend.constants.BUTTON_RED_PRESSED_IMAGE
 #: import you_win_image src.backend.constants.YOU_WIN_IMAGE
 #: import notebook_image src.backend.constants.NOTEBOOK_IMAGE
+#: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
+#: import LanguageUtils src.LanguageUtils.LanguageUtils
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -16,7 +18,7 @@
             text: 'Levels'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
-            width: self.height * screen_utils.get_image_width_proportion(button_image)
+            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
             background_normal: button_image
             background_down: button_red_pressed_image
@@ -24,7 +26,7 @@
             text: 'Tutorial'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
-            width: self.height * screen_utils.get_image_width_proportion(button_image)
+            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
             background_normal: button_image
             background_down: button_red_pressed_image
@@ -32,10 +34,29 @@
             text: 'Quit'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
-            width: self.height * screen_utils.get_image_width_proportion(button_image)
+            width: self.height * image_ratios['button']
             on_press: app.stop()
             background_normal: button_image
             background_down: button_red_pressed_image
+
+    BoxLayout:
+        size_hint: 0.15, 0.1
+        pos_hint:  {'right': 1, 'bot': 0}
+        orientation: 'horizontal'
+        padding: 0, 0, '7dp', '7dp'
+        spacing: '10dp'
+        Button:
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width / image_ratios['en_flag']
+            on_press: LanguageUtils().change_language('en')
+            background_normal: 'resources/images/en_flag.jpg'
+        Button:
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width / image_ratios['en_flag']
+            on_press: LanguageUtils().change_language('ru')
+            background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
     BoxLayout:
@@ -78,7 +99,7 @@
         text: 'back'
         on_press: root.manager.transition.direction = 'right';root.manager.current = 'menu'
         size_hint: (0.125, None)
-        height: self.width * screen_utils.get_image_width_proportion(button_image)
+        height: self.width * image_ratios['button']
         pos: (0, 0)
         background_normal: button_image
         background_down: button_red_pressed_image
@@ -94,18 +115,18 @@
             height: self.minimum_height
             cols: 4
             padding: '10dp'
-            spacing: self.height / 40
+            spacing: self.height / 100
             row_default_height: self.parent.height / 5
             row_force_default: False
             on_parent:
-                for i in range(30): self.add_widget(
+                for i in range(100): self.add_widget(
                 Button(
-                size_hint = (0.25, None),
-                height = root.get_button_height(self.width, button_red_pressed_image),
-                text = "Level {0}".format(i),
+                size_hint_y = None,
+                height = self.width * image_ratios['button_red'],
+                text = "Level {0}".format(i+1),
                 background_normal = root.get_button_image(i)[0],
                 background_down = root.get_button_image(i)[1],
-                on_press=lambda _, lvl=i:root.go_to_lvl(lvl)
+                on_press=lambda _, lvl=i:root.go_to_lvl(lvl+1)
                 )
                 )
 
@@ -170,12 +191,12 @@
     Button:
         size_hint: None, None
         height: root.ids.rule_scroll_view.height / 8
-        width: self.height * screen_utils.get_image_width_proportion(button_image)
+        width: self.height * image_ratios['button']
         pos_hint: None, None
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
-        background_normal: button_image
+        background_normal: LanguageUtils().set_texture('all_rules_btn')
         background_down: button_red_pressed_image
 
 <Task>:
