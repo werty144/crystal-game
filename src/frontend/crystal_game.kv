@@ -107,18 +107,22 @@
         do_scroll_y: True
 
         GridLayout:
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 0.4
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
             size_hint_y: None
             height: self.minimum_height
             cols: 4
             padding: '10dp'
-            spacing: self.height / 100
-            row_default_height: self.parent.height / 5
+            spacing: self.width / 50
+            row_default_height: self.width / self.cols / image_ratios['button_red']
             row_force_default: False
             on_parent:
                 for i in range(100): self.add_widget(
                 Button(
-                size_hint_y = None,
-                height = self.width * image_ratios['button_red'],
                 text = "Level {0}".format(i+1),
                 background_normal = root.get_button_image(i)[0],
                 background_down = root.get_button_image(i)[1],
