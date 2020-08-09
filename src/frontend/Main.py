@@ -1,8 +1,10 @@
 import os
 
+from kivy.properties import ObjectProperty
 from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import ScreenManager
 
+from src.LanguageUtils import LanguageUtils
 from src.frontend.Screens.GameScreen import GameScreen
 from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
@@ -52,7 +54,8 @@ def on_key(window, key, *args):
 
 
 sm = ScreenManager()
-sm.add_widget(MenuScreen(name='menu'))
+ms = MenuScreen(name='menu')
+sm.add_widget(ms)
 sm.add_widget(LevelsScreen(name='levels', storage=storage))
 gs = GameScreen(name='game', storage=storage)
 sm.add_widget(gs)
@@ -63,8 +66,10 @@ Window.bind(on_keyboard=lambda window, key: on_key(window, key, sm, gs))
 
 
 class Crystal_game(App):
+    language_utils = ObjectProperty()
 
     def build(self):
+        self.language_utils = LanguageUtils(storage, ms)
         return sm
 
 #

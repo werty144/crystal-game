@@ -1,8 +1,7 @@
 #:import Button kivy.uix.button.Button
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
-#: import change_language src.Globals.change_language
-#: import set_texture src.Globals.set_texture
+
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -38,11 +37,19 @@
                 pos: self.pos
                 size: self.size
         Button:
-            text: 'Eng'
-            on_press: change_language('eng')
+            id: en_flag
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width * (683 / 1024)
+            on_press: app.language_utils.change_language('en')
+            background_normal: 'resources/images/en_flag.jpg'
         Button:
-            text: 'Рус'
-            on_press: change_language('ru')
+            id: ru_flag
+            border: 0, 0, 0, 0
+            size_hint_y: None
+            height: self.width * (683 / 1024)
+            on_press: app.language_utils.change_language('ru')
+            background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
     BoxLayout:
@@ -180,8 +187,8 @@
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
-        background_normal: set_texture('all_rules_btn')
-        background_down: 'resources/images/button_red_pressed.png'
+        background_normal: app.language_utils.set_texture('all_rules_btn')
+        background_down: button_red_pressed_image
 
 <Task>:
     Label:
