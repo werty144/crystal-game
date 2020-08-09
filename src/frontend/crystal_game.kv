@@ -1,9 +1,5 @@
 #: import Button kivy.uix.button.Button
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
-#: import button_image src.backend.constants.BUTTON_IMAGE
-#: import button_red_pressed_image src.backend.constants.BUTTON_RED_PRESSED_IMAGE
-#: import you_win_image src.backend.constants.YOU_WIN_IMAGE
-#: import notebook_image src.backend.constants.NOTEBOOK_IMAGE
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 #: import LanguageUtils src.LanguageUtils.LanguageUtils
@@ -20,24 +16,24 @@
             size_hint: None, 0.33
             width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
         Button:
             text: 'Tutorial'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
             width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
         Button:
             text: 'Quit'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
             width: self.height * image_ratios['button']
             on_press: app.stop()
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
 
     BoxLayout:
         size_hint: 0.15, 0.1
@@ -67,8 +63,8 @@
             on_press: root.restart()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
         Button:
             id: field_switch
             text: 'to target\nfield'
@@ -76,23 +72,23 @@
             on_press: root.switch_field()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
         Button:
             text: 'undo'
             on_press: root.undo()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
         Widget:
         Button:
             text: 'back'
             on_press: root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: button_image
-            background_down: button_red_pressed_image
+            background_normal: LanguageUtils().set_texture('button')
+            background_down: LanguageUtils().set_texture('button_red_pressed')
 
 <LevelsScreen>:
     Button:
@@ -101,8 +97,8 @@
         size_hint: (0.125, None)
         height: self.width * image_ratios['button']
         pos: (0, 0)
-        background_normal: button_image
-        background_down: button_red_pressed_image
+        background_normal: LanguageUtils().set_texture('button')
+        background_down: LanguageUtils().set_texture('button_red_pressed')
 
     ScrollView:
         size_hint: 0.7, 0.7
@@ -148,26 +144,26 @@
                 size: self.size
                 pos: self.pos
         Image:
-            source: you_win_image
+            source: LanguageUtils().set_texture('you_win')
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
         BoxLayout:
             orientation: 'horizontal'
             Button:
                 text: 'to lvls'
                 on_press: root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
-                background_normal: button_image
-                background_down: button_red_pressed_image
+                background_normal: LanguageUtils().set_texture('button')
+                background_down: LanguageUtils().set_texture('button_red_pressed')
             Button:
                 text: 'restart'
                 on_press: root.parent.restart()
-                background_normal: button_image
-                background_down: button_red_pressed_image
+                background_normal: LanguageUtils().set_texture('button')
+                background_down: LanguageUtils().set_texture('button_red_pressed')
             Button:
                 id: next_lvl_button
                 text: 'next lvl'
                 on_press: root.parent.go_to_next_lvl()
-                background_normal: button_image
-                background_down: button_red_pressed_image
+                background_normal: LanguageUtils().set_texture('button')
+                background_down: LanguageUtils().set_texture('button_red_pressed')
 
 
 <RulesScrollViewWidget>:
@@ -180,7 +176,7 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-                source: notebook_image
+                source: LanguageUtils().set_texture('notebook')
         GridLayout:
             id: grid
             cols: 1
@@ -197,7 +193,7 @@
         text: 'All rules'
         on_press: root.parent.show_all_rules()
         background_normal: LanguageUtils().set_texture('all_rules_btn')
-        background_down: button_red_pressed_image
+        background_down: LanguageUtils().set_texture('button_red_pressed')
 
 <Task>:
     Label:

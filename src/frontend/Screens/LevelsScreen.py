@@ -17,13 +17,6 @@ class LevelsScreen(Screen):
                 obj.background_normal = button_image[0]
                 obj.background_down = button_image[1]
 
-    def get_button_color(self, lvl):
-        if self.storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return 1, 1, 0, 1
-        elif self.storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return 1, 0, 1, 1
-        return 1, 1, 1, 1
-
     def get_button_image(self, lvl):
         if self.storage.get('lvl' + str(lvl))['status'] == 'Passed':
             return 'resources/images/button_green.png', 'resources/images/button_green_pressed.png'
