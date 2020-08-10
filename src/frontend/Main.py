@@ -11,11 +11,8 @@ from src.frontend.Screens.MenuScreen import MenuScreen
 from src.frontend.Screens.TutorialScreen import TutorialScreen
 
 os.environ['KIVY_AUDIO'] = 'sdl2'
-from kivy.lang import Builder
 from kivy.core.window import Window
 from src.frontend.custom_widgets.RuleWidget import *
-
-Builder.load_file(KV_FILE_PATH)
 
 
 storage = JsonStore(STORAGE_PATH)
