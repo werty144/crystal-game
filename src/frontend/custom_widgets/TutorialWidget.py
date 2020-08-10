@@ -22,7 +22,7 @@ class Task(FloatLayout):
 
     def create_shadowed_background(self, *args):
         focus_window_pos, focus_window_size = self.calculate_focus_window_pos_n_size()
-        focus_window_width, focus_window_height = focus_window_size[0], focus_window_size[1]
+        focus_window_width, focus_window_height = focus_window_size[0] * self.width_coef, focus_window_size[1]
         focus_window_x, focus_window_y = focus_window_pos[0], focus_window_pos[1]
         window_width, window_height = self.screen_utils.window.size[0], self.screen_utils.window.size[1]
         background = InstructionGroup()
@@ -37,11 +37,12 @@ class Task(FloatLayout):
         self.background = background
         self.canvas.add(background)
 
-    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils):
+    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils, width_coef=1):
         self.focus_object = focus_object
         self.title_text = title_text
         self.on_touch_option = on_touch_option
         self.screen_utils = screen_utils
+        self.width_coef = width_coef
         super().__init__()
         self.background = None
         self.create_shadowed_background()
@@ -71,6 +72,7 @@ class Task(FloatLayout):
 
             def start_updating(_):
                 self.parent.update_event = Clock.schedule_interval(self.parent.update, FRAME_RATE_SEC)
+
             Clock.schedule_once(start_updating, 0.1)
 
             return super(Task, self).on_touch_down(touch)
@@ -92,34 +94,75 @@ class Tutorial(Playground):
 
     def make_tasks(self):
         su = self.engine.screen_utils
-        field_task = Task(self.grid, 'field', 'pass', su)
+        field_task = Task(self.grid,
+                          'Это игровое поле. На нем расположены коробки, которые падают, если под ними нет опоры!\n\n'
+                          'Нажмите, чтобы продолжить.',
+                          'pass', su)
         self.tasks.append(field_task)
 
-        target_field_button_task = Task(self.parent.ids.field_switch, 'switch', 'act', su)
-        self.tasks.append(target_field_button_task)
-
-        target_field_task = Task(self.grid, 'target field', 'pass', su)
-        self.tasks.append(target_field_task)
-
-        game_field_button_task = Task(self.parent.ids.field_switch, 'switch again', 'act', su)
-        self.tasks.append(game_field_button_task)
-
-        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view, 'all rules', 'pass', su)
+        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view,
+                                     'Коробки можно заменять на другие, применяя правила из списка.',
+                                     'pass', su)
         self.tasks.append(rule_scroll_view_task)
 
-        open_box_task = Task(self.game_widgets[0], 'box', 'act', su)
-        self.tasks.append(open_box_task)
+        first_box_in_rule_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[-1],
+                                      'Первая часть правила показывает, какую коробку оно заменяет.',
+                                      'pass', su)
+        self.tasks.append(first_box_in_rule_task)
 
-        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view, 'selected box rules', 'pass', su)
+        first_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[1]
+        right_side_of_the_rule_task = Task(first_in_right_side,
+                                           'Справа от стрелки -- то, во что коробка превратится.',
+                                           'pass', su, 2)
+        self.tasks.append(right_side_of_the_rule_task)
+
+        arrow_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[2],
+                          'А стрелочка указывает, в каком направлении появятся новые коробки.',
+                          'pass', su)
+        self.tasks.append(arrow_task)
+
+        box_task = Task(self.game_widgets[0],
+                        'Давайте применим правило! Для этого нужно выбрать коробку.\n\n'
+                        'Нажмите на коробку',
+                        'act', su)
+        self.tasks.append(box_task)
+
+        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view,
+                                     'Теперь здесь правила для выбранной коробки.',
+                                     'pass', su)
         self.tasks.append(rule_scroll_view_task)
 
         '''...children[-1] -- пиздецкий костыль. Поскольку rule_widgets нумеруются снизу, получается, что таким образом
-        я получаю координаты верхнего rule_widget-a, хотя когда эта task
-        становится актуальна, там уже другой rule_widget, и он всего один.'''
-        rule_widget_task = Task(self.rules_scroll_view.ids.grid.children[-1], 'rule', 'act', su)
+                я получаю координаты верхнего rule_widget-a, хотя когда эта task
+                становится актуальна, там уже другой rule_widget, и он всего один.'''
+        rule_widget_task = Task(self.rules_scroll_view.ids.grid.children[-1],
+                                'Примените правило!',
+                                'act', su)
         self.tasks.append(rule_widget_task)
 
-        final_task = Task(Widget(size=(0, 0)), "Now it's up to you!", 'pass', su)
+        wow_task = Task(Widget(size=(0, 0)), 'Здорово!', 'pass', su)
+        self.tasks.append(wow_task)
+
+        target_field_button_task = Task(self.parent.ids.field_switch,
+                                        'Цель игры -- получить конечное поле.'
+                                        ' Давайте посмотрим, каким оно должно быть.\n\n'
+                                        'Нажмите на переключатель',
+                                        'act', su)
+        self.tasks.append(target_field_button_task)
+
+        target_field_task = Task(self.grid, 'Это конечная расстановка.', 'pass', su)
+        self.tasks.append(target_field_task)
+
+        game_field_button_task = Task(self.parent.ids.field_switch,
+                                      'Давайте вернемся на игровое поле.\n\n'
+                                      'Нажмите на переключатель',
+                                      'act', su)
+        self.tasks.append(game_field_button_task)
+
+        final_task = Task(Widget(size=(0, 0)),
+                          'Ход за Вами! Помните, что коробки падают.\n\n'
+                          'Нажмите, чтобы продолжить игру',
+                          'pass', su)
         self.tasks.append(final_task)
 
         '''Tasks are stored stack-wise'''
