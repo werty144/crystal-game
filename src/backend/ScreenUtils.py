@@ -1,4 +1,6 @@
 from kivy.core.window import Window
+from kivy.uix.image import Image
+
 from src.backend.constants import SCROLL_VIEW_PARAMETERS, FIELD_PARAMETERS
 
 

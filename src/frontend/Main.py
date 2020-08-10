@@ -31,23 +31,23 @@ init_storage()
 
 
 def on_key(window, key, *args):
-    sm = args[0]
+    sm_ = args[0]
     game_screen = args[1]
     if key == 27:  # the esc key
-        if sm.current_screen.name == "menu":
+        if sm_.current_screen.name == "menu":
             return False  # exit the app from this page
-        elif sm.current_screen.name == "levels":
-            sm.transition.direction = 'right'
-            sm.current = "menu"
+        elif sm_.current_screen.name == "levels":
+            sm_.transition.direction = 'right'
+            sm_.current = "menu"
             return True  # do not exit the app
-        elif sm.current_screen.name == "game":
-            sm.transition.direction = 'right'
-            sm.current = "levels"
+        elif sm_.current_screen.name == "game":
+            sm_.transition.direction = 'right'
+            sm_.current = "levels"
             game_screen.clean()
             return True  # do not exit the app
-        elif sm.current_screen.name == "tutorial":
-            sm.transition.direction = 'right'
-            sm.current = "menu"
+        elif sm_.current_screen.name == "tutorial":
+            sm_.transition.direction = 'right'
+            sm_.current = "menu"
             ts.clean()
             return True  # do not exit the app
 
@@ -59,7 +59,7 @@ gs = GameScreen(name='game', storage=storage)
 sm.add_widget(gs)
 ts = TutorialScreen(name='tutorial')
 sm.add_widget(ts)
-Window.bind(on_keyboard=lambda window, key: on_key(window, key, sm, gs))
+Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, *args))
 # sm.current = 'levels'
 
 
