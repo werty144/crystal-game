@@ -12,16 +12,25 @@
         spacing: self.height / 40
         Button:
             text: 'Levels'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Tutorial'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Quit'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
             on_press: app.stop()
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
