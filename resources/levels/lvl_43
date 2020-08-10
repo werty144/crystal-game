@@ -22,6 +22,7 @@
         ],
         [
             null,
+
             null,
             {
                 "i": 3,
@@ -41,14 +42,6 @@ kind_to_rules:
             "initial_box_kind": 1,
             "result_box_kinds": [
                 2, 2
-            ]
-        },
-        {
-            "marginal": true,
-            "direction": "RIGHT",
-            "initial_box_kind": 1,
-            "result_box_kinds": [
-                3, 3
             ]
         }
     ],
@@ -70,18 +63,10 @@ kind_to_rules:
         }
     ],
     "3": [
-        {
-            "marginal": false,
-            "direction": "UP",
-            "initial_box_kind": 3,
-            "result_box_kinds": [
-                1
-            ]
-        }
     ]
 }
 target:
 None None None None
 None None None None
-None None None None
-None None 3 None
+2 None 2 None
+2 2 2 None
