@@ -29,7 +29,7 @@ def init_storage():
         storage.put('lvl' + str(i), status='Locked')
 
 
-# init_storage()
+init_storage()
 
 
 def on_key(window, key, *args):
