@@ -2,7 +2,7 @@
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
-#: import LanguageUtils src.LanguageUtils.LanguageUtils
+
 <MenuScreen>:
     BoxLayout:
         size_hint: 0.5, 0.6
@@ -12,28 +12,19 @@
         spacing: self.height / 40
         Button:
             text: 'Levels'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Tutorial'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
             on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Quit'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
             on_press: app.stop()
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
 
     BoxLayout:
         size_hint: 0.15, 0.1
@@ -42,16 +33,18 @@
         padding: 0, 0, '7dp', '7dp'
         spacing: '10dp'
         Button:
+            id: en_flag
             border: 0, 0, 0, 0
             size_hint_y: None
             height: self.width / image_ratios['en_flag']
-            on_press: LanguageUtils().change_language('en')
+            on_press: app.language_utils.change_language('en')
             background_normal: 'resources/images/en_flag.jpg'
         Button:
+            id: ru_flag
             border: 0, 0, 0, 0
             size_hint_y: None
             height: self.width / image_ratios['en_flag']
-            on_press: LanguageUtils().change_language('ru')
+            on_press: app.language_utils.change_language('ru')
             background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
@@ -63,8 +56,8 @@
             on_press: root.restart()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             id: field_switch
             text: 'to target\nfield'
@@ -72,23 +65,23 @@
             on_press: root.switch_field()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'undo'
             on_press: root.undo()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
         Widget:
         Button:
             text: 'back'
             on_press: root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: LanguageUtils().set_texture('button')
-            background_down: LanguageUtils().set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
 
 <LevelsScreen>:
     Button:
@@ -97,8 +90,8 @@
         size_hint: (0.125, None)
         height: self.width * image_ratios['button']
         pos: (0, 0)
-        background_normal: LanguageUtils().set_texture('button')
-        background_down: LanguageUtils().set_texture('button_red_pressed')
+        background_normal: app.language_utils.set_texture('button')
+        background_down: app.language_utils.set_texture('button_red_pressed')
 
     ScrollView:
         size_hint: 0.7, 0.7
@@ -107,12 +100,6 @@
         do_scroll_y: True
 
         GridLayout:
-            canvas.before:
-                Color:
-                    rgba: 0, 0, 1, 0.4
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
             size_hint_y: None
             height: self.minimum_height
             cols: 4
@@ -148,26 +135,26 @@
                 size: self.size
                 pos: self.pos
         Image:
-            source: LanguageUtils().set_texture('you_win')
+            source: app.language_utils.set_texture('you_win')
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
         BoxLayout:
             orientation: 'horizontal'
             Button:
                 text: 'to lvls'
                 on_press: root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
-                background_normal: LanguageUtils().set_texture('button')
-                background_down: LanguageUtils().set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('button')
+                background_down: app.language_utils.set_texture('button_red_pressed')
             Button:
                 text: 'restart'
                 on_press: root.parent.restart()
-                background_normal: LanguageUtils().set_texture('button')
-                background_down: LanguageUtils().set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('button')
+                background_down: app.language_utils.set_texture('button_red_pressed')
             Button:
                 id: next_lvl_button
                 text: 'next lvl'
                 on_press: root.parent.go_to_next_lvl()
-                background_normal: LanguageUtils().set_texture('button')
-                background_down: LanguageUtils().set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('button')
+                background_down: app.language_utils.set_texture('button_red_pressed')
 
 
 <RulesScrollViewWidget>:
@@ -180,7 +167,7 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-                source: LanguageUtils().set_texture('notebook')
+                source: app.language_utils.set_texture('notebook')
         GridLayout:
             id: grid
             cols: 1
@@ -196,8 +183,8 @@
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
         on_press: root.parent.show_all_rules()
-        background_normal: LanguageUtils().set_texture('all_rules_btn')
-        background_down: LanguageUtils().set_texture('button_red_pressed')
+        background_normal: app.language_utils.set_texture('all_rules_btn')
+        background_down: app.language_utils.set_texture('button_red_pressed')
 
 <Task>:
     Label:
