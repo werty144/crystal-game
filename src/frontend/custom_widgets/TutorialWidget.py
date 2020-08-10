@@ -22,7 +22,7 @@ class Task(FloatLayout):
 
     def create_shadowed_background(self, *args):
         focus_window_pos, focus_window_size = self.calculate_focus_window_pos_n_size()
-        focus_window_width, focus_window_height = focus_window_size[0], focus_window_size[1]
+        focus_window_width, focus_window_height = focus_window_size[0] * 2 if self.double_width else focus_window_size[0], focus_window_size[1]
         focus_window_x, focus_window_y = focus_window_pos[0], focus_window_pos[1]
         window_width, window_height = self.screen_utils.window.size[0], self.screen_utils.window.size[1]
         background = InstructionGroup()
@@ -37,11 +37,12 @@ class Task(FloatLayout):
         self.background = background
         self.canvas.add(background)
 
-    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils):
+    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils, double_width=False):
         self.focus_object = focus_object
         self.title_text = title_text
         self.on_touch_option = on_touch_option
         self.screen_utils = screen_utils
+        self.double_width = double_width
         super().__init__()
         self.background = None
         self.create_shadowed_background()
@@ -71,6 +72,7 @@ class Task(FloatLayout):
 
             def start_updating(_):
                 self.parent.update_event = Clock.schedule_interval(self.parent.update, FRAME_RATE_SEC)
+
             Clock.schedule_once(start_updating, 0.1)
 
             return super(Task, self).on_touch_down(touch)
@@ -92,8 +94,31 @@ class Tutorial(Playground):
 
     def make_tasks(self):
         su = self.engine.screen_utils
-        field_task = Task(self.grid, 'field', 'pass', su)
+        field_task = Task(self.grid,
+                          'Это игровое поле. На нем расположены коробки, которые падают, если под ними нет опоры!\n\n'
+                          'Нажмите, чтобы продолжить.',
+                          'pass', su)
         self.tasks.append(field_task)
+
+        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view,
+                                     'Коробки можно заменять на другие, применяя эти правила\n\n'
+                                     'Нажмите, чтобы продолжить.',
+                                     'pass', su)
+        self.tasks.append(rule_scroll_view_task)
+
+        first_box_in_rule_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[-1],
+                                      'Первая коробка правила показывает, какую коробку это правило заменяет.\n\n'
+                                      'Нажмите, чтобы продолжить.',
+                                      'pass', su)
+        self.tasks.append(first_box_in_rule_task)
+
+        first_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[1]
+        right_side_of_the_rule_task = Task(first_in_right_side,
+                                           'Коробки справа от стрелочки показывают,'
+                                           ' во что превратится замененная коробка.\n\n'
+                                           'Нажмите, чтобы продолжтиь',
+                                           'pass', su, True)
+        self.tasks.append(right_side_of_the_rule_task)
 
         target_field_button_task = Task(self.parent.ids.field_switch, 'switch', 'act', su)
         self.tasks.append(target_field_button_task)
@@ -103,9 +128,6 @@ class Tutorial(Playground):
 
         game_field_button_task = Task(self.parent.ids.field_switch, 'switch again', 'act', su)
         self.tasks.append(game_field_button_task)
-
-        rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view, 'all rules', 'pass', su)
-        self.tasks.append(rule_scroll_view_task)
 
         open_box_task = Task(self.game_widgets[0], 'box', 'act', su)
         self.tasks.append(open_box_task)
