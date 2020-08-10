@@ -87,6 +87,7 @@ class Playground(Widget):
             self.target_field_widgets.append(box_wimg)
 
     def switch_field(self):
+        self.show_all_rules()
         if not self.is_target_field:
             self.parent.ids.field_switch.text = 'to game\nfield'
             for widg in self.game_widgets:
