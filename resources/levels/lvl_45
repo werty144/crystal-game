@@ -1,0 +1,80 @@
+{
+    "cols": 4,
+    "rows": 4,
+    "field": [
+        [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            {
+                "i": 3,
+                "j": 2,
+                "kind": 1
+            },
+            null
+        ]
+    ]
+}
+kind_to_rules:
+{
+    "1": [
+        {
+            "marginal": true,
+            "direction": "LEFT",
+            "initial_box_kind": 1,
+            "result_box_kinds": [
+                2, 2
+            ]
+        },
+        {
+            "marginal": true,
+            "direction": "RIGHT",
+            "initial_box_kind": 1,
+            "result_box_kinds": [
+                3, 3
+            ]
+        }
+    ],
+    "2": [
+        {
+            "marginal": false,
+            "direction": "UP",
+            "initial_box_kind": 2,
+            "result_box_kinds": [
+            ]
+        },
+        {
+            "marginal": false,
+            "direction": "UP",
+            "initial_box_kind": 2,
+            "result_box_kinds": [
+                2, 1
+            ]
+        }
+    ],
+    "3": [
+
+    ]
+}
+target:
+None None None None
+3 3 3 3
+3 3 3 3
+3 3 3 3
