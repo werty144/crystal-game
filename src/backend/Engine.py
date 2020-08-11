@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+from kivy.properties import ObjectProperty
+
 from src.backend.Box import Box
 from src.backend.LevelParser import parse
 from src.backend.Rule import Rule
@@ -16,7 +18,7 @@ def map_kind_to_texture_source(kind):
 
 
 class Engine:
-    def __init__(self, cur_lvl):
+    def __init__(self, cur_lvl, sound_handler):
         self.field, self.target, self.kind_to_rules = parse(cur_lvl)
         self.lvl = cur_lvl
         self.boxes = []
@@ -25,6 +27,7 @@ class Engine:
         self.win = False
         self.init_boxes()
         self.positions_stack = [deepcopy(self.field)]
+        self.sound_handler = sound_handler
 
     def init_boxes(self):
         for i in range(self.field.rows):
@@ -212,6 +215,10 @@ class Engine:
     def process_animations(self):
         to_remove = []
         for animation in self.animations:
+            if animation.with_fall and animation.duration - animation.time_passed < FALLING_SOUND_DELAY \
+                    and not animation.sound_played:
+                self.sound_handler.play_falling_box()
+                animation.sound_played = True
             if animation.finished:
                 to_remove.append(animation)
                 continue
