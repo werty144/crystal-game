@@ -18,8 +18,10 @@ from src.frontend.custom_widgets.RuleWidget import *
 storage = JsonStore(STORAGE_PATH)
 
 
-# Call only once at first start
 def init_storage():
+    if storage.get('inited')['status'] == 'inited':
+        return
+    storage.put('inited', status='inited')
     storage.put('language', status='en')
     storage.put('lvl1', status='Unlocked')
     for i in range(2, 101):
