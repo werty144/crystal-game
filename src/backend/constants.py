@@ -15,6 +15,8 @@ STORAGE_PATH = join(PROJECT_PATH, 'resources', 'storage', 'storage.js')
 
 FRAME_RATE_SEC = 0.01
 
+FALLING_SOUND_DELAY = 0.15
+
 KIND_IMAGE_MAP = {
     1: join(IMAGES_PATH, 'red_yan.png'),
     2: join(IMAGES_PATH, 'green_yan.png'),

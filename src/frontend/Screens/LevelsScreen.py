@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import Screen
 
 class LevelsScreen(Screen):
     storage = ObjectProperty()
+    sound_handler = ObjectProperty()
 
     def on_enter(self, *args):
         btn_list = self.children[0].children[0].children
@@ -25,6 +26,7 @@ class LevelsScreen(Screen):
         return 'resources/images/button_red.png', 'resources/images/button_red_pressed.png'
 
     def go_to_lvl(self, lvl):
+        self.sound_handler.play_button_tap()
         if self.storage.get('lvl' + str(lvl))['status'] == 'Locked':
             # Level is locked
             return

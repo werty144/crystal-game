@@ -33,17 +33,26 @@
         spacing: self.height / 40
         Button:
             text: 'Levels'
-            on_press: root.manager.transition.direction = 'left';root.manager.current = 'levels'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'levels'
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Tutorial'
-            on_press: root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'Quit'
-            on_press: app.stop()
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); app.stop()
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
 
@@ -58,14 +67,14 @@
             border: 0, 0, 0, 0
             size_hint_y: None
             height: self.width / image_ratios['en_flag']
-            on_press: app.language_utils.change_language('en')
+            on_press: app.sound_handler.play_button_tap(); app.language_utils.change_language('en')
             background_normal: 'resources/images/en_flag.jpg'
         Button:
             id: ru_flag
             border: 0, 0, 0, 0
             size_hint_y: None
             height: self.width / image_ratios['en_flag']
-            on_press: app.language_utils.change_language('ru')
+            on_press: app.sound_handler.play_button_tap(); app.language_utils.change_language('ru')
             background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
@@ -74,7 +83,7 @@
         size_hint_x: buttons_width_coef
         Button:
             text: 'restart'
-            on_press: root.restart()
+            on_press: app.sound_handler.play_button_tap(); root.restart()
             size_hint: None, None
             size: self.parent.width, self.parent.width
             background_normal: app.language_utils.set_texture('button')
@@ -83,14 +92,14 @@
             id: field_switch
             text: 'to target\nfield'
             halign: 'center'
-            on_press: root.switch_field()
+            on_press: app.sound_handler.play_button_tap(); root.switch_field()
             size_hint: None, None
             size: self.parent.width, self.parent.width
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
             text: 'undo'
-            on_press: root.undo()
+            on_press: app.sound_handler.play_button_tap(); root.undo()
             size_hint: None, None
             size: self.parent.width, self.parent.width
             background_normal: app.language_utils.set_texture('button')
@@ -98,7 +107,7 @@
         Widget:
         Button:
             text: 'back'
-            on_press: root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
             background_normal: app.language_utils.set_texture('button')
@@ -107,7 +116,7 @@
 <LevelsScreen>:
     Button:
         text: 'back'
-        on_press: root.manager.transition.direction = 'right';root.manager.current = 'menu'
+        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'menu'
         size_hint: (0.125, None)
         height: self.width * image_ratios['button']
         pos: (0, 0)
@@ -129,12 +138,12 @@
             row_default_height: self.width / self.cols / image_ratios['button_red']
             row_force_default: False
             on_parent:
-                for i in range(100): self.add_widget(
+                for i in range(1, 100): self.add_widget(
                 Button(
-                text = "Level {0}".format(i+1),
+                text = "Level {0}".format(i),
                 background_normal = root.get_button_image(i)[0],
                 background_down = root.get_button_image(i)[1],
-                on_press=lambda _, lvl=i:root.go_to_lvl(lvl+1)
+                on_press=lambda _, lvl=i:root.go_to_lvl(lvl)
                 )
                 )
 
@@ -162,18 +171,18 @@
             orientation: 'horizontal'
             Button:
                 text: 'to lvls'
-                on_press: root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
+                on_press: app.sound_handler.play_button_tap(); root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
                 background_normal: app.language_utils.set_texture('button')
                 background_down: app.language_utils.set_texture('button_red_pressed')
             Button:
                 text: 'restart'
-                on_press: root.parent.restart()
+                on_press: app.sound_handler.play_button_tap(); root.parent.restart()
                 background_normal: app.language_utils.set_texture('button')
                 background_down: app.language_utils.set_texture('button_red_pressed')
             Button:
                 id: next_lvl_button
                 text: 'next lvl'
-                on_press: root.parent.go_to_next_lvl()
+                on_press: app.sound_handler.play_button_tap(); root.parent.go_to_next_lvl()
                 background_normal: app.language_utils.set_texture('button')
                 background_down: app.language_utils.set_texture('button_red_pressed')
 
@@ -203,7 +212,7 @@
         pos_hint: None, None
         pos: root.ids.rule_scroll_view.pos
         text: 'All rules'
-        on_press: root.parent.show_all_rules()
+        on_press: app.sound_handler.play_button_tap(); root.parent.show_all_rules()
         background_normal: app.language_utils.set_texture('all_rules_btn')
         background_down: app.language_utils.set_texture('button_red_pressed')
 

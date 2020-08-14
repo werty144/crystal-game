@@ -5,6 +5,7 @@ from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import ScreenManager
 
 from src.LanguageUtils import LanguageUtils
+from src.backend.SoundHandler import SoundHandler
 from src.frontend.Screens.GameScreen import GameScreen
 from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
@@ -54,19 +55,22 @@ def on_key(window, key, *args):
 class Crystal_game(App):
     language_utils = ObjectProperty()
     storage = ObjectProperty()
+    sound_handler = ObjectProperty()
 
     def build(self):
         self.storage = JsonStore(STORAGE_PATH)
         init_storage(self.storage)
         self.language_utils = LanguageUtils(self.storage)
+        self.sound_handler = SoundHandler()
+        self.sound_handler.play_theme()
         sm = ScreenManager()
         ms = MenuScreen(name='menu')
         self.language_utils.init_menu_screen(ms)
         sm.add_widget(ms)
-        # sm.add_widget(LevelsScreen(name='levels', storage=storage))
-        # gs = GameScreen(name='game', storage=storage)
-        # sm.add_widget(gs)
-        # ts = TutorialScreen(name='tutorial')
-        # sm.add_widget(ts)
-        # Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
+        sm.add_widget(LevelsScreen(name='levels', storage=self.storage, sound_handler=self.sound_handler))
+        gs = GameScreen(name='game', storage=self.storage, sound_handler=self.sound_handler)
+        sm.add_widget(gs)
+        ts = TutorialScreen(name='tutorial', sound_handler=self.sound_handler)
+        sm.add_widget(ts)
+        Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         return sm
