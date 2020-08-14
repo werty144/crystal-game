@@ -16,11 +16,8 @@ from kivy.core.window import Window
 from src.frontend.custom_widgets.RuleWidget import *
 
 
-storage = JsonStore(STORAGE_PATH)
-
-
 # Call only once at first start
-def init_storage():
+def init_storage(storage):
     if storage.exists('inited'):
         return
     storage.put('inited')
@@ -29,9 +26,6 @@ def init_storage():
     storage.put('module_stars', **{str(number): 0 for number in range(1, MODULE_AMOUNT + 1)})
     for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
-
-
-init_storage()
 
 
 def on_key(window, key, *args):
@@ -59,18 +53,20 @@ def on_key(window, key, *args):
 
 class Crystal_game(App):
     language_utils = ObjectProperty()
+    storage = ObjectProperty()
 
     def build(self):
-        self.language_utils = LanguageUtils(storage)
+        self.storage = JsonStore(STORAGE_PATH)
+        init_storage(self.storage)
+        self.language_utils = LanguageUtils(self.storage)
         sm = ScreenManager()
         ms = MenuScreen(name='menu')
         self.language_utils.init_menu_screen(ms)
         sm.add_widget(ms)
-        sm.add_widget(LevelsScreen(name='levels', storage=storage))
-        gs = GameScreen(name='game', storage=storage)
-        sm.add_widget(gs)
-        ts = TutorialScreen(name='tutorial')
-        sm.add_widget(ts)
-        Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
-        sm.current = 'levels'
+        # sm.add_widget(LevelsScreen(name='levels', storage=storage))
+        # gs = GameScreen(name='game', storage=storage)
+        # sm.add_widget(gs)
+        # ts = TutorialScreen(name='tutorial')
+        # sm.add_widget(ts)
+        # Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         return sm

@@ -71,7 +71,8 @@ ID_TEXTURE_MAP = {
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
     'notebook': join(IMAGES_PATH, 'notebook.jpg'),
     'you_win': join(IMAGES_PATH, 'you_win.jpg'),
-    'menu_background': join(IMAGES_PATH, 'menu_background.png')
+    'menu_background': join(IMAGES_PATH, 'menu_background.png'),
+    'star': join(IMAGES_PATH, 'star.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -93,6 +94,16 @@ IMAGE_RATIOS = {
 
 MODULE_AMOUNT = 3
 
+STARS_PER_MODULE = {
+    1: 1,
+    2: 2,
+    3: 3
+}
+
 
 def get_module(lvl):
     return 1
+
+
+def total_stars():
+    return sum(STARS_PER_MODULE.values())

@@ -2,12 +2,29 @@
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
+#: import total_stars src.backend.constants.total_stars
 
 <MenuScreen>:
     canvas.before:
         Rectangle:
             size: (self.width, self.width)
             source: app.language_utils.set_texture('menu_background')
+    BoxLayout:
+        size_hint: 0.15, 0.1
+        pos_hint: {'right': 1, 'top': 1}
+        orientation: 'horizontal'
+        Button:
+            text: '?'
+        Image:
+            source: app.language_utils.set_texture('star')
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            text: str(sum(app.storage.get('module_stars').values())) + '/' + str(total_stars())
     BoxLayout:
         size_hint: 0.5, 0.6
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
