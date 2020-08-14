@@ -74,7 +74,9 @@ ID_TEXTURE_MAP = {
     'notebook': join(IMAGES_PATH, 'notebook.jpg'),
     'you_win': join(IMAGES_PATH, 'you_win.jpg'),
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
-    'star': join(IMAGES_PATH, 'star.png')
+    'star': join(IMAGES_PATH, 'star.png'),
+    'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
+    'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -91,7 +93,9 @@ IMAGE_RATIOS = {
     'button_red': 256 / 256,
     'button': 488 / 488,
     'en_flag': 1024 / 683,
-    'ru_flag': 1024 / 683
+    'ru_flag': 1024 / 683,
+    'opened_envelope': 3259 / 3439,
+    'closed_envelope': 3259 / 3439
 }
 
 MODULE_AMOUNT = 3

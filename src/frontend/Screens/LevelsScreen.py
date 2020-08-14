@@ -4,6 +4,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 
+from src.backend.constants import ID_TEXTURE_MAP
+
 
 class LevelsScreen(Screen):
     storage = ObjectProperty()
@@ -20,10 +22,10 @@ class LevelsScreen(Screen):
 
     def get_button_image(self, lvl):
         if self.storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return 'resources/images/button_green.png', 'resources/images/button_green_pressed.png'
+            return ID_TEXTURE_MAP['opened_envelope'], 'resources/images/button_green_pressed.png'
         elif self.storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return 'resources/images/button_yellow.png', 'resources/images/button_yellow_pressed.png'
-        return 'resources/images/button_red.png', 'resources/images/button_red_pressed.png'
+            return ID_TEXTURE_MAP['opened_envelope'], 'resources/images/button_yellow_pressed.png'
+        return ID_TEXTURE_MAP['closed_envelope'], 'resources/images/button_red_pressed.png'
 
     def go_to_lvl(self, lvl):
         self.sound_handler.play_button_tap()
