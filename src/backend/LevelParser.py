@@ -64,10 +64,15 @@ def parse(cur_lvl):
     with open(join(LEVELS_PATH, f'lvl_{cur_lvl}')) as f:
         text = f.read()
     field_text, tail = text.split('kind_to_rules:\n')
-    kind_to_rules_text, target_text = tail.split('target:\n')
+    kind_to_rules_text, tail = tail.split('target:\n')
+    if 'min moves:' in tail:
+        target_text, min_moves = tail.split('min moves:')
+    else:
+        target_text, min_moves = tail, None
+
     field = parse_field(field_text)
     target = parse_target(target_text, field)
     kind_to_rules = parse_kind_ro_rules(kind_to_rules_text)
 
-    return field, target, kind_to_rules
+    return field, target, kind_to_rules, int(min_moves) if min_moves else None
 

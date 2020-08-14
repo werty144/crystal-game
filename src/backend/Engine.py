@@ -17,8 +17,9 @@ def map_kind_to_texture_source(kind):
 
 class Engine:
     def __init__(self, cur_lvl):
-        self.field, self.target, self.kind_to_rules = parse(cur_lvl)
+        self.field, self.target, self.kind_to_rules, self.min_moves = parse(cur_lvl)
         self.lvl = cur_lvl
+        self.moves_done = 0
         self.boxes = []
         self.animations = []
         self.screen_utils = ScreenUtils(self.field.rows, self.field.cols)
@@ -191,6 +192,7 @@ class Engine:
                 self.move_aside(self.field[i][j], j - 1)
                 self.add_box(Box(i, j, rule.result_box_kinds[1]))
         self.positions_stack.append(deepcopy(self.field))
+        self.moves_done += 1
         return box
 
     def get_box(self, obj_id):
@@ -273,6 +275,7 @@ class Engine:
         self.positions_stack.pop()
         self.field = self.compute_field_from_position(self.positions_stack[-1])
         self.boxes_from_field()
+        self.moves_done -= 1
 
     def finish_all_animations(self):
         for animation in self.animations.copy():

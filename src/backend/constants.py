@@ -57,8 +57,7 @@ FIELD_PARAMETERS = {
 }
 
 
-ENG_ID_TEXTURE_MAP = {
-    'all_rules_btn': join(IMAGES_PATH, 'button_eng.png'),
+ID_TEXTURE_MAP = {
     'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
     'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
     'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
@@ -71,24 +70,18 @@ ENG_ID_TEXTURE_MAP = {
     'button_red_pressed': join(IMAGES_PATH, 'button_red_pressed.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
     'notebook': join(IMAGES_PATH, 'notebook.jpg'),
-    'you_win': join(IMAGES_PATH, 'you_win.jpg')
+    'you_win': join(IMAGES_PATH, 'you_win.jpg'),
+    'menu_background': join(IMAGES_PATH, 'menu_background.png')
+}
+
+ENG_ID_TEXTURE_MAP = {
+    'all_rules_btn': join(IMAGES_PATH, 'button_eng.png'),
+    **ID_TEXTURE_MAP
 }
 
 RU_ID_TEXTURE_MAP = {
     'all_rules_btn': join(IMAGES_PATH, 'button_ru.png'),
-    'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
-    'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
-    'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
-    'button_yellow_pressed': join(IMAGES_PATH, 'button_yellow_pressed.png'),
-    'button_yellow': join(IMAGES_PATH, 'button_yellow.png'),
-    'button': join(IMAGES_PATH, 'button.png'),
-    'button_green': join(IMAGES_PATH, 'button_green.png'),
-    'button_green_pressed': join(IMAGES_PATH, 'button_green_pressed.png'),
-    'button_red': join(IMAGES_PATH, 'button_red.png'),
-    'button_red_pressed': join(IMAGES_PATH, 'button_red_pressed.png'),
-    'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
-    'notebook': join(IMAGES_PATH, 'notebook.jpg'),
-    'you_win': join(IMAGES_PATH, 'you_win.jpg')
+    **ID_TEXTURE_MAP
 }
 
 IMAGE_RATIOS = {
@@ -97,3 +90,9 @@ IMAGE_RATIOS = {
     'en_flag': 1024 / 683,
     'ru_flag': 1024 / 683
 }
+
+MODULE_AMOUNT = 3
+
+
+def get_module(lvl):
+    return 1

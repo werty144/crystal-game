@@ -7,7 +7,7 @@ from kivy.uix.widget import Widget
 from src.frontend.custom_widgets.RulesScrollViewWidget import RulesScrollViewWidget
 
 from src.backend.Engine import Engine
-from src.backend.constants import FRAME_RATE_SEC
+from src.backend.constants import FRAME_RATE_SEC, get_module
 from src.frontend.custom_widgets.BoxWidget import BoxWidget
 from src.frontend.custom_widgets.RuleWidget import RuleWidget
 
@@ -65,6 +65,12 @@ class Playground(Widget):
 
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
+            if self.engine.min_moves and self.engine.moves_done <= self.engine.min_moves and \
+                    self.storage.get(f'lvl{self.engine.lvl}')['status'] != 'Passed':
+                cur_module = str(get_module(self.engine.lvl))
+                module_stars = self.storage.get('module_stars')
+                module_stars[cur_module] += 1
+                self.storage.put('module_stars', **module_stars)
             self.storage.put('lvl' + str(self.engine.lvl), status='Passed')
             if self.storage.get('lvl' + str(self.engine.lvl + 1))['status'] == 'Locked':
                 self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')

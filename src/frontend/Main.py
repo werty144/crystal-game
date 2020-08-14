@@ -9,6 +9,7 @@ from src.frontend.Screens.GameScreen import GameScreen
 from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
 from src.frontend.Screens.TutorialScreen import TutorialScreen
+from src.backend.constants import MODULE_AMOUNT
 
 os.environ['KIVY_AUDIO'] = 'sdl2'
 from kivy.core.window import Window
@@ -20,8 +21,12 @@ storage = JsonStore(STORAGE_PATH)
 
 # Call only once at first start
 def init_storage():
+    if storage.exists('inited'):
+        return
+    storage.put('inited')
     storage.put('language', status='en')
     storage.put('lvl1', status='Unlocked')
+    storage.put('module_stars', **{str(number): 0 for number in range(1, MODULE_AMOUNT + 1)})
     for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
 
@@ -67,4 +72,5 @@ class Crystal_game(App):
         ts = TutorialScreen(name='tutorial')
         sm.add_widget(ts)
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
+        sm.current = 'levels'
         return sm

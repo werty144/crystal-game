@@ -61,9 +61,10 @@ kind_to_rules:
     ]
 }
 target:
+None
+None
+None
+None
 3
 3
-3
-3
-3
-3
+min moves: 120
