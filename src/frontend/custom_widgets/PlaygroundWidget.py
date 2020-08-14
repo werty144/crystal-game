@@ -21,10 +21,11 @@ class Playground(Widget):
     rules_scroll_view = Property(None)
     update_event = ObjectProperty(None, allownone=True)
     storage = ObjectProperty()
+    sound_handler = ObjectProperty()
     scroll_views = DictProperty()
 
     def start(self, lvl):
-        self.engine = Engine(lvl)
+        self.engine = Engine(lvl, self.sound_handler)
         self.add_missing_game_widgets()
         self.make_grid()
         self.set_target_field_widgets()
@@ -59,7 +60,7 @@ class Playground(Widget):
         for obj in self.engine.all_game_objects():
             if any(widg.game_id == obj.game_id for widg in self.game_widgets):
                 continue
-            wimg = BoxWidget(obj)
+            wimg = BoxWidget(obj, self.sound_handler)
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
 
@@ -122,7 +123,7 @@ class Playground(Widget):
         else:
             max_right_side_len = max([len(rule.result_box_kinds) for rule in rules] + [1])
             for rule in rules:
-                rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len)
+                rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len, self.sound_handler)
                 self.rules_scroll_view.ids.grid.add_widget(rule_widget)
         self.scroll_views[obj_hash] = self.rules_scroll_view
 

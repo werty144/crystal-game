@@ -6,12 +6,13 @@ from src.frontend.custom_widgets.WinningWidget import WinningWidget
 class TutorialScreen(GameScreen):
 
     def on_enter(self, *args):
-        self.playground = Tutorial()
+        self.playground = Tutorial(sound_handler=self.sound_handler)
         self.add_widget(self.playground)
         self.playground.start()
         self.set_buttons()
 
     def show_winning_widget(self):
+        self.sound_handler.play_winning_sound()
         self.winning_widget = WinningWidget()
         self.winning_widget.ids.next_lvl_button.text = 'Lvl 0'
         self.add_widget(self.winning_widget)

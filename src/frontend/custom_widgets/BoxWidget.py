@@ -3,7 +3,7 @@ from kivy.uix.image import Image
 
 
 class BoxWidget(ButtonBehavior, Image):
-    def __init__(self, obj):
+    def __init__(self, obj, sound_handler):
         super(BoxWidget, self).__init__()
         setattr(self, 'game_id', obj.game_id)
         for attr, value in obj.__dict__.items():
@@ -11,8 +11,10 @@ class BoxWidget(ButtonBehavior, Image):
                 setattr(self, attr, value)
         self.box = obj
         self.rules = self.box.rules
+        self.sound_handler = sound_handler
 
     def on_release(self):
+        self.sound_handler.play_rule_tap()
         self.parent.make_rules_scroll_view(self.rules, self.click_on_rule_function, str(id(self)) + str(self.rules))
 
     def click_on_rule_function(self, rule):
