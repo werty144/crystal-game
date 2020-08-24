@@ -82,12 +82,11 @@
         orientation: 'vertical'
         size_hint_x: buttons_width_coef
         Button:
-            text: 'restart'
             on_press: app.sound_handler.play_button_tap(); root.restart()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: app.language_utils.set_texture('button')
-            background_down: app.language_utils.set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('restart_btn')
+            background_down: self.background_normal
         Button:
             id: field_switch
             text: 'to target\nfield'
@@ -106,12 +105,11 @@
             background_down: app.language_utils.set_texture('button_red_pressed')
         Widget:
         Button:
-            text: 'back'
             on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
             size: self.parent.width, self.parent.width
-            background_normal: app.language_utils.set_texture('button')
-            background_down: app.language_utils.set_texture('button_red_pressed')
+            background_normal: app.language_utils.set_texture('back_btn')
+            background_down: self.background_normal
 
 <LevelsScreen>:
     Button:

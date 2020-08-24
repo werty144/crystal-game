@@ -1,5 +1,6 @@
 import os
 
+from kivy.app import App
 from kivy.properties import ObjectProperty
 from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import ScreenManager

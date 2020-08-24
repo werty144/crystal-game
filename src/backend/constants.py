@@ -17,15 +17,7 @@ FRAME_RATE_SEC = 0.01
 
 FALLING_SOUND_DELAY = 0.15
 
-KIND_IMAGE_MAP = {
-    1: join(IMAGES_PATH, 'red_yan.png'),
-    2: join(IMAGES_PATH, 'green_yan.png'),
-    3: join(IMAGES_PATH, 'blue_yan.png'),
-    4: join(IMAGES_PATH, 'yellow_yan.png'),
-    5: join(IMAGES_PATH, 'purple_yan.png')
-}
-
-KIND_ATLAS_ID_MAP = {
+KIND_BOX_ATLAS_ID_MAP = {
     1: 'red_yan',
     2: 'green_yan',
     3: 'blue_yan',
@@ -33,7 +25,16 @@ KIND_ATLAS_ID_MAP = {
     5: 'purple_yan',
 }
 
+KIND_RULE_ATLAS_ID_MAP = {
+    1: 'rule_red',
+    2: 'rule_green',
+    3: 'rule_blue',
+    4: 'rule_yellow',
+    5: 'rule_purple'
+}
+
 BOX_ATLAS_URL = 'atlas://' + IMAGES_PATH + '/boxesatlas/'
+RULE_ATLAS_URL = 'atlas://' + IMAGES_PATH + '/rule_atlas/'
 
 UP_ARROW_IMAGE = join(IMAGES_PATH, 'up_arrow.png')
 RIGHT_ARROW_IMAGE = join(IMAGES_PATH, 'right_arrow.png')
@@ -77,6 +78,8 @@ ID_TEXTURE_MAP = {
     'star': join(IMAGES_PATH, 'star.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
     'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png'),
+    'back_btn': join(IMAGES_PATH, 'back_btn.png'),
+    'restart_btn': join(IMAGES_PATH, 'restart_btn.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -96,7 +99,9 @@ IMAGE_RATIOS = {
     'ru_flag': 1024 / 683,
     'opened_envelope': 3259 / 3439,
     'closed_envelope': 3259 / 3439,
-    'all_rules': 1280 / 192
+    'all_rules': 1280 / 192,
+    'restart': 843 / 921,
+    'back': 1209 / 983
 }
 
 MODULE_AMOUNT = 3
