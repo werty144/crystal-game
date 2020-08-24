@@ -22,6 +22,7 @@ def map_kind_to_texture_source(kind):
 class RuleWidget(ButtonBehavior, BoxLayout):
     def __init__(self, rule: Rule, on_press_func, max_right_side_len, sound_handler):
         super().__init__()
+        self.spacing = 5
         self.rule = rule
         self.on_press_func = on_press_func
         self.size_hint_y = None

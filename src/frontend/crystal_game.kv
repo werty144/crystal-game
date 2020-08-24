@@ -78,13 +78,21 @@
             background_normal: 'resources/images/ru_flag.png'
 
 <GameScreen>:
+    canvas.before:
+        Rectangle:
+            size: (self.width, self.width)
+            source: app.language_utils.set_texture('background')
     BoxLayout:
         orientation: 'vertical'
         size_hint_x: buttons_width_coef
+        padding: '10dp', '10dp', 0, '10dp'
+        spacing: '10dp'
         Button:
+            border: 0, 0, 0, 0
             on_press: app.sound_handler.play_button_tap(); root.restart()
             size_hint: None, None
-            size: self.parent.width, self.parent.width
+            width: self.parent.width
+            height: self.width / image_ratios['restart']
             background_normal: app.language_utils.set_texture('restart_btn')
             background_down: self.background_normal
         Button:
@@ -97,17 +105,20 @@
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
-            text: 'undo'
+            border: 0, 0, 0, 0
             on_press: app.sound_handler.play_button_tap(); root.undo()
             size_hint: None, None
-            size: self.parent.width, self.parent.width
-            background_normal: app.language_utils.set_texture('button')
-            background_down: app.language_utils.set_texture('button_red_pressed')
+            width: self.parent.width
+            height: self.width / image_ratios['undo']
+            background_normal: app.language_utils.set_texture('undo_btn')
+            background_down: self.background_normal
         Widget:
         Button:
+            border: 0, 0, 0, 0
             on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'levels';root.clean()
             size_hint: None, None
-            size: self.parent.width, self.parent.width
+            width: self.parent.width
+            height: self.width / image_ratios['back']
             background_normal: app.language_utils.set_texture('back_btn')
             background_down: self.background_normal
 

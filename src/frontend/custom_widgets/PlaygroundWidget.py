@@ -1,6 +1,7 @@
 from kivy.clock import Clock
+from kivy.graphics.context_instructions import Color
 from kivy.graphics.instructions import InstructionGroup
-from kivy.graphics.vertex_instructions import Line
+from kivy.graphics.vertex_instructions import Line, Rectangle
 from kivy.properties import ObjectProperty, ListProperty, BooleanProperty, Property, DictProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
@@ -27,7 +28,7 @@ class Playground(Widget):
     def start(self, lvl):
         self.engine = Engine(lvl, self.sound_handler)
         self.add_missing_game_widgets()
-        self.make_grid()
+        self.draw_field()
         self.set_target_field_widgets()
         self.scroll_views = {}
         self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
@@ -78,12 +79,32 @@ class Playground(Widget):
             self.update_event.cancel()
             self.parent.show_winning_widget()
 
-    def make_grid(self):
+    def draw_field(self):
+        with self.canvas.before:
+            Color(0.992, 0.925, 0.863, 1)
+            Rectangle(pos=self.engine.screen_utils.start,
+                      size=self.engine.screen_utils.size)
+
         self.grid = InstructionGroup()
         points = self.engine.screen_utils.create_grid()
+        self.grid.add(Color(rgba=(0.29, 0, 0.153, 1)))
         for a, b in points:
             self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
-        self.canvas.add(self.grid)
+
+        border_width = 5
+        half = border_width / 2 + 3
+        dl = self.engine.screen_utils.start
+        width, height = self.engine.screen_utils.size
+        self.grid.add(Line(points=[
+            dl[0] - half, dl[1] - half,
+            dl[0] - half, dl[1] + height + half,
+            dl[0] + width + half, dl[1] + height + half,
+            dl[0] + width + half, dl[1] - half
+        ],
+            width=border_width,
+            close=True
+        ))
+        self.canvas.before.add(self.grid)
 
     def set_target_field_widgets(self):
         for box in self.engine.get_target_field_boxes():
