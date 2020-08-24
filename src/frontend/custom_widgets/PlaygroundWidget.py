@@ -92,14 +92,13 @@ class Playground(Widget):
             self.grid.add(Line(points=[a[0], a[1], b[0], b[1]]))
 
         border_width = 5
-        half = border_width / 2 + 3
         dl = self.engine.screen_utils.start
         width, height = self.engine.screen_utils.size
         self.grid.add(Line(points=[
-            dl[0] - half, dl[1] - half,
-            dl[0] - half, dl[1] + height + half,
-            dl[0] + width + half, dl[1] + height + half,
-            dl[0] + width + half, dl[1] - half
+            dl[0] - border_width, dl[1] - border_width,
+            dl[0] - border_width, dl[1] + height + border_width,
+            dl[0] + width + border_width, dl[1] + height + border_width,
+            dl[0] + width + border_width, dl[1] - border_width
         ],
             width=border_width,
             close=True
