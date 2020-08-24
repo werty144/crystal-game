@@ -76,11 +76,11 @@ ID_TEXTURE_MAP = {
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
     'star': join(IMAGES_PATH, 'star.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
-    'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png')
+    'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png'),
 }
 
 ENG_ID_TEXTURE_MAP = {
-    'all_rules_btn': join(IMAGES_PATH, 'button_eng.png'),
+    'all_rules_btn': join(IMAGES_PATH, 'all_rules_btn_eng.jpg'),
     **ID_TEXTURE_MAP
 }
 
@@ -95,7 +95,8 @@ IMAGE_RATIOS = {
     'en_flag': 1024 / 683,
     'ru_flag': 1024 / 683,
     'opened_envelope': 3259 / 3439,
-    'closed_envelope': 3259 / 3439
+    'closed_envelope': 3259 / 3439,
+    'all_rules': 1280 / 192
 }
 
 MODULE_AMOUNT = 3

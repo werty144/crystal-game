@@ -193,28 +193,37 @@
         size_hint: None, None
         pos: screen_utils.get_scrollview_pos_n_size()[0]
         size: screen_utils.get_scrollview_pos_n_size()[1]
+        border_width: 10
         canvas.before:
+            Color:
+                rgba: 0.992, 0.925, 0.863, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
-                source: app.language_utils.set_texture('notebook')
+            Color:
+                rgba: 0.29, 0, 0.153, 1
+            Line:
+                width: self.border_width
+                rectangle: self.x, self.y, self.width, self.height
+                close: True
+
         GridLayout:
             id: grid
             cols: 1
             spacing: self.parent.height / 50
-            padding: '10dp'
+            padding: root.ids.rule_scroll_view.border_width * 1.5
             size_hint_y: None
             height: self.minimum_height
     Button:
+        border: 0, 0, 0, 0
         size_hint: None, None
-        height: root.ids.rule_scroll_view.height / 8
-        width: self.height * image_ratios['button']
+        width: root.ids.rule_scroll_view.width - root.ids.rule_scroll_view.border_width * 3
+        height: self.width / image_ratios['all_rules']
         pos_hint: None, None
-        pos: root.ids.rule_scroll_view.pos
-        text: 'All rules'
+        pos: (root.ids.rule_scroll_view.x + root.ids.rule_scroll_view.border_width * 1.5, root.ids.rule_scroll_view.y + root.ids.rule_scroll_view.border_width * 2)
         on_press: app.sound_handler.play_button_tap(); root.parent.show_all_rules()
         background_normal: app.language_utils.set_texture('all_rules_btn')
-        background_down: app.language_utils.set_texture('button_red_pressed')
+        background_down: self.background_normal
 
 <Task>:
     Label:
