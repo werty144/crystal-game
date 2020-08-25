@@ -90,8 +90,9 @@ class Smooth_linear_movement_animation(Linear_movement_animation):
 class Falling_linear_movement_animation(Linear_movement_animation):
     def __init__(self, obj, end_point, duration=0.4, start_point=None):
         super().__init__(obj, end_point, falling, duration, start_point)
-        if end_point.y != start_point.y:
-            self.with_fall = True
+        if end_point is not None and start_point is not None:
+            if end_point.y != start_point.y:
+                self.with_fall = True
 
 
 class Rush_into_linear_movement_animation(Linear_movement_animation):

@@ -10,33 +10,17 @@
             size: (self.width, self.width)
             source: app.language_utils.set_texture('menu_background')
     BoxLayout:
-        size_hint: 0.15, 0.1
-        pos_hint: {'right': 1, 'top': 1}
-        orientation: 'horizontal'
-        Button:
-            text: '?'
-        Image:
-            source: app.language_utils.set_texture('star')
-        Label:
-            canvas.before:
-                Color:
-                    rgba: 0, 0, 0, 1
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-            text: str(sum(app.storage.get('module_stars').values())) + '/' + str(total_stars())
-    BoxLayout:
         size_hint: 0.5, 0.6
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: '10dp'
         spacing: self.height / 40
         Button:
-            text: 'Levels'
+            text: 'Play'
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             size_hint: None, 0.33
             width: self.height * image_ratios['button']
-            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'levels'
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'modules'
             background_normal: app.language_utils.set_texture('button')
             background_down: app.language_utils.set_texture('button_red_pressed')
         Button:
@@ -76,6 +60,58 @@
             height: self.width / image_ratios['en_flag']
             on_press: app.sound_handler.play_button_tap(); app.language_utils.change_language('ru')
             background_normal: 'resources/images/ru_flag.png'
+
+<ModulesScreen>:
+    canvas.before:
+        Rectangle:
+            size: (self.width, self.width)
+            source: app.language_utils.set_texture('menu_background')
+    BoxLayout:
+        size_hint: 0.15, 0.1
+        pos_hint: {'right': 1, 'top': 1}
+        orientation: 'horizontal'
+        Button:
+            text: '?'
+        Image:
+            source: app.language_utils.set_texture('star')
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            text: str(sum(app.storage.get('module_stars').values())) + '/' + str(total_stars())
+    BoxLayout:
+        size_hint: 0.5, 0.6
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: '10dp'
+        spacing: self.height / 40
+        Button:
+            text: 'Module 1'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 1;root.manager.current = 'levels'
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
+        Button:
+            text: 'Module 2'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 2;root.manager.current = 'levels'
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
+        Button:
+            text: 'Module 3'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, 0.33
+            width: self.height * image_ratios['button']
+            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 3;root.manager.current = 'levels'
+            background_normal: app.language_utils.set_texture('button')
+            background_down: app.language_utils.set_texture('button_red_pressed')
 
 <GameScreen>:
     canvas.before:
@@ -125,7 +161,7 @@
 <LevelsScreen>:
     Button:
         text: 'back'
-        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'menu'
+        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'modules'
         size_hint: (0.125, None)
         height: self.width * image_ratios['button']
         pos: (0, 0)
@@ -147,7 +183,7 @@
             row_default_height: self.width / self.cols / image_ratios['button_red']
             row_force_default: False
             on_parent:
-                for i in range(1, 100): self.add_widget(
+                for i in range(1, 21): self.add_widget(
                 Button(
                 text = "Level {0}".format(i),
                 background_normal = root.get_button_image(i)[0],

@@ -77,6 +77,9 @@ ID_TEXTURE_MAP = {
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
     'star': join(IMAGES_PATH, 'star.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
+    'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
+    'opened_envelope2': join(IMAGES_PATH, 'opened_envelope2.png'),
+    'opened_envelope3': join(IMAGES_PATH, 'opened_envelope3.png'),
     'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png'),
     'back_btn': join(IMAGES_PATH, 'back_btn.png'),
     'restart_btn': join(IMAGES_PATH, 'restart_btn.png'),
@@ -115,9 +118,25 @@ STARS_PER_MODULE = {
     3: 3
 }
 
+MODULE_OFFSET = {
+    1: 0,
+    2: 20,
+    3: 40
+}
+
+LEVELS_PER_MODULE = {
+    1: 20,
+    2: 20,
+    3: 20
+}
+
 
 def get_module(lvl):
     return 1
+
+
+def get_final_levels():
+    return [sum(list(LEVELS_PER_MODULE.values())[0:i + 1]) for i in range(len(LEVELS_PER_MODULE))]
 
 
 def total_stars():
