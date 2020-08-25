@@ -135,5 +135,9 @@ def get_module(lvl):
     return 1
 
 
+def get_final_levels():
+    return [sum(list(LEVELS_PER_MODULE.values())[0:i + 1]) for i in range(len(LEVELS_PER_MODULE))]
+
+
 def total_stars():
     return sum(STARS_PER_MODULE.values())
