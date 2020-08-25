@@ -10,6 +10,7 @@ from src.backend.SoundHandler import SoundHandler
 from src.frontend.Screens.GameScreen import GameScreen
 from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
+from src.frontend.Screens.ModulesScreen import ModulesScreen
 from src.frontend.Screens.TutorialScreen import TutorialScreen
 from src.backend.constants import MODULE_AMOUNT
 
@@ -37,9 +38,13 @@ def on_key(window, key, *args):
     if key == 27:  # the esc key
         if sm_.current_screen.name == "menu":
             return False  # exit the app from this page
-        elif sm_.current_screen.name == "levels":
+        elif sm_.current_screen.name == "modules":
             sm_.transition.direction = 'right'
             sm_.current = "menu"
+            return True  # do not exit the app
+        elif sm_.current_screen.name == "levels":
+            sm_.transition.direction = 'right'
+            sm_.current = "modules"
             return True  # do not exit the app
         elif sm_.current_screen.name == "game":
             sm_.transition.direction = 'right'
@@ -68,7 +73,8 @@ class Crystal_game(App):
         ms = MenuScreen(name='menu')
         self.language_utils.init_menu_screen(ms)
         sm.add_widget(ms)
-        sm.add_widget(LevelsScreen(name='levels', storage=self.storage, sound_handler=self.sound_handler))
+        sm.add_widget(ModulesScreen(name='modules'))
+        sm.add_widget(LevelsScreen(name='levels', storage=self.storage, sound_handler=self.sound_handler, module=1))
         gs = GameScreen(name='game', storage=self.storage, sound_handler=self.sound_handler)
         sm.add_widget(gs)
         ts = TutorialScreen(name='tutorial', sound_handler=self.sound_handler)
