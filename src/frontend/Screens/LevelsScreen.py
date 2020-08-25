@@ -12,7 +12,7 @@ class LevelsScreen(Screen):
     sound_handler = ObjectProperty()
     module = NumericProperty()
 
-    def on_enter(self, *args):
+    def on_pre_enter(self, *args):
         btn_list = self.children[0].children[0].children
         grid_layout = self.children[0].children[0]
         for i in range(len(btn_list)):
