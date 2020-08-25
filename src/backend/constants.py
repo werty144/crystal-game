@@ -113,9 +113,9 @@ IMAGE_RATIOS = {
 MODULE_AMOUNT = 3
 
 STARS_PER_MODULE = {
-    1: 1,
+    1: 2,
     2: 2,
-    3: 3
+    3: 7
 }
 
 MODULE_OFFSET = {
