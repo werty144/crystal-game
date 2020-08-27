@@ -40,7 +40,7 @@ UP_ARROW_IMAGE = join(IMAGES_PATH, 'up_arrow.png')
 RIGHT_ARROW_IMAGE = join(IMAGES_PATH, 'right_arrow.png')
 LEFT_ARROW_IMAGE = join(IMAGES_PATH, 'left_arrow.png')
 
-BUTTONS_WIDTH_COEF = 1 / 10
+BUTTONS_WIDTH_COEF = 1 / 15
 
 STANDARD_MARGIN = 1 / 80
 
@@ -56,7 +56,8 @@ FIELD_PARAMETERS = {
                        SCROLL_VIEW_PARAMETERS['right_margin_coef'],
     'bot_margin_coef': STANDARD_MARGIN,
     'top_margin_coef': STANDARD_MARGIN,
-    'x_coef': BUTTONS_WIDTH_COEF + STANDARD_MARGIN
+    'x_coef': BUTTONS_WIDTH_COEF + STANDARD_MARGIN,
+    'border_width': 10
 }
 
 

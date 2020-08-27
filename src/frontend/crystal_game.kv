@@ -84,13 +84,13 @@
         Image:
             source: app.language_utils.set_texture('star')
         Label:
+            id: stars_amount
             canvas.before:
                 Color:
                     rgba: 0, 0, 0, 1
                 Rectangle:
                     size: self.size
                     pos: self.pos
-            text: str(sum(app.storage.get('module_stars').values())) + '/' + str(total_stars())
     BoxLayout:
         size_hint: 0.5, 0.6
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}

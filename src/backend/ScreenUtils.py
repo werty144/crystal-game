@@ -10,9 +10,11 @@ class ScreenUtils:
         window_width = Window.size[0]
         window_height = Window.size[1]
         free_width_coef = FIELD_PARAMETERS['horizontal_coef']
-        potential_width = window_width * free_width_coef
+        border = 2 * FIELD_PARAMETERS['border_width']
+        potential_width = window_width * free_width_coef - border
         potential_height = potential_width * (rows_number / cols_number)
-        max_height = window_height * (1 - FIELD_PARAMETERS['top_margin_coef'] - FIELD_PARAMETERS['bot_margin_coef'])
+        max_height = window_height * (1 - FIELD_PARAMETERS['top_margin_coef'] - FIELD_PARAMETERS['bot_margin_coef']) - \
+                     border
         if potential_height <= max_height:
             return potential_width, potential_height
         shorten_width = max_height * (cols_number / rows_number)
@@ -24,7 +26,8 @@ class ScreenUtils:
         free_width_coef = FIELD_PARAMETERS['horizontal_coef']
         free_width = window_width * free_width_coef
         assert free_width >= self.size[0]
-        x = window_width * FIELD_PARAMETERS['x_coef'] + (free_width - self.size[0]) / 2
+        x = window_width * FIELD_PARAMETERS['x_coef'] + (free_width - self.size[0]) / 2 + \
+            FIELD_PARAMETERS['border_width'] / 2
         free_height = window_height * (1 - FIELD_PARAMETERS['bot_margin_coef'] - FIELD_PARAMETERS['top_margin_coef'])
         assert free_height >= self.size[1]
         y = window_height * FIELD_PARAMETERS['bot_margin_coef'] + (free_height - self.size[1]) / 2
@@ -80,5 +83,5 @@ class ScreenUtils:
         top_margin_coef = SCROLL_VIEW_PARAMETERS['top_margin_coef']
         h = window_height * (1 - top_margin_coef - bot_margin_coef)
         w = window_width * horizontal_coef
-        return (window_width * (1 - horizontal_coef - right_margin_coef), window_height * bot_margin_coef),\
+        return (window_width * (1 - horizontal_coef - right_margin_coef), window_height * bot_margin_coef), \
                (w, h)
