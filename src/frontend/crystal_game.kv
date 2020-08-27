@@ -66,6 +66,15 @@
         Rectangle:
             size: (self.width, self.width)
             source: app.language_utils.set_texture('menu_background')
+    Button:
+        text: 'back'
+        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'menu'
+        size_hint: (0.125, None)
+        height: self.width * image_ratios['button']
+        pos: (0, 0)
+        background_normal: app.language_utils.set_texture('button')
+        background_down: app.language_utils.set_texture('button_red_pressed')
+
     BoxLayout:
         size_hint: 0.15, 0.1
         pos_hint: {'right': 1, 'top': 1}
@@ -272,9 +281,9 @@
         color: 0, 0, 0, 1
         pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
         size_hint: None, None
-        text_size: root.width * 0.3, root.height * 0.18
+        text_size: root.width * 0.3, root.height * 0.25
         size: self.texture_size
-        font_size: 0.12 * self.height
+        font_size: min(0.125 * self.height, 0.07 * self.width)
         canvas.before:
             Color:
                 rgba: 1, 1, 1, 1
