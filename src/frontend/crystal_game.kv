@@ -193,22 +193,14 @@
                 )
 
 <WinningWidget>:
-    canvas.before:
-        Color:
-            rgba: 0, 0, 0, 0.4
-        Rectangle:
-            size: self.size
-            pos: self.pos
     BoxLayout:
         orientation: 'vertical'
-        size_hint: (0.5, 0.5)
+        size_hint: (1, 1)
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
         canvas.before:
-            Color:
-                rgba: 0, 0, 1, 1
             Rectangle:
-                size: self.size
-                pos: self.pos
+                size: (self.width, self.width)
+                source: app.language_utils.set_texture('background')
         Image:
             source: app.language_utils.set_texture('you_win')
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
@@ -279,7 +271,10 @@
         valign: 'middle'
         color: 0, 0, 0, 1
         pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
-        size_hint: 0.3, 0.18
+        size_hint: None, None
+        text_size: root.width * 0.3, root.height * 0.18
+        size: self.texture_size
+        font_size: 0.12 * self.height
         canvas.before:
             Color:
                 rgba: 1, 1, 1, 1
