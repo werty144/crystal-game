@@ -214,25 +214,29 @@
                 source: app.language_utils.set_texture('background')
         Image:
             source: app.language_utils.set_texture('you_win')
-            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint_x: 0.7
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         BoxLayout:
             orientation: 'horizontal'
             Button:
-                text: 'to lvls'
+                size_hint_y: None
+                height: self.width / image_ratios['levels_label_btn']
                 on_press: app.sound_handler.play_button_tap(); root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
-                background_normal: app.language_utils.set_texture('button')
-                background_down: app.language_utils.set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('levels_label_btn')
+                background_down: self.background_normal
             Button:
-                text: 'restart'
+                size_hint_y: None
+                height: self.width / image_ratios['restart_label_btn']
                 on_press: app.sound_handler.play_button_tap(); root.parent.restart()
-                background_normal: app.language_utils.set_texture('button')
-                background_down: app.language_utils.set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('restart_label_btn')
+                background_down: self.background_normal
             Button:
                 id: next_lvl_button
-                text: 'next lvl'
+                size_hint_y: None
+                height: self.width / image_ratios['next_lvl_label_btn']
                 on_press: app.sound_handler.play_button_tap(); root.parent.go_to_next_lvl()
-                background_normal: app.language_utils.set_texture('button')
-                background_down: app.language_utils.set_texture('button_red_pressed')
+                background_normal: app.language_utils.set_texture('next_lvl_label_btn')
+                background_down: self.background_normal
 
 
 <RulesScrollViewWidget>:

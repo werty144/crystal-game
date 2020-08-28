@@ -74,7 +74,7 @@ ID_TEXTURE_MAP = {
     'button_red_pressed': join(IMAGES_PATH, 'button_red_pressed.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
     'notebook': join(IMAGES_PATH, 'notebook.jpg'),
-    'you_win': join(IMAGES_PATH, 'you_win.jpg'),
+    'you_win': join(IMAGES_PATH, 'you_win.png'),
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
     'star': join(IMAGES_PATH, 'star.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
@@ -85,7 +85,10 @@ ID_TEXTURE_MAP = {
     'back_btn': join(IMAGES_PATH, 'back_btn.png'),
     'restart_btn': join(IMAGES_PATH, 'restart_btn.png'),
     'background': join(IMAGES_PATH, 'background.png'),
-    'undo_btn': join(IMAGES_PATH, 'undo_btn.png')
+    'undo_btn': join(IMAGES_PATH, 'undo_btn.png'),
+    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
+    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
+    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -108,7 +111,10 @@ IMAGE_RATIOS = {
     'all_rules': 1280 / 192,
     'restart': 843 / 921,
     'back': 1209 / 983,
-    'undo': 584 / 463
+    'undo': 584 / 463,
+    'levels_label_btn': 2359 / 1322,
+    'next_lvl_label_btn': 2359 / 1322,
+    'restart_label_btn': 2359 / 1322
 }
 
 MODULE_AMOUNT = 3
