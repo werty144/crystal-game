@@ -1,4 +1,5 @@
 #: import Button kivy.uix.button.Button
+#: import Factory kivy.factory.Factory
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
@@ -81,6 +82,7 @@
         orientation: 'horizontal'
         Button:
             text: '?'
+            on_press: Factory.StarsPopup().open()
         Image:
             source: app.language_utils.set_texture('star')
         Label:
@@ -290,3 +292,14 @@
             Rectangle:
                 size: self.size
                 pos: self.pos
+
+
+<StarsPopup@Popup>
+    title: 'huy'
+    size_hint: (0.5, 0.5)
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Hello world'
+        Label:
+            text: 'pososi'

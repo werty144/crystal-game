@@ -160,6 +160,7 @@ class Playground(Widget):
 
     def undo(self):
         self.engine.undo()
+        self.show_all_rules()
 
     def on_touch_down(self, touch):
         if self.engine.any_animation_in_progress():
