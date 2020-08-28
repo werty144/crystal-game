@@ -133,7 +133,13 @@ LEVELS_PER_MODULE = {
 
 
 def get_module(lvl):
-    return 1
+    module = 0
+    for lvl_amount in LEVELS_PER_MODULE.values():
+        lvl -= lvl_amount
+        module += 1
+        if lvl <= 0:
+            return module
+    raise Exception('Bad lvl')
 
 
 def get_final_levels():

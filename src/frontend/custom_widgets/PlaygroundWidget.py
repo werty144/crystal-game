@@ -27,6 +27,7 @@ class Playground(Widget):
 
     def start(self, lvl):
         self.engine = Engine(lvl, self.sound_handler)
+        self.init_storage_star()
         self.add_missing_game_widgets()
         self.draw_field()
         self.set_target_field_widgets()
@@ -67,17 +68,21 @@ class Playground(Widget):
 
     def check_win(self):
         if self.engine.win and not self.engine.any_animation_in_progress():
-            if self.engine.min_moves and self.engine.moves_done <= self.engine.min_moves and \
-                    self.storage.get(f'lvl{self.engine.lvl}')['status'] != 'Passed':
-                cur_module = str(get_module(self.engine.lvl))
-                module_stars = self.storage.get('module_stars')
-                module_stars[cur_module] += 1
-                self.storage.put('module_stars', **module_stars)
-            self.storage.put('lvl' + str(self.engine.lvl), status='Passed')
+            self.manage_star_after_win()
+            self.update_storage(f'lvl{self.engine.lvl}', status='Passed')
             if self.storage.get('lvl' + str(self.engine.lvl + 1))['status'] == 'Locked':
-                self.storage.put('lvl' + str(self.engine.lvl + 1), status='Unlocked')
+                self.update_storage(f'lvl{self.engine.lvl + 1}', status='Passed')
             self.update_event.cancel()
             self.parent.show_winning_widget()
+
+    def manage_star_after_win(self):
+        if self.engine.min_moves and self.engine.moves_done <= self.engine.min_moves and \
+                not self.storage.get(f'lvl{self.engine.lvl}')['got_star']:
+            self.update_storage(f'lvl{self.engine.lvl}', got_star=True)
+            cur_module = str(get_module(self.engine.lvl))
+            module_stars = self.storage.get('module_stars')
+            module_stars[cur_module] += 1
+            self.storage.put('module_stars', **module_stars)
 
     def draw_field(self):
         with self.canvas.before:
@@ -161,3 +166,17 @@ class Playground(Widget):
             self.engine.finish_all_animations()
             return True
         return super(Playground, self).on_touch_down(touch)
+
+    def init_storage_star(self):
+        if self.engine.min_moves is None:
+            return
+        lvl_dict = self.storage.get(f'lvl{self.engine.lvl}')
+        if 'got_star' not in lvl_dict.keys():
+            lvl_dict['got_star'] = False
+            self.storage.put(f'lvl{self.engine.lvl}', **lvl_dict)
+
+    def update_storage(self, key, **kwargs):
+        d = self.storage.get(key)
+        for key, value in kwargs.items():
+            d[key] = value
+        self.storage.put(key, **d)

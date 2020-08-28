@@ -25,8 +25,8 @@ def init_storage(storage):
         return
     storage.put('inited')
     storage.put('language', status='en')
-    storage.put('lvl1', status='Unlocked')
     storage.put('module_stars', **{str(number): 0 for number in range(1, MODULE_AMOUNT + 1)})
+    storage.put('lvl1', status='Unlocked')
     for i in range(2, 101):
         storage.put('lvl' + str(i), status='Locked')
 
