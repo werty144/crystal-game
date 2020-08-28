@@ -71,7 +71,7 @@ class Playground(Widget):
             self.manage_star_after_win()
             self.update_storage(f'lvl{self.engine.lvl}', status='Passed')
             if self.storage.get('lvl' + str(self.engine.lvl + 1))['status'] == 'Locked':
-                self.update_storage(f'lvl{self.engine.lvl + 1}', status='Passed')
+                self.update_storage(f'lvl{self.engine.lvl + 1}', status='Unlocked')
             self.update_event.cancel()
             self.parent.show_winning_widget()
 
