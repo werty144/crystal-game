@@ -1,5 +1,3 @@
-from kivy.uix.label import Label
-
 from src.backend.constants import MODULE_AMOUNT
 from src.frontend.custom_widgets.StarsPerModuleWidget import StarsPerModule
 from src.frontend.custom_widgets.StarsPopup import StarsPopup

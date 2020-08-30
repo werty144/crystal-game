@@ -67,15 +67,14 @@
     canvas.before:
         Rectangle:
             size: (self.width, self.width)
-            source: app.language_utils.set_texture('menu_background')
+            source: app.language_utils.set_texture('background')
     Button:
-        text: 'back'
         on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'menu'
         size_hint: (0.125, None)
-        height: self.width * image_ratios['button']
+        height: self.width / image_ratios['back']
         pos: (0, 0)
-        background_normal: app.language_utils.set_texture('button')
-        background_down: app.language_utils.set_texture('button_red_pressed')
+        background_normal: app.language_utils.set_texture('back_btn')
+        background_down: self.background_normal
 
     BoxLayout:
         size_hint: 0.15, 0.1
@@ -171,18 +170,25 @@
             background_down: self.background_normal
 
 <LevelsScreen>:
+    canvas.before:
+        Rectangle:
+            size: (self.width, self.width)
+            source: app.language_utils.set_texture('background')
+    Image:
+        source: app.language_utils.set_texture('levels')
+        size_hint_y: 0.25
+        pos_hint: {'center_x': 0.5, 'center_y': 0.85}
     Button:
-        text: 'back'
         on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'modules'
         size_hint: (0.125, None)
-        height: self.width * image_ratios['button']
+        height: self.width / image_ratios['back']
         pos: (0, 0)
-        background_normal: app.language_utils.set_texture('button')
-        background_down: app.language_utils.set_texture('button_red_pressed')
+        background_normal: app.language_utils.set_texture('back_btn')
+        background_down: self.background_normal
 
     ScrollView:
         size_hint: 0.7, 0.7
-        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
         do_scroll_x: False
         do_scroll_y: True
 
@@ -194,15 +200,6 @@
             spacing: self.width / 50
             row_default_height: self.width / self.cols / image_ratios['button_red']
             row_force_default: False
-            on_parent:
-                for i in range(1, 21): self.add_widget(
-                Button(
-                text = "Level {0}".format(i),
-                background_normal = root.get_button_image(i)[0],
-                background_down = root.get_button_image(i)[1],
-                on_press=lambda _, lvl=i:root.go_to_lvl(lvl)
-                )
-                )
 
 <WinningWidget>:
     BoxLayout:

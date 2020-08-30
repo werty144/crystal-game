@@ -88,7 +88,8 @@ ID_TEXTURE_MAP = {
     'undo_btn': join(IMAGES_PATH, 'undo_btn.png'),
     'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
     'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
-    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png')
+    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
+    'levels': join(IMAGES_PATH, 'levels.png')
 }
 
 ENG_ID_TEXTURE_MAP = {

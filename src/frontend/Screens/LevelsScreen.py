@@ -23,7 +23,8 @@ class LevelsScreen(Screen):
                     text="Level {0}".format(i + MODULE_OFFSET[self.module]),
                     background_normal=self.get_button_image(i)[0],
                     background_down=self.get_button_image(i)[1],
-                    on_press=lambda _, lvl=i: self.go_to_lvl(lvl)
+                    on_press=lambda _, lvl=i: self.go_to_lvl(lvl),
+                    border=(0, 0, 0, 0)
                 )
             )
         for obj in btn_list:
