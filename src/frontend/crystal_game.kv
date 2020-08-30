@@ -207,8 +207,6 @@
 <WinningWidget>:
     BoxLayout:
         orientation: 'vertical'
-        size_hint: (1, 1)
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         canvas.before:
             Rectangle:
                 size: (self.width, self.width)
@@ -216,8 +214,9 @@
         Image:
             source: app.language_utils.set_texture('you_win')
             size_hint_x: 0.7
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            pos_hint: {'center_x': 0.5}
         BoxLayout:
+            size_hint_y: 0.3
             orientation: 'horizontal'
             Button:
                 size_hint_y: None
