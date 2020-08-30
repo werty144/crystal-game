@@ -4,7 +4,8 @@ from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
 
-from src.backend.constants import SOUND_PATH, get_final_levels
+from src.backend.constants import SOUND_PATH
+from src.backend.ModuleUtils import get_final_levels
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
 

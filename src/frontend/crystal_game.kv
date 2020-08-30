@@ -3,7 +3,7 @@
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
-#: import total_stars src.backend.constants.total_stars
+#: import total_stars src.backend.ModuleUtils.total_stars
 
 <MenuScreen>:
     canvas.before:
@@ -82,7 +82,7 @@
         orientation: 'horizontal'
         Button:
             text: '?'
-            on_press: Factory.StarsPopup().open()
+            on_press: root.show_star_popup()
         Image:
             source: app.language_utils.set_texture('star')
         Label:
@@ -298,12 +298,28 @@
                 pos: self.pos
 
 
-<StarsPopup@Popup>
-    title: 'huy'
-    size_hint: (0.5, 0.5)
+<StarsPopup@Popup>:
+    title: 'Stamps'
+    size_hint: (0.7, 0.7)
     BoxLayout:
         orientation: 'vertical'
         Label:
-            text: 'Hello world'
+            text_size: self.size
+            valign: 'top'
+            text: 'Some text about stamps'
+        ScrollView:
+            GridLayout:
+                id: grid
+                cols: 1
+                spacing: '20dp'
+                padding: '5dp'
+                size_hint_y: None
+                height: self.minimum_height
+
+<StarsPerModule>:
+    BoxLayout:
+        orientation: 'horizontal'
         Label:
-            text: 'pososi'
+            text: 'Module ' + str(root.module) + ':'
+        Image:
+            source: app.language_utils.set_texture('star')

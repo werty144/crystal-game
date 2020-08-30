@@ -8,7 +8,8 @@ from kivy.uix.widget import Widget
 from src.frontend.custom_widgets.RulesScrollViewWidget import RulesScrollViewWidget
 
 from src.backend.Engine import Engine
-from src.backend.constants import FRAME_RATE_SEC, get_module
+from src.backend.constants import FRAME_RATE_SEC
+from src.backend.ModuleUtils import get_module
 from src.frontend.custom_widgets.BoxWidget import BoxWidget
 from src.frontend.custom_widgets.RuleWidget import RuleWidget
 
