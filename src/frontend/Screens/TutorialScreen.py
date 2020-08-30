@@ -14,7 +14,7 @@ class TutorialScreen(GameScreen):
     def show_winning_widget(self):
         self.sound_handler.play_winning_sound()
         self.winning_widget = WinningWidget()
-        self.winning_widget.ids.next_lvl_button.text = 'Lvl 0'
+        self.winning_widget.ids.buttons.remove_widget(self.winning_widget.ids.next_lvl_button)
         self.add_widget(self.winning_widget)
 
     def go_to_next_lvl(self):

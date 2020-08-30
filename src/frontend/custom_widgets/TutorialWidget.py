@@ -18,11 +18,16 @@ class Task(FloatLayout):
             return self.screen_utils.start, self.screen_utils.size
         else:
             '''Otherwise we're working with widget'''
-            return self.focus_object.to_window(*self.focus_object.pos), self.focus_object.size
+            if self.rightest is None:
+                return self.focus_object.to_window(*self.focus_object.pos), self.focus_object.size
+            else:
+                return self.focus_object.to_window(*self.focus_object.pos), \
+                       (self.rightest.pos[0] + self.rightest.size[0] - self.focus_object.pos[0],
+                        self.focus_object.size[1])
 
     def create_shadowed_background(self, *args):
         focus_window_pos, focus_window_size = self.calculate_focus_window_pos_n_size()
-        focus_window_width, focus_window_height = focus_window_size[0] * self.width_coef, focus_window_size[1]
+        focus_window_width, focus_window_height = focus_window_size[0], focus_window_size[1]
         focus_window_x, focus_window_y = focus_window_pos[0], focus_window_pos[1]
         window_width, window_height = self.screen_utils.window.size[0], self.screen_utils.window.size[1]
         background = InstructionGroup()
@@ -37,12 +42,12 @@ class Task(FloatLayout):
         self.background = background
         self.canvas.add(background)
 
-    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils, width_coef=1):
+    def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils, rightest=None):
         self.focus_object = focus_object
         self.title_text = title_text
         self.on_touch_option = on_touch_option
         self.screen_utils = screen_utils
-        self.width_coef = width_coef
+        self.rightest = rightest
         super().__init__()
         self.background = None
         self.create_shadowed_background()
@@ -111,9 +116,10 @@ class Tutorial(Playground):
         self.tasks.append(first_box_in_rule_task)
 
         first_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[1]
+        second_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[0]
         right_side_of_the_rule_task = Task(first_in_right_side,
                                            'Справа от стрелки -- то, во что коробка превратится.',
-                                           'pass', su, 2)
+                                           'pass', su, second_in_right_side)
         self.tasks.append(right_side_of_the_rule_task)
 
         arrow_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[2],
