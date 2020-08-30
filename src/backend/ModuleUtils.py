@@ -33,3 +33,8 @@ def module_passed(module):
 def stars_got_in_module(module):
     storage = App.get_running_app().storage
     return storage.get('module_stars')[str(module)]
+
+
+def star_statistic_or_q(module):
+    stars_or_q = str(stars_got_in_module(module)) if module_passed(module) else '?'
+    return stars_or_q + '/' + str(STARS_PER_MODULE[module])

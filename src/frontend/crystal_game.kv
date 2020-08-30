@@ -4,6 +4,7 @@
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 #: import total_stars src.backend.ModuleUtils.total_stars
+#: import star_statistic_or_q src.backend.ModuleUtils.star_statistic_or_q
 
 <MenuScreen>:
     canvas.before:
@@ -307,19 +308,23 @@
             text_size: self.size
             valign: 'top'
             text: 'Some text about stamps'
-        ScrollView:
-            GridLayout:
-                id: grid
-                cols: 1
-                spacing: '20dp'
-                padding: '5dp'
-                size_hint_y: None
-                height: self.minimum_height
+        BoxLayout:
+            orientation: 'vertical'
+            id: grid
+            cols: 1
+            spacing: '20dp'
+            padding: '5dp'
 
-<StarsPerModule>:
-    BoxLayout:
-        orientation: 'horizontal'
-        Label:
-            text: 'Module ' + str(root.module) + ':'
-        Image:
-            source: app.language_utils.set_texture('star')
+
+<StarsPerModule@BoxLayout>:
+    orientation: 'horizontal'
+    Label:
+        text_size: self.size
+        font_size: 30
+        valign: 'middle'
+        text: 'Module ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
+    Image:
+        size_hint_x: None
+        width: self.height
+        source: app.language_utils.set_texture('star')
+    Widget:
