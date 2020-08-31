@@ -9,6 +9,7 @@ from kivy.uix.widget import Widget
 from src.backend.ScreenUtils import ScreenUtils
 from src.backend.constants import FRAME_RATE_SEC
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
+from src.LanguageUtils import LanguageUtils
 
 
 class Task(FloatLayout):
@@ -99,42 +100,41 @@ class Tutorial(Playground):
 
     def make_tasks(self):
         su = self.engine.screen_utils
+        lu = LanguageUtils()
         field_task = Task(self.grid,
-                          'Это игровое поле. На нем расположены коробки, которые падают, если под ними нет опоры!\n\n'
-                          'Нажмите, чтобы продолжить.',
+                          lu.set_string('tutorial_field'),
                           'pass', su)
         self.tasks.append(field_task)
 
         rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view,
-                                     'Коробки можно заменять на другие, применяя правила из списка.',
+                                     lu.set_string('tutorial_rule_list'),
                                      'pass', su)
         self.tasks.append(rule_scroll_view_task)
 
         first_box_in_rule_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[-1],
-                                      'Первая часть правила показывает, какую коробку оно заменяет.',
+                                      lu.set_string('tutorial_rule_left_side'),
                                       'pass', su)
         self.tasks.append(first_box_in_rule_task)
 
         first_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[1]
         second_in_right_side = self.rules_scroll_view.ids.grid.children[-1].children[0]
         right_side_of_the_rule_task = Task(first_in_right_side,
-                                           'Справа от стрелки -- то, во что коробка превратится.',
+                                           lu.set_string('tutorial_rule_right_side'),
                                            'pass', su, second_in_right_side)
         self.tasks.append(right_side_of_the_rule_task)
 
         arrow_task = Task(self.rules_scroll_view.ids.grid.children[-1].children[2],
-                          'А стрелочка указывает, в каком направлении появятся новые коробки.',
+                          lu.set_string('tutorial_rule_arrow'),
                           'pass', su)
         self.tasks.append(arrow_task)
 
         box_task = Task(self.game_widgets[0],
-                        'Давайте применим правило! Для этого нужно выбрать коробку.\n\n'
-                        'Нажмите на коробку',
+                        lu.set_string('tutorial_select_box'),
                         'act', su)
         self.tasks.append(box_task)
 
         rule_scroll_view_task = Task(self.rules_scroll_view.ids.rule_scroll_view,
-                                     'Теперь здесь правила для выбранной коробки.',
+                                     lu.set_string('tutorial_selected_box_rules'),
                                      'pass', su)
         self.tasks.append(rule_scroll_view_task)
 
@@ -142,7 +142,7 @@ class Tutorial(Playground):
                 я получаю координаты верхнего rule_widget-a, хотя когда эта task
                 становится актуальна, там уже другой rule_widget, и он всего один.'''
         rule_widget_task = Task(self.rules_scroll_view.ids.grid.children[-1],
-                                'Примените правило!',
+                                lu.set_string('tutorial_apply_rule'),
                                 'act', su)
         self.tasks.append(rule_widget_task)
 
@@ -150,24 +150,20 @@ class Tutorial(Playground):
         self.tasks.append(wow_task)
 
         target_field_button_task = Task(self.parent.ids.field_switch,
-                                        'Цель игры -- получить конечное поле.'
-                                        ' Давайте посмотрим, каким оно должно быть.\n\n'
-                                        'Нажмите на переключатель',
+                                        lu.set_string('tutorial_switch'),
                                         'act', su)
         self.tasks.append(target_field_button_task)
 
-        target_field_task = Task(self.grid, 'Это конечная расстановка.', 'pass', su)
+        target_field_task = Task(self.grid, lu.set_string('target_field'), 'pass', su)
         self.tasks.append(target_field_task)
 
         game_field_button_task = Task(self.parent.ids.field_switch,
-                                      'Давайте вернемся на игровое поле.\n\n'
-                                      'Нажмите на переключатель',
+                                      lu.set_string('tutorial_switch_again'),
                                       'act', su)
         self.tasks.append(game_field_button_task)
 
         final_task = Task(Widget(size=(0, 0)),
-                          'Ход за Вами! Помните, что коробки падают.\n\n'
-                          'Нажмите, чтобы продолжить игру',
+                          lu.set_string('tutorial_your_turn'),
                           'pass', su)
         self.tasks.append(final_task)
 

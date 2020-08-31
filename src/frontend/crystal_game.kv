@@ -299,14 +299,14 @@
 
 
 <StarsPopup@Popup>:
-    title: 'Stamps'
+    title: app.language_utils.set_string('stamps')
     size_hint: (0.7, 0.7)
     BoxLayout:
         orientation: 'vertical'
         Label:
             text_size: self.size
             valign: 'top'
-            text: 'Some text about stamps'
+            text: app.language_utils.set_string('stamps_text')
         BoxLayout:
             orientation: 'vertical'
             id: grid
@@ -321,7 +321,7 @@
         text_size: self.size
         font_size: 30
         valign: 'middle'
-        text: 'Module ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
+        text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
         size_hint_x: None
         width: self.height

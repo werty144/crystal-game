@@ -1,6 +1,7 @@
 import os
 
 from kivy.app import App
+from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import ScreenManager
@@ -12,11 +13,13 @@ from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
 from src.frontend.Screens.ModulesScreen import ModulesScreen
 from src.frontend.Screens.TutorialScreen import TutorialScreen
-from src.backend.constants import MODULE_AMOUNT
 
 os.environ['KIVY_AUDIO'] = 'sdl2'
 from kivy.core.window import Window
 from src.frontend.custom_widgets.RuleWidget import *
+
+
+Builder.load_file(KV_FILE_PATH)
 
 
 # Call only once at first start
@@ -66,7 +69,7 @@ class Crystal_game(App):
     def build(self):
         self.storage = JsonStore(STORAGE_PATH)
         init_storage(self.storage)
-        self.language_utils = LanguageUtils(self.storage)
+        self.language_utils = LanguageUtils()
         self.sound_handler = SoundHandler()
         self.sound_handler.play_theme()
         sm = ScreenManager()
