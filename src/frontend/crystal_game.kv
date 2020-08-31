@@ -1,6 +1,7 @@
 #: import Button kivy.uix.button.Button
 #: import Factory kivy.factory.Factory
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
+#: import MyAdaptiveLabel src.backend.MyAdaptiveLabel.MyAdaptiveLabel
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 #: import total_stars src.backend.ModuleUtils.total_stars
@@ -317,9 +318,8 @@
 
 <StarsPerModule@BoxLayout>:
     orientation: 'horizontal'
-    Label:
-        text_size: self.size
-        font_size: 30
+    MyAdaptiveLabel:
+        adaptive_width: 200
         valign: 'middle'
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
