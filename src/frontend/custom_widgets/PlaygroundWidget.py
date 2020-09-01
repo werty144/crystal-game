@@ -122,13 +122,11 @@ class Playground(Widget):
     def switch_field(self):
         self.show_all_rules()
         if not self.is_target_field:
-            self.parent.ids.field_switch.text = 'to game\nfield'
             for widg in self.game_widgets:
                 self.remove_widget(widg)
             for box_wimg in self.target_field_widgets:
                 self.add_widget(box_wimg)
         else:
-            self.parent.ids.field_switch.text = 'to target\nfield'
             for widg in self.target_field_widgets:
                 self.remove_widget(widg)
             for widg in self.game_widgets:
@@ -160,6 +158,8 @@ class Playground(Widget):
         self.scroll_views[obj_hash] = self.rules_scroll_view
 
     def undo(self):
+        if self.is_target_field:
+            return
         self.engine.undo()
         self.show_all_rules()
 

@@ -146,7 +146,7 @@ class Tutorial(Playground):
                                 'act', su)
         self.tasks.append(rule_widget_task)
 
-        wow_task = Task(Widget(size=(0, 0)), 'Здорово!', 'pass', su)
+        wow_task = Task(Widget(size=(0, 0)), lu.set_string('cool'), 'pass', su)
         self.tasks.append(wow_task)
 
         target_field_button_task = Task(self.parent.ids.field_switch,
