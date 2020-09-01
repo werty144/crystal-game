@@ -18,11 +18,11 @@ FRAME_RATE_SEC = 0.01
 FALLING_SOUND_DELAY = 0.15
 
 KIND_BOX_ATLAS_ID_MAP = {
-    1: 'red_yan',
-    2: 'green_yan',
-    3: 'blue_yan',
-    4: 'yellow_yan',
-    5: 'purple_yan',
+    1: 'red_box',
+    2: 'green_box',
+    3: 'blue_box',
+    4: 'yellow_box',
+    5: 'purple_box',
 }
 
 KIND_RULE_ATLAS_ID_MAP = {
@@ -65,15 +65,8 @@ ID_TEXTURE_MAP = {
     'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
     'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
     'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
-    'button_yellow_pressed': join(IMAGES_PATH, 'button_yellow_pressed.png'),
-    'button_yellow': join(IMAGES_PATH, 'button_yellow.png'),
     'button': join(IMAGES_PATH, 'button.png'),
-    'button_green': join(IMAGES_PATH, 'button_green.png'),
-    'button_green_pressed': join(IMAGES_PATH, 'button_green_pressed.png'),
-    'button_red': join(IMAGES_PATH, 'button_red.png'),
-    'button_red_pressed': join(IMAGES_PATH, 'button_red_pressed.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
-    'notebook': join(IMAGES_PATH, 'notebook.jpg'),
     'you_win': join(IMAGES_PATH, 'you_win.png'),
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
     'star': join(IMAGES_PATH, 'star.png'),
@@ -89,7 +82,11 @@ ID_TEXTURE_MAP = {
     'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
     'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
     'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
-    'levels': join(IMAGES_PATH, 'levels.png')
+    'levels': join(IMAGES_PATH, 'levels.png'),
+    'target_field_btn': join(IMAGES_PATH, 'target_field_btn.png'),
+    'q_mark': join(IMAGES_PATH, 'q_mark.png'),
+    'en_flag': join(IMAGES_PATH, 'en_flag.jpg'),
+    'ru_flag': join(IMAGES_PATH, 'ru_flag.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -115,7 +112,8 @@ IMAGE_RATIOS = {
     'undo': 584 / 463,
     'levels_label_btn': 2359 / 1322,
     'next_lvl_label_btn': 2359 / 1322,
-    'restart_label_btn': 2359 / 1322
+    'restart_label_btn': 2359 / 1322,
+    'q_mark': 439 / 638
 }
 
 MODULE_AMOUNT = 3

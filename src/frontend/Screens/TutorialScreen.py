@@ -9,7 +9,6 @@ class TutorialScreen(GameScreen):
         self.playground = Tutorial(sound_handler=self.sound_handler)
         self.add_widget(self.playground)
         self.playground.start()
-        self.set_buttons()
 
     def show_winning_widget(self):
         self.sound_handler.play_winning_sound()

@@ -36,10 +36,11 @@ class LevelsScreen(Screen):
 
     def get_button_image(self, lvl):
         if self.storage.get('lvl' + str(lvl))['status'] == 'Passed':
-            return ID_TEXTURE_MAP['opened_envelope' + str(self.module)], 'resources/images/button_green_pressed.png'
+            return ID_TEXTURE_MAP['opened_envelope' + str(self.module)], ID_TEXTURE_MAP['opened_envelope' +
+                                                                                        str(self.module)]
         elif self.storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
-            return ID_TEXTURE_MAP['opened_envelope'], 'resources/images/button_yellow_pressed.png'
-        return ID_TEXTURE_MAP['closed_envelope'], 'resources/images/button_red_pressed.png'
+            return ID_TEXTURE_MAP['opened_envelope'], ID_TEXTURE_MAP['opened_envelope']
+        return ID_TEXTURE_MAP['closed_envelope'], ID_TEXTURE_MAP['closed_envelope']
 
     def go_to_lvl(self, lvl):
         self.sound_handler.play_button_tap()

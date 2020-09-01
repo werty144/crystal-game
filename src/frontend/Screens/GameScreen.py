@@ -21,11 +21,9 @@ class GameScreen(Screen):
         self.playground = Playground(storage=self.storage, sound_handler=self.sound_handler)
         self.playground.start(self.lvl)
         self.add_widget(self.playground)
-        self.set_buttons()
 
     def restart(self):
         self.clean()
-        self.set_buttons()
         self.on_enter()
 
     def clean(self):
@@ -39,9 +37,6 @@ class GameScreen(Screen):
 
     def switch_field(self):
         self.playground.switch_field()
-
-    def set_buttons(self):
-        self.ids.field_switch.text = 'to target\nfield'
 
     def show_winning_widget(self):
         self.sound_handler.play_winning_sound()
