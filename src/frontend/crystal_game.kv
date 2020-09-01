@@ -284,18 +284,16 @@
         background_down: self.background_normal
 
 <Task>:
-    Label:
+    MyAdaptiveLabel:
         id: title
         text: root.title_text
-        text_size: self.size
+        size_hint: 0.3, 0.2
         halign: 'center'
         valign: 'middle'
         color: 0, 0, 0, 1
         pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
-        size_hint: None, None
-        text_size: root.width * 0.3, root.height * 0.25
-        size: self.texture_size
-        font_size: min(0.125 * self.height, 0.07 * self.width)
+        adapt_height: True
+        adapt_width: True
         canvas.before:
             Color:
                 rgba: 1, 1, 1, 1

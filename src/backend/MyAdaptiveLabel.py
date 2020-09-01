@@ -81,6 +81,8 @@ class MyAdaptiveLabel(Label):
 
     def set_font(self):
         self.bin_search(lambda x: self.texture_size[0] > self.width or self.texture_size[1] > self.height)
+        if self.texture_size[0] > self.width or self.texture_size[1] > self.height:
+            self.font_size -= 1
 
     def bin_search(self, condition):
         r = 50.0
