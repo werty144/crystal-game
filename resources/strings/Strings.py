@@ -9,6 +9,7 @@ RU_ID_STRING_MAP = {
                            'Нажмите на посылку',
     'tutorial_selected_box_rules': 'Теперь здесь правила для выбранной посылки.',
     'tutorial_apply_rule': 'Примените правило!',
+    'cool': 'Здорово!',
     'tutorial_switch': 'Цель игры - получить конечное поле.'
                        ' Давайте посмотрим, каким оно должно быть.\n\n'
                        'Нажмите на переключатель',
@@ -37,6 +38,7 @@ ENG_ID_STRING_MAP = {
                            'Click the parcel',
     'tutorial_selected_box_rules': 'Now here are the selected parcel rules.',
     'tutorial_apply_rule': 'Apply rule!',
+    'cool': 'Cool!',
     'tutorial_switch': 'The goal is to get a final layout.'
                        ' Let\'s look at it.\n\n'
                        'Click the switch',

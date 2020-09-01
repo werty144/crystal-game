@@ -158,6 +158,8 @@ class Playground(Widget):
         self.scroll_views[obj_hash] = self.rules_scroll_view
 
     def undo(self):
+        if self.is_target_field:
+            return
         self.engine.undo()
         self.show_all_rules()
 
