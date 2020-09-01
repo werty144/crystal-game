@@ -319,11 +319,10 @@
 <StarsPerModule@BoxLayout>:
     orientation: 'horizontal'
     MyAdaptiveLabel:
-        adaptive_width: 200
+        adapt_height: True
         valign: 'middle'
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
         size_hint_x: None
         width: self.height
         source: app.language_utils.set_texture('star')
-    Widget:
