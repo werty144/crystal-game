@@ -19,10 +19,10 @@ RU_ID_STRING_MAP = {
     'tutorial_your_turn': 'Ход за Вами! Помните, что посылки падают.\n\n'
                           'Нажмите, чтобы продолжить игру',
     'module': 'Почтовый ящик',
-    'stamps_text': 'Здесь Вы можете увидеть, сколько марок получили за каждый почтовый ящик. В каждом ящике есть '
-                   'особые письма: пройдя такое за минимальное число ходов, Вы получите одну марку. Но Вы не знаете, '
-                   'какие письма особые! Зато знаете их количество в каждом ящике. Марки за ящик Вы получаете толкько '
-                   'после того, как справились со всеми письмами этого ящика.\n\n'
+    'stamps_text': 'Здесь Вы можете увидеть, сколько марок получили за каждый почтовый ящик.\nВ каждом ящике есть '
+                   'особые письма:\nпройдя такое за минимальное число ходов, Вы получите одну марку.\nНо Вы не знаете, '
+                   'какие письма особые!\nЗато знаете их количество в каждом ящике.\nМарки за ящик Вы получаете толкько '
+                   'после того,\nкак справились со всеми письмами этого ящика.\n\n'
                    'Желаю удачи!',
     'stamps': 'Марки'
 }
@@ -48,9 +48,9 @@ ENG_ID_STRING_MAP = {
     'tutorial_your_turn': 'It\'s your turn now! Keep in mind that parcels fall.\n\n'
                           'Tap to continue',
     'module': 'Mailbox',
-    'stamps_text': 'Here you can get your stamps per mailbox statistic. Every mailbox contains special letters: '
-                   'solving each one in minimal number of moves gives you a stamp. But you don\'t know '
-                   'which letters a special! Although you know their number in each mailbox. You get the stamps '
+    'stamps_text': 'Here you can get your stamps per mailbox statistic.\nEvery mailbox contains special letters:\n'
+                   'solving each one in minimal number of moves gives you a stamp.\nBut you don\'t know '
+                   'which letters a special!\nAlthough you know their number in each mailbox.\nYou get the stamps '
                    'only after you successfully solve all letters in the mailbox.\n\n'
                    'Good luck!',
     'stamps': 'Stamps'
