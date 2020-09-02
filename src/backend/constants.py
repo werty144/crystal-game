@@ -74,6 +74,7 @@ ID_TEXTURE_MAP = {
     'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
     'opened_envelope2': join(IMAGES_PATH, 'opened_envelope2.png'),
     'opened_envelope3': join(IMAGES_PATH, 'opened_envelope3.png'),
+    'opened_envelope4': join(IMAGES_PATH, 'opened_envelope4.png'),
     'closed_envelope': join(IMAGES_PATH, 'closed_envelope.png'),
     'back_btn': join(IMAGES_PATH, 'back_btn.png'),
     'restart_btn': join(IMAGES_PATH, 'restart_btn.png'),
@@ -86,7 +87,12 @@ ID_TEXTURE_MAP = {
     'target_field_btn': join(IMAGES_PATH, 'target_field_btn.png'),
     'q_mark': join(IMAGES_PATH, 'q_mark.png'),
     'en_flag': join(IMAGES_PATH, 'en_flag.jpg'),
-    'ru_flag': join(IMAGES_PATH, 'ru_flag.png')
+    'ru_flag': join(IMAGES_PATH, 'ru_flag.png'),
+    'stamp': join(IMAGES_PATH, 'stamp.png'),
+    'stamp_a': join(IMAGES_PATH, 'stamp_a.png'),
+    'stamp_b': join(IMAGES_PATH, 'stamp_b.png'),
+    'stamp_c': join(IMAGES_PATH, 'stamp_c.png'),
+    'stamp_d': join(IMAGES_PATH, 'stamp_d.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -95,7 +101,7 @@ ENG_ID_TEXTURE_MAP = {
 }
 
 RU_ID_TEXTURE_MAP = {
-    'all_rules_btn': join(IMAGES_PATH, 'button_ru.png'),
+    'all_rules_btn': join(IMAGES_PATH, 'all_rules_btn_ru.png'),
     **ID_TEXTURE_MAP
 }
 
@@ -113,7 +119,8 @@ IMAGE_RATIOS = {
     'levels_label_btn': 2359 / 1322,
     'next_lvl_label_btn': 2359 / 1322,
     'restart_label_btn': 2359 / 1322,
-    'q_mark': 439 / 638
+    'q_mark': 439 / 638,
+    'stamp': 1353 / 955
 }
 
 MODULE_AMOUNT = 3

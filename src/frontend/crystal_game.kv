@@ -85,12 +85,12 @@
         Button:
             border: 0, 0, 0, 0
             on_press: root.show_star_popup()
-            size_hint_y: None
-            height: self.width / image_ratios['q_mark']
+            size_hint_x: None
+            width: self.height * image_ratios['q_mark']
             background_normal: app.language_utils.set_texture('q_mark')
             background_down: self.background_normal
         Image:
-            source: app.language_utils.set_texture('star')
+            source: app.language_utils.set_texture('stamp')
         Label:
             id: stars_amount
             canvas.before:
@@ -328,7 +328,7 @@
         valign: 'middle'
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
-        size_hint_x: None
-        width: self.height
-        source: app.language_utils.set_texture('star')
+#        size_hint_x: None
+#        width: self.height * image_ratios['stamp']
+        source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
     Widget:
