@@ -69,7 +69,6 @@ ID_TEXTURE_MAP = {
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
     'you_win': join(IMAGES_PATH, 'you_win.png'),
     'menu_background': join(IMAGES_PATH, 'menu_background.png'),
-    'star': join(IMAGES_PATH, 'star.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
     'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
     'opened_envelope2': join(IMAGES_PATH, 'opened_envelope2.png'),
