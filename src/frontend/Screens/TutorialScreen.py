@@ -1,3 +1,4 @@
+from src.backend.MyAdaptiveLabel import MyAdaptiveLabel
 from src.frontend.Screens.GameScreen import GameScreen
 from src.frontend.custom_widgets.TutorialWidget import Tutorial
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
@@ -9,6 +10,9 @@ class TutorialScreen(GameScreen):
         self.playground = Tutorial(sound_handler=self.sound_handler)
         self.add_widget(self.playground)
         self.playground.start()
+        MyAdaptiveLabel.fonts_setted = False
+        MyAdaptiveLabel.small_font = 100
+        MyAdaptiveLabel.large_font = 100
 
     def show_winning_widget(self):
         self.sound_handler.play_winning_sound()
