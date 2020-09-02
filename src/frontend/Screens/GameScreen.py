@@ -42,8 +42,9 @@ class GameScreen(Screen):
         self.sound_handler.play_winning_sound()
         self.winning_widget = WinningWidget()
         if self.lvl in get_final_levels():
-            ww_buttons = self.winning_widget.children[0].children[0].children
-            self.winning_widget.children[0].children[0].remove_widget(ww_buttons[0])
+            self.winning_widget.ids.buttons.remove_widget(self.winning_widget.ids.next_lvl_button)
+            # ww_buttons = self.winning_widget.children[0].children[0].children
+            # self.winning_widget.children[0].children[0].remove_widget(ww_buttons[0])
         self.add_widget(self.winning_widget)
 
     def go_to_next_lvl(self):

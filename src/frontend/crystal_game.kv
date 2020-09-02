@@ -1,6 +1,7 @@
 #: import Button kivy.uix.button.Button
 #: import Factory kivy.factory.Factory
 #: import buttons_width_coef src.backend.constants.BUTTONS_WIDTH_COEF
+#: import MyAdaptiveLabel src.backend.MyAdaptiveLabel.MyAdaptiveLabel
 #: import image_ratios src.backend.constants.IMAGE_RATIOS
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 #: import total_stars src.backend.ModuleUtils.total_stars
@@ -221,6 +222,7 @@
         orientation: 'horizontal'
         id: buttons
         Button:
+            id: levels_button
             size_hint_y: None
             pos_hint: {'center_y': 0.5}
             height: self.width / image_ratios['levels_label_btn']
@@ -284,18 +286,15 @@
         background_down: self.background_normal
 
 <Task>:
-    Label:
+    MyAdaptiveLabel:
         id: title
         text: root.title_text
-        text_size: self.size
+        size_hint: 0.3, 0.2
         halign: 'center'
         valign: 'middle'
         color: 0, 0, 0, 1
         pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
-        size_hint: None, None
-        text_size: root.width * 0.3, root.height * 0.25
-        size: self.texture_size
-        font_size: min(0.125 * self.height, 0.07 * self.width)
+        adapt_tasks: True
         canvas.before:
             Color:
                 rgba: 1, 1, 1, 1
@@ -309,8 +308,9 @@
     size_hint: (0.7, 0.7)
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text_size: self.size
+        MyAdaptiveLabel:
+            adapt_height: True
+            adapt_width: True
             valign: 'top'
             text: app.language_utils.set_string('stamps_text')
         BoxLayout:
@@ -323,13 +323,9 @@
 
 <StarsPerModule@BoxLayout>:
     orientation: 'horizontal'
-    Label:
-        text_size: self.size
-        font_size: 30
+    MyAdaptiveLabel:
+        adapt_height: True
         valign: 'middle'
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
-#        size_hint_x: None
-#        width: self.height * image_ratios['stamp']
         source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
-    Widget:
