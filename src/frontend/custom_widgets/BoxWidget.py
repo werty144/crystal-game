@@ -14,7 +14,6 @@ class BoxWidget(ButtonBehavior, Image):
         self.sound_handler = sound_handler
 
     def on_release(self):
-        self.sound_handler.play_rule_tap()
         self.parent.make_rules_scroll_view(self.rules, self.click_on_rule_function, str(id(self)) + str(self.rules))
 
     def click_on_rule_function(self, rule):

@@ -44,5 +44,4 @@ class RuleWidget(ButtonBehavior, BoxLayout):
         self.height = max([image.norm_image_size[1] for image in images])
 
     def on_press(self):
-        self.sound_handler.play_rule_tap()
         self.on_press_func(self.rule)
