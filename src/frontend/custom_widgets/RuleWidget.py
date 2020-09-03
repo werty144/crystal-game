@@ -20,7 +20,7 @@ def map_kind_to_texture_source(kind):
 
 
 class RuleWidget(ButtonBehavior, BoxLayout):
-    def __init__(self, rule: Rule, on_press_func, max_right_side_len, sound_handler):
+    def __init__(self, rule: Rule, on_press_func, max_right_side_len):
         super().__init__()
         self.spacing = 5
         self.rule = rule
@@ -35,7 +35,6 @@ class RuleWidget(ButtonBehavior, BoxLayout):
         for child in self.children:
             child.size_hint = (1, None)
             child.bind(size=self.update)
-        self.sound_handler = sound_handler
 
     def update(self, *args):
         images = list(filter(lambda child: isinstance(child, Image), self.children))

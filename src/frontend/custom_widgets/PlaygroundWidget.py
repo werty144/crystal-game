@@ -63,7 +63,7 @@ class Playground(Widget):
         for obj in self.engine.all_game_objects():
             if any(widg.game_id == obj.game_id for widg in self.game_widgets):
                 continue
-            wimg = BoxWidget(obj, self.sound_handler)
+            wimg = BoxWidget(obj)
             self.game_widgets.append(wimg)
             self.add_widget(wimg)
 
@@ -144,9 +144,9 @@ class Playground(Widget):
             self.add_widget(self.rules_scroll_view)
             return
         self.rules_scroll_view = RulesScrollViewWidget()
-        if obj_hash == id(self):
-            ''' That means we're working with all rules, so no need in all rules button'''
-            self.rules_scroll_view.remove_widget(self.rules_scroll_view.ids.all_rules_btn)
+        # if obj_hash == id(self):
+        #     ''' That means we're working with all rules, so no need in all rules button'''
+        #     self.rules_scroll_view.remove_widget(self.rules_scroll_view.ids.all_rules_btn)
         self.add_widget(self.rules_scroll_view)
         if len(rules) == 0:
             # Here image instead of label would be, so no need to calculate font size properly
@@ -156,7 +156,7 @@ class Playground(Widget):
         else:
             max_right_side_len = max([len(rule.result_box_kinds) for rule in rules] + [1])
             for rule in rules:
-                rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len, self.sound_handler)
+                rule_widget = RuleWidget(rule, click_on_rule_function, max_right_side_len)
                 self.rules_scroll_view.ids.grid.add_widget(rule_widget)
         self.scroll_views[obj_hash] = self.rules_scroll_view
 
