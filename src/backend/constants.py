@@ -91,7 +91,16 @@ ID_TEXTURE_MAP = {
     'stamp_a': join(IMAGES_PATH, 'stamp_a.png'),
     'stamp_b': join(IMAGES_PATH, 'stamp_b.png'),
     'stamp_c': join(IMAGES_PATH, 'stamp_c.png'),
-    'stamp_d': join(IMAGES_PATH, 'stamp_d.png')
+    'stamp_d': join(IMAGES_PATH, 'stamp_d.png'),
+    'box_next_to': join(IMAGES_PATH, 'box_next_to.png'),
+    'box_over': join(IMAGES_PATH, 'box_over.png'),
+    'box_play': join(IMAGES_PATH, 'box_play.png'),
+    'box_quit': join(IMAGES_PATH, 'box_quit.png'),
+    'box_tutorial': join(IMAGES_PATH, 'box_tutorial.png'),
+    'postbox_a': join(IMAGES_PATH, 'postbox_a.png'),
+    'postbox_b': join(IMAGES_PATH, 'postbox_b.png'),
+    'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
+    'postbox_d': join(IMAGES_PATH, 'postbox_d.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -119,7 +128,8 @@ IMAGE_RATIOS = {
     'next_lvl_label_btn': 2359 / 1322,
     'restart_label_btn': 2359 / 1322,
     'q_mark': 439 / 638,
-    'stamp': 1353 / 955
+    'stamp': 1353 / 955,
+    'postbox': 626 / 828
 }
 
 MODULE_AMOUNT = 3

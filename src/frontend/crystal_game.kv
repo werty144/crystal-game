@@ -11,41 +11,76 @@
     canvas.before:
         Rectangle:
             size: (self.width, self.width)
-            source: app.language_utils.set_texture('menu_background')
-    BoxLayout:
-        size_hint: 0.5, 0.6
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
-        padding: '10dp'
-        spacing: self.height / 40
-        Button:
-            text: 'Play'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
-            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'modules'
-            background_normal: app.language_utils.set_texture('button')
-            background_down: self.background_normal
-        Button:
-            text: 'Tutorial'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
-            on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
-            background_normal: app.language_utils.set_texture('button')
-            background_down: self.background_normal
-        Button:
-            text: 'Quit'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
-            on_press: app.sound_handler.play_button_tap(); app.stop()
-            background_normal: app.language_utils.set_texture('button')
-            background_down: self.background_normal
+            source: app.language_utils.set_texture('background')
+
+    RotatedImage:
+        angle: -25
+        size_hint_x: 1/9
+        pos_hint: {'center_x': 0.4, 'center_y': 0.2}
+        source: app.language_utils.set_texture('opened_envelope4')
+    RotatedImage:
+        angle: 5
+        size_hint_x: 1/13
+        pos_hint: {'center_x': 0.9, 'center_y': 0.55}
+        source: app.language_utils.set_texture('opened_envelope')
+    Button:
+        id: play_btn
+        size_hint_x: 1/4
+        size_hint_y: None
+        height: self.width
+        pos_hint: {'center_x': 0.18}
+        y: 0
+        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'modules'
+        background_normal: app.language_utils.set_texture('box_play')
+        background_down: self.background_normal
+        border: 0, 0, 0, 0
+    Image:
+        id: box_over
+        source: app.language_utils.set_texture('box_over')
+        size_hint_x: 1/5
+        size_hint_y: None
+        height: self.width
+        y: play_btn.height
+        pos_hint: {'center_x': 0.185}
+    RotatedImage:
+        angle: 30
+        size_hint: 1/10, None
+        pos_hint: {'center_x': 0.2}
+        pos: self.x, play_btn.height + 0.6 * box_over.height
+        source: app.language_utils.set_texture('closed_envelope')
+    Button:
+        id: quit
+        size_hint_x: 10/75
+        size_hint_y: None
+        height: self.width
+        y: 0
+        pos_hint: {'center_x': 0.56}
+        on_press: app.sound_handler.play_button_tap(); app.stop()
+        background_normal: app.language_utils.set_texture('box_quit')
+        background_down: self.background_normal
+        border: 0, 0, 0, 0
+    Button:
+        id: tutorial
+        size_hint_x: 10/45
+        size_hint_y: None
+        height: self.width
+        pos: quit.x + quit.width, 0
+        on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.current = 'tutorial'
+        background_normal: app.language_utils.set_texture('box_tutorial')
+        background_down: self.background_normal
+        border: 0, 0, 0, 0
+    Image:
+        source: app.language_utils.set_texture('box_next_to')
+        size_hint_x: 1/7
+        size_hint_y: None
+        height: self.width
+        pos: tutorial.x + tutorial.width, 0
+
+
 
     BoxLayout:
         size_hint: 0.15, 0.1
-        pos_hint:  {'right': 1, 'bot': 0}
+        pos_hint:  {'right': 1, 'top': 1}
         orientation: 'horizontal'
         padding: 0, 0, '7dp', '7dp'
         spacing: '10dp'
@@ -101,35 +136,32 @@
                     size: self.size
                     pos: self.pos
     BoxLayout:
-        size_hint: 0.5, 0.6
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
+        size_hint: 0.8, 0.4
+        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+        orientation: 'horizontal'
         padding: '10dp'
-        spacing: self.height / 40
+        spacing: self.width / 10
         Button:
-            text: 'Module 1'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
+            size_hint_y: None
+            height: self.width / image_ratios['postbox']
             on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 1;root.manager.current = 'levels'
-            background_normal: app.language_utils.set_texture('button')
+            background_normal: app.language_utils.set_texture('postbox_a')
             background_down: self.background_normal
+            border: 0, 0, 0, 0
         Button:
-            text: 'Module 2'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
+            size_hint_y: None
+            height: self.width / image_ratios['postbox']
             on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 2;root.manager.current = 'levels'
-            background_normal: app.language_utils.set_texture('button')
+            background_normal: app.language_utils.set_texture('postbox_b')
             background_down: self.background_normal
+            border: 0, 0, 0, 0
         Button:
-            text: 'Module 3'
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            size_hint: None, 0.33
-            width: self.height * image_ratios['button']
+            size_hint_y: None
+            height: self.width / image_ratios['postbox']
             on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'left';root.manager.get_screen('levels').module = 3;root.manager.current = 'levels'
-            background_normal: app.language_utils.set_texture('button')
+            background_normal: app.language_utils.set_texture('postbox_c')
             background_down: self.background_normal
+            border: 0, 0, 0, 0
 
 <GameScreen>:
     canvas.before:
@@ -329,3 +361,15 @@
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
     Image:
         source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
+
+
+<RotatedImage@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0, 0, 1
+            origin: root.center
+    canvas.after:
+        PopMatrix
