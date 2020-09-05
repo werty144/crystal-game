@@ -240,42 +240,31 @@
             row_force_default: False
 
 <WinningWidget>:
-    FloatLayout:
-        canvas.before:
-            Rectangle:
-                size: (self.width, self.width)
-                source: app.language_utils.set_texture('background')
-        Image:
-            source: app.language_utils.set_texture('you_win')
-            size_hint_x: 0.7
-            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+    canvas.before:
+        Rectangle:
+            size: (self.width, self.width)
+            source: app.language_utils.set_texture('background')
+    Image:
+        source: app.language_utils.set_texture('you_win')
+        size_hint_x: 0.7
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
     RatioLayout:
         size_hint_y: 0.3
-#        orientation: 'horizontal'
         id: buttons
         Button:
             id: levels_button
             ratio: image_ratios['levels_label_btn']
-#            size_hint_y: None
-#            pos_hint: {'center_y': 0.5}
-#            height: self.width / image_ratios['levels_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
             background_normal: app.language_utils.set_texture('levels_label_btn')
             background_down: self.background_normal
         Button:
             ratio: image_ratios['restart_label_btn']
-#            size_hint_y: None
-#            pos_hint: {'center_y': 0.5}
-#            height: self.width / image_ratios['restart_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.restart()
             background_normal: app.language_utils.set_texture('restart_label_btn')
             background_down: self.background_normal
         Button:
             id: next_lvl_button
             ratio: image_ratios['next_lvl_label_btn']
-#            size_hint_y: None
-#            pos_hint: {'center_y': 0.5}
-#            height: self.width / image_ratios['next_lvl_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.go_to_next_lvl()
             background_normal: app.language_utils.set_texture('next_lvl_label_btn')
             background_down: self.background_normal

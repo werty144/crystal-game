@@ -1,10 +1,5 @@
-from os.path import join
-
-from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
-
-from src.backend.constants import SOUND_PATH
 from src.backend.ModuleUtils import get_final_levels
 from src.frontend.custom_widgets.PlaygroundWidget import Playground
 from src.frontend.custom_widgets.WinningWidget import WinningWidget
@@ -39,12 +34,11 @@ class GameScreen(Screen):
         self.playground.switch_field()
 
     def show_winning_widget(self):
+        self.clean()
         self.sound_handler.play_winning_sound()
         self.winning_widget = WinningWidget()
         if self.lvl in get_final_levels():
             self.winning_widget.ids.buttons.remove_widget(self.winning_widget.ids.next_lvl_button)
-            # ww_buttons = self.winning_widget.children[0].children[0].children
-            # self.winning_widget.children[0].children[0].remove_widget(ww_buttons[0])
         self.add_widget(self.winning_widget)
 
     def go_to_next_lvl(self):
