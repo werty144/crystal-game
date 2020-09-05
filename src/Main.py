@@ -1,6 +1,7 @@
 import os
 
 from kivy.app import App
+from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.storage.jsonstore import JsonStore
@@ -13,6 +14,7 @@ from src.frontend.Screens.LevelsScreen import LevelsScreen
 from src.frontend.Screens.MenuScreen import MenuScreen
 from src.frontend.Screens.ModulesScreen import ModulesScreen
 from src.frontend.Screens.TutorialScreen import TutorialScreen
+from src.frontend.custom_widgets import RatioLayout
 
 os.environ['KIVY_AUDIO'] = 'sdl2'
 from kivy.core.window import Window
@@ -83,4 +85,5 @@ class Crystal_game(App):
         ts = TutorialScreen(name='tutorial', sound_handler=self.sound_handler)
         sm.add_widget(ts)
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
+        Factory.register('RatioLayout', RatioLayout)
         return sm
