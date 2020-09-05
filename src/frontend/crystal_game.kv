@@ -317,15 +317,22 @@
         size_hint: 0.3, 0.2
         halign: 'center'
         valign: 'middle'
-        color: 0, 0, 0, 1
+        color: 0.29, 0, 0.153, 1
         pos_hint: {'center_y': 0.8, 'center_x': root.screen_utils.get_field_middle_x_ratio()}
         adapt_tasks: True
+        border_width: 3
         canvas.before:
             Color:
-                rgba: 1, 1, 1, 1
+                rgba: 0.992, 0.925, 0.863, 1
             Rectangle:
-                size: self.size
                 pos: self.pos
+                size: self.size
+            Color:
+                rgba: 232/256, 58/256, 88/256, 1
+            Line:
+                width: self.border_width
+                rectangle: self.x - self.border_width, self.y - self.border_width, self.width + 2 * self.border_width, self.height + 2 * self.border_width
+                close: True
 
 
 <StarsPopup@Popup>:
