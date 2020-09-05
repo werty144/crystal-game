@@ -149,7 +149,7 @@ class Playground(Widget):
         self.rules_scroll_view = RulesScrollViewWidget()
         if obj_hash == id(self):
             ''' That means we're working with all rules, so no need in all rules button'''
-            self.rules_scroll_view.remove_widget(self.rules_scroll_view.ids.all_rules_btn)
+            self.rules_scroll_view.remove_widget(self.rules_scroll_view.all_rules_btn)
         self.add_widget(self.rules_scroll_view)
         if len(rules) == 0:
             # Here image instead of label would be, so no need to calculate font size properly
