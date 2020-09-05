@@ -25,6 +25,7 @@ class Playground(Widget):
     storage = ObjectProperty()
     sound_handler = ObjectProperty()
     scroll_views = DictProperty()
+    selected_box = ObjectProperty(allownone=True)
 
     def start(self, lvl):
         self.engine = Engine(lvl, self.sound_handler)
@@ -121,6 +122,7 @@ class Playground(Widget):
 
     def switch_field(self):
         self.show_all_rules()
+        self.unselect_box()
         if not self.is_target_field:
             for widg in self.game_widgets:
                 self.remove_widget(widg)
@@ -164,6 +166,7 @@ class Playground(Widget):
         if self.is_target_field:
             return
         self.engine.undo()
+        self.unselect_box()
         self.show_all_rules()
 
     def on_touch_down(self, touch):
@@ -185,3 +188,17 @@ class Playground(Widget):
         for key, value in kwargs.items():
             d[key] = value
         self.storage.put(key, **d)
+
+    def select_box(self, box_widg):
+        if box_widg not in self.game_widgets:
+            return
+        if self.selected_box is not None:
+            self.selected_box.unselect()
+        box_widg.select()
+        self.selected_box = box_widg
+
+    def unselect_box(self):
+        if self.selected_box is None:
+            return
+        self.selected_box.unselect()
+        self.selected_box = None
