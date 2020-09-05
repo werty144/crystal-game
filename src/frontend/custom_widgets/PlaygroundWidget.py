@@ -136,6 +136,7 @@ class Playground(Widget):
         self.is_target_field = not self.is_target_field
 
     def show_all_rules(self):
+        self.unselect_box()
         self.make_rules_scroll_view(self.engine.get_all_rules(), lambda _: None, id(self))
 
     def make_rules_scroll_view(self, rules, click_on_rule_function, obj_hash):

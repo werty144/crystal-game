@@ -36,11 +36,11 @@ class BoxWidget(ButtonBehavior, Image):
                         rectangle=(self.x, self.y, self.width, self.height)
                         ))
         self.border = border
-        self.canvas.add(self.border)
+        self.parent.canvas.add(self.border)
 
     def unselect(self):
         if self.border is None:
             return
-        self.canvas.remove(self.border)
+        self.parent.canvas.remove(self.border)
         self.border = None
 
