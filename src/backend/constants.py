@@ -65,10 +65,8 @@ ID_TEXTURE_MAP = {
     'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
     'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
     'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
-    'button': join(IMAGES_PATH, 'button.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
     'you_win': join(IMAGES_PATH, 'you_win.png'),
-    'menu_background': join(IMAGES_PATH, 'menu_background.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
     'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
     'opened_envelope2': join(IMAGES_PATH, 'opened_envelope2.png'),
@@ -114,8 +112,6 @@ RU_ID_TEXTURE_MAP = {
 }
 
 IMAGE_RATIOS = {
-    'button_red': 256 / 256,
-    'button': 488 / 488,
     'en_flag': 1024 / 683,
     'ru_flag': 1024 / 683,
     'opened_envelope': 3259 / 3439,
