@@ -27,7 +27,6 @@ class TutorialScreen(GameScreen):
         self.manager.current = 'game'
 
     def go_to_menu(self):
-        self.sound_handler.play_button_tap()
         self.clean()
         self.manager.transition.direction = 'right'
         self.manager.current = 'modules'

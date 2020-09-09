@@ -14,6 +14,7 @@ class MyAdaptiveLabel(Label):
     fonts_setted = False
     small_font = 100
     large_font = 100
+    final_width = NumericProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -104,6 +105,7 @@ class MyAdaptiveLabel(Label):
         elif self.adaptive_width > 0 and self.adaptive_height > 0:
             self.size_hint = (None, None)
             self.set_font()
+        self.final_width = self.width
 
     def set_width(self):
         self.bin_search(lambda x: self.texture_size[1] > self.height)

@@ -5,7 +5,7 @@ from kivy.factory import Factory
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.storage.jsonstore import JsonStore
-from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import ScreenManager, FadeTransition
 
 from src.LanguageUtils import LanguageUtils
 from src.backend.SoundHandler import SoundHandler
@@ -74,7 +74,7 @@ class Crystal_game(App):
         self.language_utils = LanguageUtils()
         self.sound_handler = SoundHandler()
         self.sound_handler.play_theme()
-        sm = ScreenManager()
+        sm = ScreenManager(transition=FadeTransition())
         ms = MenuScreen(name='menu')
         self.language_utils.init_menu_screen(ms)
         sm.add_widget(ms)
