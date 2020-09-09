@@ -152,9 +152,8 @@ class Playground(Widget):
             self.rules_scroll_view.remove_widget(self.rules_scroll_view.all_rules_btn)
         self.add_widget(self.rules_scroll_view)
         if len(rules) == 0:
-            # Here image instead of label would be, so no need to calculate font size properly
-            img = Image(source='resources/images/no_rules.jpg', size_hint=(1, None), allow_stretch=True,
-                        keep_ratio=False)
+            from src.LanguageUtils import LanguageUtils
+            img = Image(source=LanguageUtils().set_texture('no_rules'), size_hint=(1, None))
             self.rules_scroll_view.ids.grid.add_widget(img)
         else:
             max_right_side_len = max([len(rule.result_box_kinds) for rule in rules] + [1])

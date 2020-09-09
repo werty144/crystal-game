@@ -65,7 +65,7 @@ ID_TEXTURE_MAP = {
     'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
     'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
     'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
-    'no_rules': join(IMAGES_PATH, 'no_rules.jpg'),
+    'no_rules': join(IMAGES_PATH, 'no_rules.png'),
     'you_win': join(IMAGES_PATH, 'you_win.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
     'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
@@ -82,6 +82,7 @@ ID_TEXTURE_MAP = {
     'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
     'levels': join(IMAGES_PATH, 'levels.png'),
     'target_field_btn': join(IMAGES_PATH, 'target_field_btn.png'),
+    'target_field_btn_switched': join(IMAGES_PATH, 'target_field_btn_switched.png'),
     'q_mark': join(IMAGES_PATH, 'q_mark.png'),
     'en_flag': join(IMAGES_PATH, 'en_flag.jpg'),
     'ru_flag': join(IMAGES_PATH, 'ru_flag.png'),
@@ -98,7 +99,8 @@ ID_TEXTURE_MAP = {
     'postbox_a': join(IMAGES_PATH, 'postbox_a.png'),
     'postbox_b': join(IMAGES_PATH, 'postbox_b.png'),
     'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
-    'postbox_d': join(IMAGES_PATH, 'postbox_d.png')
+    'postbox_d': join(IMAGES_PATH, 'postbox_d.png'),
+    'postbox_label': join(IMAGES_PATH, 'postbox_label.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -125,7 +127,7 @@ IMAGE_RATIOS = {
     'restart_label_btn': 2359 / 1322,
     'q_mark': 439 / 638,
     'stamp': 1353 / 955,
-    'postbox': 626 / 828
+    'postbox': 360 / 428
 }
 
 MODULE_AMOUNT = 3

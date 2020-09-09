@@ -11,7 +11,6 @@ class GameScreen(Screen):
     winning_widget = ObjectProperty(None, allownone=True)
     storage = ObjectProperty()
     sound_handler = ObjectProperty()
-    switch_frame = ObjectProperty(None, allownone=True)
 
     def on_enter(self, *args):
         self.playground = Playground(storage=self.storage, sound_handler=self.sound_handler)
@@ -23,8 +22,6 @@ class GameScreen(Screen):
         self.on_enter()
 
     def clean(self):
-        if self.switch_frame is not None:
-            self.canvas.remove(self.switch_frame)
         if self.playground is not None:
             self.playground.update_event.cancel()
             self.remove_widget(self.playground)
@@ -34,18 +31,12 @@ class GameScreen(Screen):
             self.winning_widget = None
 
     def switch_field(self):
+        from src.LanguageUtils import LanguageUtils
+        switch = self.ids.field_switch
         if not self.playground.is_target_field:
-            with self.canvas:
-                from kivy.graphics.vertex_instructions import Line
-                from kivy.graphics.context_instructions import Color
-                switch = self.ids.field_switch
-                Color(232/300, 58/300, 88/300, 1)
-                self.switch_frame = Line(rectangle=(switch.x - 2, switch.y - 2, switch.width + 4, switch.height + 4),
-                                         width=2)
+            switch.background_normal = LanguageUtils().set_texture('target_field_btn_switched')
         else:
-            if self.switch_frame is not None:
-                self.canvas.remove(self.switch_frame)
-                self.switch_frame = None
+            switch.background_normal = LanguageUtils().set_texture('target_field_btn')
         self.playground.switch_field()
 
     def show_winning_widget(self):

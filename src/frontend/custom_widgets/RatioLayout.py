@@ -10,7 +10,7 @@ class RatioLayout(RelativeLayout):
     def do_layout(self, *args):
         self.free_width = self.width - (len(self.children) + 1) * self.spacing
         self.width_per_child = self.free_width / len(self.children)
-        for i, child in enumerate(self.children):
+        for i, child in enumerate(reversed(self.children)):
             self.count_child_pos_n_size(child, i)
         super(RatioLayout, self).do_layout(*args)
 
@@ -23,4 +23,5 @@ class RatioLayout(RelativeLayout):
         else:
             child.height = self.height
             child.width = child.height * child.ratio
-        child.pos = (self.width_per_child * child_n + self.spacing + (self.width_per_child - child.width) / 2, 0)
+        child.pos = (self.width_per_child * child_n + self.spacing * (child_n + 1)
+                     + (self.width_per_child - child.width) / 2, 0)
