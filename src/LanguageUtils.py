@@ -51,16 +51,20 @@ class LanguageUtils:
             id_string_map = RU_ID_STRING_MAP
         return id_string_map[identifier]
 
-    @staticmethod
-    def make_btn_frame(btn):
+    def make_btn_frame(self, btn):
         def make_frame(*args):
-            btn.canvas.before.clear()
-            with btn.canvas.before:
+            if btn.lang != self.cur_lang:
+                return
+            self.clear_btn_frame(btn)
+            with btn.canvas:
                 Color(0.8, 0.8, 0, 1)
-                Line(width=2, rectangle=(btn.x, btn.y, btn.width, btn.height))
-        btn.bind(size=make_frame)
+                btn.frame = Line(width=2, rectangle=(btn.x - 2, btn.y - 2, btn.width + 4, btn.height + 4))
+            btn.frame_active = True
+        btn.bind(size=make_frame, pos=make_frame)
         make_frame()
 
     @staticmethod
     def clear_btn_frame(btn: Button):
-        btn.canvas.before.clear()
+        if btn.frame_active:
+            btn.canvas.remove(btn.frame)
+            btn.frame_active = False

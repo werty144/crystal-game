@@ -100,7 +100,8 @@ ID_TEXTURE_MAP = {
     'postbox_b': join(IMAGES_PATH, 'postbox_b.png'),
     'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
     'postbox_d': join(IMAGES_PATH, 'postbox_d.png'),
-    'postbox_label': join(IMAGES_PATH, 'postbox_label.png')
+    'postbox_label': join(IMAGES_PATH, 'postbox_label.png'),
+    'BrainMail': join(IMAGES_PATH, 'BrainMail.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -119,15 +120,16 @@ IMAGE_RATIOS = {
     'opened_envelope': 3259 / 3439,
     'closed_envelope': 3259 / 3439,
     'all_rules': 1280 / 192,
-    'restart': 843 / 921,
-    'back': 1209 / 983,
-    'undo': 584 / 463,
+    'restart': 128 / 126,
+    'back': 228 / 228,
+    'undo': 128 / 126,
     'levels_label_btn': 2359 / 1322,
     'next_lvl_label_btn': 2359 / 1322,
     'restart_label_btn': 2359 / 1322,
-    'q_mark': 439 / 638,
+    'q_mark': 128 / 126,
     'stamp': 1353 / 955,
-    'postbox': 360 / 428
+    'postbox': 360 / 428,
+    'target_field': 128 / 126
 }
 
 MODULE_AMOUNT = 3

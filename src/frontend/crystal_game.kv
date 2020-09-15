@@ -12,6 +12,10 @@
         Rectangle:
             size: (self.width, self.width)
             source: app.language_utils.set_texture('background')
+    Image:
+        source: app.language_utils.set_texture('BrainMail')
+        size_hint_y: 0.17
+        pos_hint: {'center_x': 0.6 , 'center_y': 0.75}
 
     RotatedImage:
         angle: -25
@@ -76,27 +80,27 @@
         height: self.width
         pos: tutorial.x + tutorial.width, 0
 
-
-
-    BoxLayout:
+    RatioLayout:
         size_hint: 0.15, 0.1
-        pos_hint:  {'right': 1, 'top': 1}
-        orientation: 'horizontal'
-        padding: 0, 0, '7dp', '7dp'
+        pos_hint:  {'right': 1, 'top': 0.99}
         spacing: '10dp'
         Button:
             id: en_flag
             border: 0, 0, 0, 0
-            size_hint_y: None
-            height: self.width / image_ratios['en_flag']
+            lang: 'en'
+            frame: None
+            frame_active: False
+            ratio: image_ratios['en_flag']
             on_press: app.sound_handler.play_button_tap(); app.language_utils.change_language('en')
             background_normal: app.language_utils.set_texture('en_flag')
             background_down: self.background_normal
         Button:
             id: ru_flag
             border: 0, 0, 0, 0
-            size_hint_y: None
-            height: self.width / image_ratios['en_flag']
+            lang: 'ru'
+            frame: None
+            frame_active: False
+            ratio: image_ratios['ru_flag']
             on_press: app.sound_handler.play_button_tap(); app.language_utils.change_language('ru')
             background_normal: app.language_utils.set_texture('ru_flag')
             background_down: self.background_normal
@@ -107,10 +111,11 @@
             size: (self.width, self.width)
             source: app.language_utils.set_texture('background')
     Button:
+        border: 0, 0, 0, 0
         on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'menu'
-        size_hint: (0.125, None)
+        size_hint: (1/12, None)
         height: self.width / image_ratios['back']
-        pos: (0, 0)
+        pos: (5, 5)
         background_normal: app.language_utils.set_texture('back_btn')
         background_down: self.background_normal
 
@@ -200,7 +205,8 @@
             border: 0, 0, 0, 0
             on_press: app.sound_handler.play_button_tap(); root.switch_field()
             size_hint: None, None
-            size: self.parent.width, self.parent.width
+            width: self.parent.width
+            height: self.width / image_ratios['target_field']
             background_normal: app.language_utils.set_texture('target_field_btn')
             background_down: self.background_normal
         Button:
@@ -231,10 +237,11 @@
         size_hint_y: 0.25
         pos_hint: {'center_x': 0.5, 'center_y': 0.85}
     Button:
+        border: 0, 0, 0, 0
         on_press: app.sound_handler.play_button_tap(); root.manager.transition.direction = 'right';root.manager.current = 'modules'
-        size_hint: (0.125, None)
+        size_hint: (1/12, None)
         height: self.width / image_ratios['back']
-        pos: (0, 0)
+        pos: (5, 5)
         background_normal: app.language_utils.set_texture('back_btn')
         background_down: self.background_normal
 
