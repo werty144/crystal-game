@@ -51,10 +51,10 @@ ENG_ID_STRING_MAP = {
     'tutorial_your_turn': 'It\'s your turn now!\nKeep in mind that parcels fall.\n\n'
                           'Tap to continue',
     'module': 'Postbox',
-    'stamps_text': 'Here you can get your stamps per postbox statistic.\nEvery postbox contains special levels:\n'
-                   'solving each one in minimal number of moves gives you a stamp.\nBut you don\'t know '
-                   'which levels are special!\nAlthough you know their number in each postbox.\nYou get the stamps '
-                   'only after you successfully solve all letters in the postbox.\n\n'
+    'stamps_text': 'Here you can get your stamps per postbox\nstatistic.\nEvery postbox contains special levels:\n'
+                   'solving each one in minimal number of\nmoves gives you a stamp.\nBut you don\'t know '
+                   'which levels are special!\nAlthough you know their number in each\npostbox.\nYou get the stamps '
+                   'only after you\nsuccessfully solve all letters in the postbox.\n\n'
                    'Good luck!',
     'stamps': 'Stamps'
 }

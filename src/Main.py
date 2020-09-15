@@ -1,4 +1,7 @@
 import os
+from kivy.config import Config
+Config.set('graphics', 'width', '1170')
+Config.set('graphics', 'height', '540')
 
 from kivy.app import App
 from kivy.factory import Factory
@@ -86,4 +89,5 @@ class Crystal_game(App):
         sm.add_widget(ts)
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         Factory.register('RatioLayout', RatioLayout)
+        sm.current = 'modules'
         return sm

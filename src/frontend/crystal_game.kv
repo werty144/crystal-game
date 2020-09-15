@@ -123,6 +123,13 @@
         size_hint: 0.15, 0.1
         pos_hint: {'right': 1, 'top': 1}
         orientation: 'horizontal'
+        Image:
+            size_hint_x: None
+            width: self.height * image_ratios['stamp']
+            source: app.language_utils.set_texture('stamp')
+        MyAdaptiveLabel:
+            adapt_width: True
+            id: stars_amount
         Button:
             border: 0, 0, 0, 0
             on_press: root.show_star_popup()
@@ -130,16 +137,7 @@
             width: self.height * image_ratios['q_mark']
             background_normal: app.language_utils.set_texture('q_mark')
             background_down: self.background_normal
-        Image:
-            source: app.language_utils.set_texture('stamp')
-        Label:
-            id: stars_amount
-            canvas.before:
-                Color:
-                    rgba: 0, 0, 0, 1
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
+
     FloatLayout:
         size_hint: 0.8, 0.7
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
@@ -360,17 +358,22 @@
     title: app.language_utils.set_string('stamps')
     size_hint: (0.7, 0.7)
     BoxLayout:
-        orientation: 'vertical'
+        orientation: 'horizontal'
+        spacing: '10dp'
+        padding: 2, 17, 2, 2
         MyAdaptiveLabel:
             adapt_height: True
             adapt_width: True
             valign: 'top'
-            text: app.language_utils.set_string('stamps_text')
+            text: '[color=ff3333]' + app.language_utils.set_string('stamps_text') + '[/color]'
+            markup: True
         BoxLayout:
             orientation: 'vertical'
+            pos_hint: {'center_y': 0.6}
+            size_hint_y: 1/2
             id: grid
             cols: 1
-            spacing: '20dp'
+            spacing: '10dp'
             padding: '5dp'
 
 
@@ -379,13 +382,16 @@
     spacing: '5dp'
     MyAdaptiveLabel:
         id: label
-        adapt_height: True
-        valign: 'middle'
+        adapt_width: True
         text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
-    Image:
-        size_hint_x: None
-        width: self.height * image_ratios['stamp']
-        source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
+    RatioLayout:
+        size_hint_x: 1/4
+        Image:
+            ratio: image_ratios['stamp']
+#            pos_hint: {'top': self.height / self.parent.height}
+            source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
+    Widget:
+        size_hint_x: 1/4
 
 
 <RotatedImage@Image>:
