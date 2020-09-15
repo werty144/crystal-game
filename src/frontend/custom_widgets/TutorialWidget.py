@@ -41,7 +41,7 @@ class Task(FloatLayout):
         background.add(Rectangle(pos=(focus_window_x + focus_window_width, focus_window_y),
                                  size=(window_width - focus_window_width - focus_window_x, focus_window_height)))
         self.background = background
-        self.canvas.add(background)
+        self.canvas.before.add(background)
 
     def __init__(self, focus_object, title_text, on_touch_option, screen_utils: ScreenUtils, rightest=None):
         self.focus_object = focus_object
@@ -54,7 +54,7 @@ class Task(FloatLayout):
         self.create_shadowed_background()
 
     def update_background(self, *args):
-        self.canvas.remove(self.background)
+        self.canvas.before.remove(self.background)
         self.remove_widget(self.ids.title)
         self.create_shadowed_background()
         self.add_widget(self.ids.title)
