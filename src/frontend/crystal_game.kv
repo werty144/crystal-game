@@ -119,24 +119,28 @@
         background_normal: app.language_utils.set_texture('back_btn')
         background_down: self.background_normal
 
-    BoxLayout:
-        size_hint: 0.15, 0.1
-        pos_hint: {'right': 1, 'top': 1}
-        orientation: 'horizontal'
-        Image:
-            size_hint_x: None
-            width: self.height * image_ratios['stamp']
-            source: app.language_utils.set_texture('stamp')
-        MyAdaptiveLabel:
-            adapt_width: True
-            id: stars_amount
-        Button:
-            border: 0, 0, 0, 0
-            on_press: root.show_star_popup()
-            size_hint_x: None
-            width: self.height * image_ratios['q_mark']
-            background_normal: app.language_utils.set_texture('q_mark')
-            background_down: self.background_normal
+    Image:
+        size_hint: None, None
+        height: q_mark.height
+        width: self.height * image_ratios['stamp']
+        pos: (stars_amount.x - self.width, q_mark.y)
+        source: app.language_utils.set_texture('stamp')
+    MyAdaptiveLabel:
+        id: stars_amount
+        adapt_width: True
+        size_hint: None, None
+        height: q_mark.height
+        width: self.height
+        pos: (q_mark.x - self.width - 7, q_mark.y)
+    Button:
+        id: q_mark
+        border: 0, 0, 0, 0
+        on_press: root.show_star_popup()
+        size_hint: None, 0.1
+        width: self.height * image_ratios['q_mark']
+        pos: self.parent.right - self.width, self.parent.top - self.height
+        background_normal: app.language_utils.set_texture('q_mark')
+        background_down: self.background_normal
 
     FloatLayout:
         size_hint: 0.8, 0.7

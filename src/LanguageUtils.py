@@ -57,7 +57,7 @@ class LanguageUtils:
                 return
             self.clear_btn_frame(btn)
             with btn.canvas:
-                Color(121/256, 230/256, 159/256, 1)
+                Color(1 / 1.1, 1 / 1.1, 97/256 / 1.1, 1)
                 btn.frame = Line(width=2, rectangle=(btn.x - 2, btn.y - 2, btn.width + 4, btn.height + 4))
             btn.frame_active = True
         btn.bind(size=make_frame, pos=make_frame)
