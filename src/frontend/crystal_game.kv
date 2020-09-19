@@ -360,16 +360,19 @@
 
 <StarsPopup@Popup>:
     title: app.language_utils.set_string('stamps')
+    title_color: 1, 0, 1, 1
+    title_size: '28sp'
+    background: app.language_utils.set_texture('stars_popup_background')
     size_hint: (0.7, 0.7)
     BoxLayout:
         orientation: 'horizontal'
         spacing: '10dp'
         padding: 2, 17, 2, 2
         MyAdaptiveLabel:
-            adapt_height: True
+#            adapt_height: True
             adapt_width: True
             valign: 'top'
-            text: '[color=ff3333]' + app.language_utils.set_string('stamps_text') + '[/color]'
+            text: '[color=4A0027]' + app.language_utils.set_string('stamps_text') + '[/color]'
             markup: True
         BoxLayout:
             orientation: 'vertical'
@@ -381,21 +384,19 @@
             padding: '5dp'
 
 
-<StarsPerModule@BoxLayout>:
-    orientation: 'horizontal'
-    spacing: '5dp'
+<StarsPerModule@FloatLayout>:
     MyAdaptiveLabel:
+        pos: self.parent.pos
+        size: self.parent.width / 2, self.parent.height
         id: label
         adapt_width: True
-        text: app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module)
-    RatioLayout:
-        size_hint_x: 1/4
-        Image:
-            ratio: image_ratios['stamp']
-#            pos_hint: {'top': self.height / self.parent.height}
-            source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
-    Widget:
-        size_hint_x: 1/4
+        text: '[color=4A0027]' + app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module) + '[/color]'
+        markup: True
+    Image:
+        pos: label.x + label.width, label.y
+        size_hint_x: None
+        width: self.height * image_ratios['stamp']
+        source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
 
 
 <RotatedImage@Image>:

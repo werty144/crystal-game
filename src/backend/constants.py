@@ -101,7 +101,8 @@ ID_TEXTURE_MAP = {
     'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
     'postbox_d': join(IMAGES_PATH, 'postbox_d.png'),
     'postbox_label': join(IMAGES_PATH, 'postbox_label.png'),
-    'BrainMail': join(IMAGES_PATH, 'BrainMail.png')
+    'BrainMail': join(IMAGES_PATH, 'BrainMail.png'),
+    'stars_popup_background': join(IMAGES_PATH, 'stars_popup_background.png')
 }
 
 ENG_ID_TEXTURE_MAP = {

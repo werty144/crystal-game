@@ -1,7 +1,7 @@
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 
 
-class StarsPerModule(BoxLayout):
+class StarsPerModule(FloatLayout):
     def __init__(self, module):
         self.module = module
         super().__init__()
