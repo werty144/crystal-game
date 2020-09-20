@@ -120,18 +120,20 @@
         background_down: self.background_normal
 
     Image:
+        id: stamp
         size_hint: None, None
         height: q_mark.height
         width: self.height * image_ratios['stamp']
-        pos: (stars_amount.x - self.width, q_mark.y)
+        pos: (q_mark.x - self.width - 7, q_mark.y)
         source: app.language_utils.set_texture('stamp')
     MyAdaptiveLabel:
         id: stars_amount
         adapt_width: True
+        adapt_height: True
         size_hint: None, None
         height: q_mark.height
-        width: self.height
-        pos: (q_mark.x - self.width - 7, q_mark.y)
+        width: stamp.width * 0.8
+        pos: (q_mark.x - stamp.width * 0.9 - 7, q_mark.y)
     Button:
         id: q_mark
         border: 0, 0, 0, 0

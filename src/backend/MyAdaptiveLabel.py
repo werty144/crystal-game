@@ -66,7 +66,7 @@ class MyAdaptiveLabel(Label):
             MyAdaptiveLabel.small_font = min(self.font_size, self.small_font)
             fonts[int(self.font_size)] += 1
         fonts_list = sorted(list(fonts.elements()))
-        middle = len(fonts_list) // 2
+        middle = len(fonts_list) // 3
         MyAdaptiveLabel.large_font = fonts_list[middle]
         self.text = text
         self.set_task_font()
@@ -98,13 +98,16 @@ class MyAdaptiveLabel(Label):
             self.size_hint = (None, None)
             self.height = self.adaptive_height
             self.set_width()
+            self.bind(size=self.set_adaptive_height)
         elif self.adaptive_width > 0 and self.adaptive_height == 0:
             self.size_hint = (None, None)
             self.width = self.adaptive_width
             self.set_height()
+            self.bind(size=self.set_adaptive_width)
         elif self.adaptive_width > 0 and self.adaptive_height > 0:
             self.size_hint = (None, None)
             self.set_font()
+            self.bind(size=self.set_adaptive_size)
         self.final_width = self.width
 
     def set_width(self):
