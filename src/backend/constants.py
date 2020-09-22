@@ -98,15 +98,15 @@ ID_TEXTURE_MAP = {
 
 ENG_ID_TEXTURE_MAP = {
     'all_rules_btn': join(IMAGES_PATH, 'all_rules_btn_eng.png'),
-    'box_play': join(IMAGES_PATH, 'box_play.png'),
-    'box_quit': join(IMAGES_PATH, 'box_quit.png'),
-    'box_tutorial': join(IMAGES_PATH, 'box_tutorial.png'),
-    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
-    'levels': join(IMAGES_PATH, 'levels.png'),
-    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
-    'no_rules': join(IMAGES_PATH, 'no_rules.png'),
-    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
-    'you_win': join(IMAGES_PATH, 'you_win.png'),
+    'box_play': join(IMAGES_PATH, 'box_play_eng.png'),
+    'box_quit': join(IMAGES_PATH, 'box_quit_eng.png'),
+    'box_tutorial': join(IMAGES_PATH, 'box_tutorial_eng.png'),
+    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn_eng.png'),
+    'levels': join(IMAGES_PATH, 'levels_eng.png'),
+    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn_eng.png'),
+    'no_rules': join(IMAGES_PATH, 'no_rules_eng.png'),
+    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn_eng.png'),
+    'you_win': join(IMAGES_PATH, 'you_win_eng.png'),
     **ID_TEXTURE_MAP
 }
 
