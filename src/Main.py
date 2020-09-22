@@ -89,5 +89,5 @@ class Crystal_game(App):
         sm.add_widget(ts)
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         Factory.register('RatioLayout', RatioLayout)
-        sm.current = 'modules'
+        # sm.current = 'modules'
         return sm
