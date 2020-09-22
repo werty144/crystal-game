@@ -15,7 +15,7 @@ class ModulesScreen(Screen):
         for lvl in get_final_levels():
             if storage.get(f'lvl{lvl}')['status'] == 'Passed':
                 got += storage.get('module_stars')[str(get_module(lvl))]
-        self.ids.stars_amount.text = str(got) + '/' + str(total_stars())
+        self.ids.stars_amount.text = '[color=FDECDC]' + str(got) + '/' + str(total_stars()) + '[/color]'
 
     def show_star_popup(self):
         star_popup = StarsPopup()

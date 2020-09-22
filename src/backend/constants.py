@@ -65,8 +65,6 @@ ID_TEXTURE_MAP = {
     'up_arrow': join(IMAGES_PATH, 'up_arrow.png'),
     'right_arrow': join(IMAGES_PATH, 'right_arrow.png'),
     'left_arrow': join(IMAGES_PATH, 'left_arrow.png'),
-    'no_rules': join(IMAGES_PATH, 'no_rules.png'),
-    'you_win': join(IMAGES_PATH, 'you_win.png'),
     'opened_envelope': join(IMAGES_PATH, 'opened_envelope.png'),
     'opened_envelope1': join(IMAGES_PATH, 'opened_envelope1.png'),
     'opened_envelope2': join(IMAGES_PATH, 'opened_envelope2.png'),
@@ -77,10 +75,6 @@ ID_TEXTURE_MAP = {
     'restart_btn': join(IMAGES_PATH, 'restart_btn.png'),
     'background': join(IMAGES_PATH, 'background.png'),
     'undo_btn': join(IMAGES_PATH, 'undo_btn.png'),
-    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
-    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
-    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
-    'levels': join(IMAGES_PATH, 'levels.png'),
     'target_field_btn': join(IMAGES_PATH, 'target_field_btn.png'),
     'target_field_btn_switched': join(IMAGES_PATH, 'target_field_btn_switched.png'),
     'q_mark': join(IMAGES_PATH, 'q_mark.png'),
@@ -93,9 +87,6 @@ ID_TEXTURE_MAP = {
     'stamp_d': join(IMAGES_PATH, 'stamp_d.png'),
     'box_next_to': join(IMAGES_PATH, 'box_next_to.png'),
     'box_over': join(IMAGES_PATH, 'box_over.png'),
-    'box_play': join(IMAGES_PATH, 'box_play.png'),
-    'box_quit': join(IMAGES_PATH, 'box_quit.png'),
-    'box_tutorial': join(IMAGES_PATH, 'box_tutorial.png'),
     'postbox_a': join(IMAGES_PATH, 'postbox_a.png'),
     'postbox_b': join(IMAGES_PATH, 'postbox_b.png'),
     'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
@@ -107,11 +98,29 @@ ID_TEXTURE_MAP = {
 
 ENG_ID_TEXTURE_MAP = {
     'all_rules_btn': join(IMAGES_PATH, 'all_rules_btn_eng.png'),
+    'box_play': join(IMAGES_PATH, 'box_play.png'),
+    'box_quit': join(IMAGES_PATH, 'box_quit.png'),
+    'box_tutorial': join(IMAGES_PATH, 'box_tutorial.png'),
+    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn.png'),
+    'levels': join(IMAGES_PATH, 'levels.png'),
+    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn.png'),
+    'no_rules': join(IMAGES_PATH, 'no_rules.png'),
+    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn.png'),
+    'you_win': join(IMAGES_PATH, 'you_win.png'),
     **ID_TEXTURE_MAP
 }
 
 RU_ID_TEXTURE_MAP = {
     'all_rules_btn': join(IMAGES_PATH, 'all_rules_btn_ru.png'),
+    'box_play': join(IMAGES_PATH, 'box_play_ru.png'),
+    'box_quit': join(IMAGES_PATH, 'box_quit_ru.png'),
+    'box_tutorial': join(IMAGES_PATH, 'box_tutorial_ru.png'),
+    'levels_label_btn': join(IMAGES_PATH, 'levels_label_btn_ru.png'),
+    'levels': join(IMAGES_PATH, 'levels_ru.png'),
+    'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn_ru.png'),
+    'no_rules': join(IMAGES_PATH, 'no_rules_ru.png'),
+    'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn_ru.png'),
+    'you_win': join(IMAGES_PATH, 'you_win_ru.png'),
     **ID_TEXTURE_MAP
 }
 

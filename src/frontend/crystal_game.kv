@@ -134,6 +134,7 @@
         height: q_mark.height
         width: stamp.width * 0.8
         pos: (q_mark.x - stamp.width * 0.9 - 7, q_mark.y)
+        markup: True
     Button:
         id: q_mark
         border: 0, 0, 0, 0
@@ -278,17 +279,20 @@
         id: buttons
         Button:
             id: levels_button
+            border: 0, 0, 0, 0
             ratio: image_ratios['levels_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.manager.transition.direction = 'right';root.parent.manager.current = 'levels';root.parent.clean()
             background_normal: app.language_utils.set_texture('levels_label_btn')
             background_down: self.background_normal
         Button:
+            border: 0, 0, 0, 0
             ratio: image_ratios['restart_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.restart()
             background_normal: app.language_utils.set_texture('restart_label_btn')
             background_down: self.background_normal
         Button:
             id: next_lvl_button
+            border: 0, 0, 0, 0
             ratio: image_ratios['next_lvl_label_btn']
             on_press: app.sound_handler.play_button_tap(); root.parent.go_to_next_lvl()
             background_normal: app.language_utils.set_texture('next_lvl_label_btn')
@@ -362,8 +366,9 @@
 
 <StarsPopup@Popup>:
     title: app.language_utils.set_string('stamps')
-    title_color: 1, 0, 1, 1
+    title_color: 232/255, 58/255, 88/255, 1
     title_size: '28sp'
+    separator_color: 74/255, 0, 39/255, 1
     background: app.language_utils.set_texture('stars_popup_background')
     size_hint: (0.7, 0.7)
     BoxLayout:
@@ -371,7 +376,7 @@
         spacing: '10dp'
         padding: 2, 17, 2, 2
         MyAdaptiveLabel:
-#            adapt_height: True
+            adapt_height: True
             adapt_width: True
             valign: 'top'
             text: '[color=4A0027]' + app.language_utils.set_string('stamps_text') + '[/color]'
