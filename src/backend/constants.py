@@ -93,7 +93,9 @@ ID_TEXTURE_MAP = {
     'postbox_d': join(IMAGES_PATH, 'postbox_d.png'),
     'postbox_label': join(IMAGES_PATH, 'postbox_label.png'),
     'BrainMail': join(IMAGES_PATH, 'BrainMail.png'),
-    'stars_popup_background': join(IMAGES_PATH, 'stars_popup_background.png')
+    'stars_popup_background': join(IMAGES_PATH, 'stars_popup_background.png'),
+    'donat': join(IMAGES_PATH, 'donat.png'),
+    'loading': join(IMAGES_PATH, 'loading.png')
 }
 
 ENG_ID_TEXTURE_MAP = {
@@ -139,7 +141,8 @@ IMAGE_RATIOS = {
     'q_mark': 128 / 126,
     'stamp': 1353 / 955,
     'postbox': 360 / 428,
-    'target_field': 128 / 126
+    'target_field': 128 / 126,
+    'donat': 176 / 173
 }
 
 MODULE_AMOUNT = 3

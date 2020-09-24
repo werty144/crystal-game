@@ -12,6 +12,14 @@
         Rectangle:
             size: (self.width, self.width)
             source: app.language_utils.set_texture('background')
+    Button:
+        border: 0, 0, 0, 0
+        pos: 4, self.parent.top - self.height - 4
+        size_hint: 0.05, None
+        height: self.width / image_ratios['donat']
+        background_normal: app.language_utils.set_texture('donat')
+        background_down: self.background_normal
+        on_press: Factory.DonatPopup().open()
     Image:
         source: app.language_utils.set_texture('BrainMail')
         size_hint_y: 0.17
@@ -416,3 +424,7 @@
             origin: root.center
     canvas.after:
         PopMatrix
+
+<DonatPopup@Popup>:
+    size_hint: 0.5, 0.7
+    title: 'huy'
