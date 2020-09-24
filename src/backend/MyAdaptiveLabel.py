@@ -105,7 +105,6 @@ class MyAdaptiveLabel(Label):
             self.set_height()
             self.bind(size=self.set_adaptive_width)
         elif self.adaptive_width > 0 and self.adaptive_height > 0:
-            self.size_hint = (None, None)
             self.set_font()
             self.bind(size=self.set_adaptive_size)
         self.final_width = self.width
