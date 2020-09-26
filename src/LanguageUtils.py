@@ -9,7 +9,8 @@ from src.backend.constants import ENG_ID_TEXTURE_MAP, RU_ID_TEXTURE_MAP
 
 class LanguageUtils:
 
-    def init_menu_screen(self, menu_screen):
+    def init_menu_screen(self):
+        menu_screen = App.get_running_app().screen_manager.get_screen('menu')
         self.en_btn = menu_screen.ids['en_flag']
         self.ru_btn = menu_screen.ids['ru_flag']
         if self.cur_lang == 'en':
@@ -34,6 +35,11 @@ class LanguageUtils:
             self.cur_lang = 'ru'
             self.clear_btn_frame(self.en_btn)
             self.make_btn_frame(self.ru_btn)
+        for screen in App.get_running_app().screen_manager.screens:
+            screen.canvas.clear()
+            screen.__init__()
+            screen.do_layout()
+        self.init_menu_screen()
 
     def set_texture(self, identifier):
         id_texture_map = None

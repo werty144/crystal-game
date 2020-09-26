@@ -391,7 +391,7 @@
             markup: True
         BoxLayout:
             orientation: 'vertical'
-            pos_hint: {'center_y': 0.6}
+            pos_hint: {'top': 1}
             size_hint_y: 1/2
             id: grid
             cols: 1
@@ -402,14 +402,15 @@
 <StarsPerModule@FloatLayout>:
     MyAdaptiveLabel:
         pos: self.parent.pos
-        size: self.parent.width / 2, self.parent.height
+        size: self.parent.width * 3/4, self.parent.height
         id: label
         adapt_width: True
-        text: '[color=4A0027]' + app.language_utils.set_string('module') + ' ' + str(root.module) + ': ' + star_statistic_or_q(root.module) + '[/color]'
+        text: '[color=4A0027]' + app.language_utils.set_string('module') + ' ' + chr(64 + root.module) + ': ' + star_statistic_or_q(root.module) + '[/color]'
         markup: True
     Image:
-        pos: label.x + label.width, label.y
-        size_hint_x: None
+        pos: label.x + label.width + 5, label.y
+        size_hint: None, None
+        height: label.height
         width: self.height * image_ratios['stamp']
         source: app.language_utils.set_texture('stamp_' + chr(96 + root.module))
 

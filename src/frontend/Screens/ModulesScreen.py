@@ -8,6 +8,7 @@ from src.backend.ModuleUtils import *
 class ModulesScreen(Screen):
     def on_pre_enter(self, *args):
         self.set_stars_amount()
+        self.ids.stars_amount.adapt()
 
     def set_stars_amount(self):
         storage = App.get_running_app().storage

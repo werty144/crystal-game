@@ -70,6 +70,7 @@ class Crystal_game(App):
     language_utils = ObjectProperty()
     storage = ObjectProperty()
     sound_handler = ObjectProperty()
+    screen_manager = ObjectProperty()
 
     def build(self):
         self.storage = JsonStore(STORAGE_PATH)
@@ -78,9 +79,10 @@ class Crystal_game(App):
         self.sound_handler = SoundHandler()
         self.sound_handler.play_theme()
         sm = ScreenManager(transition=FadeTransition())
+        self.screen_manager = sm
         ms = MenuScreen(name='menu')
-        self.language_utils.init_menu_screen(ms)
         sm.add_widget(ms)
+        self.language_utils.init_menu_screen()
         sm.add_widget(ModulesScreen(name='modules'))
         sm.add_widget(LevelsScreen(name='levels', storage=self.storage, sound_handler=self.sound_handler, module=1))
         gs = GameScreen(name='game', storage=self.storage, sound_handler=self.sound_handler)
@@ -89,5 +91,4 @@ class Crystal_game(App):
         sm.add_widget(ts)
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         Factory.register('RatioLayout', RatioLayout)
-        sm.current = 'modules'
         return sm
