@@ -1,8 +1,4 @@
 import os
-from kivy.config import Config
-Config.set('graphics', 'width', '1170')
-Config.set('graphics', 'height', '540')
-
 from kivy.app import App
 from kivy.factory import Factory
 from kivy.lang import Builder

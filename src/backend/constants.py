@@ -91,7 +91,6 @@ ID_TEXTURE_MAP = {
     'postbox_b': join(IMAGES_PATH, 'postbox_b.png'),
     'postbox_c': join(IMAGES_PATH, 'postbox_c.png'),
     'postbox_d': join(IMAGES_PATH, 'postbox_d.png'),
-    'postbox_label': join(IMAGES_PATH, 'postbox_label.png'),
     'BrainMail': join(IMAGES_PATH, 'BrainMail.png'),
     'stars_popup_background': join(IMAGES_PATH, 'stars_popup_background.png'),
     'donat': join(IMAGES_PATH, 'donat.png'),
@@ -110,6 +109,7 @@ ENG_ID_TEXTURE_MAP = {
     'levels': join(IMAGES_PATH, 'levels_eng.png'),
     'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn_eng.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules_eng.png'),
+    'postbox_label': join(IMAGES_PATH, 'postbox_label_eng.png'),
     'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn_eng.png'),
     'you_win': join(IMAGES_PATH, 'you_win_eng.png'),
     **ID_TEXTURE_MAP
@@ -124,6 +124,7 @@ RU_ID_TEXTURE_MAP = {
     'levels': join(IMAGES_PATH, 'levels_ru.png'),
     'next_lvl_label_btn': join(IMAGES_PATH, 'next_lvl_label_btn_ru.png'),
     'no_rules': join(IMAGES_PATH, 'no_rules_ru.png'),
+    'postbox_label': join(IMAGES_PATH, 'postbox_label_ru.png'),
     'restart_label_btn': join(IMAGES_PATH, 'restart_label_btn_ru.png'),
     'you_win': join(IMAGES_PATH, 'you_win_ru.png'),
     **ID_TEXTURE_MAP
