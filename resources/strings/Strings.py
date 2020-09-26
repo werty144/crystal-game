@@ -34,7 +34,15 @@ RU_ID_STRING_MAP = {
                    'Марки за ящик Вы получаете\nтолько '
                    'после того,\nкак справились со всеми письмами этого ящика.\n\n'
                    'Желаю удачи!',
-    'stamps': 'Марки'
+    'stamps': 'Марки',
+    'donat_title': 'Спасибо!',
+    'thanks': 'Благодарим Вас за скачивание нашей игры!',
+    'team': 'Команда:\n'
+            'Антон Парамонов: разработчик\n'
+            'Евгений Им: разработчик\n'
+            'Григорий Эмдин: дизайнер уровней\n'
+            'Ангелина Иванова: оформление\n'
+            'Виктор Игнатьев: композитор\n'
 }
 
 ENG_ID_STRING_MAP = {
@@ -64,5 +72,13 @@ ENG_ID_STRING_MAP = {
                    'which levels are special!\nAlthough you know their number in each\npostbox.\nYou get the stamps '
                    'only after you\nsuccessfully solve all letters in the postbox.\n\n'
                    'Good luck!',
-    'stamps': 'Stamps'
+    'stamps': 'Stamps',
+    'donat_title': 'Thank you!',
+    'thanks': 'Thank you for downloading our game!',
+    'team': 'Team:\n'
+            'Anton Paramonov: developer\n'
+            'Evgeniy Im: developer\n'
+            'Grigoriy Emdin: level creation\n'
+            'Angelina Ivanova: design\n'
+            'Victor Ignatiev: composer\n'
 }

@@ -95,7 +95,10 @@ ID_TEXTURE_MAP = {
     'BrainMail': join(IMAGES_PATH, 'BrainMail.png'),
     'stars_popup_background': join(IMAGES_PATH, 'stars_popup_background.png'),
     'donat': join(IMAGES_PATH, 'donat.png'),
-    'loading': join(IMAGES_PATH, 'loading.png')
+    'loading': join(IMAGES_PATH, 'loading.png'),
+    'qiwi_logo': join(IMAGES_PATH, 'qiwi_logo.png'),
+    'sber_logo': join(IMAGES_PATH, 'sber_logo.png'),
+    'clipboard': join(IMAGES_PATH, 'clipboard.png')
 }
 
 ENG_ID_TEXTURE_MAP = {

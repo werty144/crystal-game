@@ -6,6 +6,7 @@
 #: import screen_utils src.backend.ScreenUtils.ScreenUtils
 #: import total_stars src.backend.ModuleUtils.total_stars
 #: import star_statistic_or_q src.backend.ModuleUtils.star_statistic_or_q
+#: import Clipboard kivy.core.clipboard.Clipboard
 
 <MenuScreen>:
     canvas.before:
@@ -428,4 +429,95 @@
 
 <DonatPopup@Popup>:
     size_hint: 0.5, 0.7
-    title: 'huy'
+    title: app.language_utils.set_string('donat_title')
+    title_color: 232/255, 58/255, 88/255, 1
+    title_size: '28sp'
+    separator_color: 74/255, 0, 39/255, 1
+    background: app.language_utils.set_texture('stars_popup_background')
+    BoxLayout:
+        orientation: 'vertical'
+        MyAdaptiveLabel:
+            size_hint_y: 0.1
+            adapt_height: True
+            adapt_width: True
+            valign: 'top'
+            text: '[color=4A0027]' + app.language_utils.set_string('thanks') + '[/color]'
+            markup: True
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: '10dp'
+            padding: 2, 17, 2, 2
+            MyAdaptiveLabel:
+                adapt_height: True
+                adapt_width: True
+                valign: 'top'
+                text: '[color=4A0027]' + app.language_utils.set_string('team') + '[/color]'
+                markup: True
+            BoxLayout:
+                orientation: 'vertical'
+                FloatLayout:
+                    Image:
+                        id: qiwi_logo
+                        source: app.language_utils.set_texture('qiwi_logo')
+                        size_hint_x: 0.2
+                        pos: self.parent.pos
+                    MyAdaptiveLabel:
+                        id: qiwi_label
+                        adapt_height: True
+                        adapt_width: True
+                        size_hint_x: 0.6
+                        text: '[color=4A0027]' + '102361592999' + '[/color]'
+                        pos: (qiwi_logo.x + qiwi_logo.width + self.parent.width * 0.05, qiwi_logo.y)
+                        markup: True
+                    Button:
+                        pos: (qiwi_label.x + qiwi_label.width + self.parent.width * 0.05, qiwi_label.center_y - self.height/2)
+                        size_hint: 0.1, None
+                        height: self.width
+                        border: 0, 0, 0, 0
+                        background_normal: app.language_utils.set_texture('clipboard')
+                        on_release:
+                            Clipboard.copy('102361592999')
+                FloatLayout:
+                    Image:
+                        id: sber_logo
+                        source: app.language_utils.set_texture('sber_logo')
+                        size_hint_x: 0.2
+                        pos: self.parent.pos
+                    MyAdaptiveLabel:
+                        id: sber_label
+                        adapt_height: True
+                        adapt_width: True
+                        size_hint_x: 0.6
+                        text: '[color=4A0027]' + '5469 5500 4903 6335' + '[/color]'
+                        pos: (sber_logo.x + sber_logo.width + self.parent.width * 0.05, sber_logo.y)
+                        markup: True
+                    Button:
+                        pos: (sber_label.x + sber_label.width + self.parent.width * 0.05, sber_label.center_y - self.height/2)
+                        size_hint: 0.1, None
+                        height: self.width
+                        border: 0, 0, 0, 0
+                        background_normal: app.language_utils.set_texture('clipboard')
+                        on_release:
+                            Clipboard.copy('5469 5500 4903 6335')
+                FloatLayout:
+                    Image:
+                        id: envelope
+                        source: app.language_utils.set_texture('opened_envelope')
+                        size_hint_x: 0.2
+                        pos: self.parent.pos
+                    MyAdaptiveLabel:
+                        id: email_label
+                        adapt_height: True
+                        adapt_width: True
+                        size_hint_x: 0.6
+                        text: '[color=4A0027]' + 'anton-paramonov2000@yandex.ru' + '[/color]'
+                        pos: (envelope.x + envelope.width + self.parent.width * 0.05, envelope.y)
+                        markup: True
+                    Button:
+                        pos: (email_label.x + email_label.width + self.parent.width * 0.05, email_label.center_y - self.height/2)
+                        size_hint: 0.1, None
+                        height: self.width
+                        border: 0, 0, 0, 0
+                        background_normal: app.language_utils.set_texture('clipboard')
+                        on_release:
+                            Clipboard.copy('anton-paramonov2000@yandex.ru')
