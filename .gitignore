@@ -3,3 +3,6 @@ venv/*
 PyCharm_kv_completion.jar
 __pycache__/
 resources/storage/*
+buildozer.spec
+.buildozer
+bin/

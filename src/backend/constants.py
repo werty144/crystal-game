@@ -11,7 +11,8 @@ LEVELS_PATH = join(PROJECT_PATH, 'resources', 'levels')
 IMAGES_PATH = join(PROJECT_PATH, 'resources', 'images')
 SOUND_PATH = join(PROJECT_PATH, 'resources', 'sound')
 KV_FILE_PATH = join(FRONTEND_PATH, 'crystal_game.kv')
-STORAGE_PATH = join(PROJECT_PATH, 'resources', 'storage', 'storage.js')
+STORAGE_FOLDER = join(PROJECT_PATH, 'resources', 'storage')
+STORAGE_PATH = join(STORAGE_FOLDER, 'storage.js')
 
 FRAME_RATE_SEC = 0.01
 

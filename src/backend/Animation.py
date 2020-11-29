@@ -1,5 +1,5 @@
 from src.backend.Geometry import *
-import numpy as np
+from math import exp
 
 
 class Animation:
@@ -54,7 +54,7 @@ class Parametric_along_curve_animation(Animation):
     def movement_function(self, obj, time_passed, total_duration):
         if time_passed > total_duration:
             print('ANIMATION WARNING. time_passed is greater than total_duration')
-        cur_point = self.curve_function(float(np.clip(time_passed / total_duration, 0, 1)))
+        cur_point = self.curve_function(float(clip(time_passed / total_duration, 0, 1)))
         obj.x, obj.y = cur_point.x, cur_point.y
 
     '''curve function takes argument from [0,1]'''
@@ -109,12 +109,12 @@ def falling(t):
 
 
 def sigmoid(x):
-    return 1.0 / (1 + np.exp(-x))
+    return 1.0 / (1 + exp(-x))
 
 
 def smooth(t, inflection=10.0):
     error = sigmoid(-inflection / 2)
-    return float(np.clip(
+    return float(clip(
         (sigmoid(inflection * (t - 0.5)) - error) / (1 - 2 * error),
         0, 1,
     ))
@@ -122,3 +122,11 @@ def smooth(t, inflection=10.0):
 
 def rush_into(t, inflection=10.0):
     return 2 * smooth(t / 2.0, inflection)
+
+
+def clip(n, a, b):
+    if n < a:
+        return a
+    if n > b:
+        return b
+    return n

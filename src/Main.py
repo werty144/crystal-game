@@ -19,7 +19,6 @@ os.environ['KIVY_AUDIO'] = 'sdl2'
 from kivy.core.window import Window
 from src.frontend.custom_widgets.RuleWidget import *
 
-
 Builder.load_file(KV_FILE_PATH)
 
 
@@ -69,8 +68,7 @@ class Crystal_game(App):
     screen_manager = ObjectProperty()
 
     def build(self):
-        self.storage = JsonStore(STORAGE_PATH)
-        init_storage(self.storage)
+        self.process_storage()
         self.language_utils = LanguageUtils()
         self.sound_handler = SoundHandler()
         self.sound_handler.play_theme()
@@ -88,3 +86,9 @@ class Crystal_game(App):
         Window.bind(on_keyboard=lambda window, key, *args: on_key(window, key, sm, gs, ts, *args))
         Factory.register('RatioLayout', RatioLayout)
         return sm
+
+    def process_storage(self):
+        if not os.path.exists(STORAGE_FOLDER):
+            os.makedirs(STORAGE_FOLDER)
+        self.storage = JsonStore(STORAGE_PATH)
+        init_storage(self.storage)
