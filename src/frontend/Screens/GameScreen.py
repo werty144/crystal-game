@@ -16,6 +16,8 @@ class GameScreen(Screen):
         self.playground = Playground(storage=self.storage, sound_handler=self.sound_handler)
         self.playground.start(self.lvl)
         self.add_widget(self.playground)
+        self.sound_handler.stop_theme()
+        self.sound_handler.play_level_theme()
 
     def restart(self):
         self.clean()
@@ -54,3 +56,7 @@ class GameScreen(Screen):
 
     def undo(self):
         self.playground.undo()
+
+    def on_leave(self):
+        self.sound_handler.stop_level_theme()
+        self.sound_handler.play_theme()

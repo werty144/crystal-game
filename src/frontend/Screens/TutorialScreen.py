@@ -10,6 +10,8 @@ class TutorialScreen(GameScreen):
         self.playground = Tutorial(sound_handler=self.sound_handler)
         self.add_widget(self.playground)
         self.playground.start()
+        self.sound_handler.stop_theme()
+        self.sound_handler.play_level_theme()
         MyAdaptiveLabel.fonts_setted = False
         MyAdaptiveLabel.small_font = 100
         MyAdaptiveLabel.large_font = 100
