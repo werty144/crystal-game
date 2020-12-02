@@ -51,10 +51,10 @@ class LevelsScreen(Screen):
                 obj.background_down = button_image[1]
 
     def get_button_image(self, lvl):
-        if self.storage.get('lvl' + str(lvl))['status'] == 'Passed':
+        if self.storage.get('lvl' + str(lvl + MODULE_OFFSET[self.module]))['status'] == 'Passed':
             return ID_TEXTURE_MAP['opened_envelope' + str(self.module)], ID_TEXTURE_MAP['opened_envelope' +
                                                                                         str(self.module)]
-        elif self.storage.get('lvl' + str(lvl))['status'] == 'Unlocked':
+        elif self.storage.get('lvl' + str(lvl + MODULE_OFFSET[self.module]))['status'] == 'Unlocked':
             return ID_TEXTURE_MAP['opened_envelope'], ID_TEXTURE_MAP['opened_envelope']
         return ID_TEXTURE_MAP['closed_envelope'], ID_TEXTURE_MAP['closed_envelope']
 

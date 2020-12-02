@@ -3,6 +3,7 @@ from collections import Counter
 from kivy.properties import NumericProperty, BooleanProperty
 from kivy.uix.label import Label
 from resources.strings.Strings import *
+from src.backend.constants import TUTORIAL_LABELS_AMOUNT
 
 
 class MyAdaptiveLabel(Label):
@@ -55,12 +56,12 @@ class MyAdaptiveLabel(Label):
         text = self.text
         fonts = Counter()
         ''' Here we don't look on last 2 elements because there is no task strings there'''
-        for s in list(RU_ID_STRING_MAP.values())[:-2]:
+        for s in list(RU_ID_STRING_MAP.values())[:TUTORIAL_LABELS_AMOUNT]:
             self.text = s
             self.set_font()
             MyAdaptiveLabel.small_font = min(self.font_size, self.small_font)
             fonts[int(self.font_size)] += 1
-        for s in list(ENG_ID_STRING_MAP.values())[:-2]:
+        for s in list(ENG_ID_STRING_MAP.values())[:TUTORIAL_LABELS_AMOUNT]:
             self.text = s
             self.set_font()
             MyAdaptiveLabel.small_font = min(self.font_size, self.small_font)

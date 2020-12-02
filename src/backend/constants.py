@@ -18,6 +18,8 @@ FRAME_RATE_SEC = 0.01
 
 FALLING_SOUND_DELAY = 0.15
 
+TUTORIAL_LABELS_AMOUNT = 13
+
 KIND_BOX_ATLAS_ID_MAP = {
     1: 'red_box',
     2: 'green_box',
