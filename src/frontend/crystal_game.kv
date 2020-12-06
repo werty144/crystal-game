@@ -7,6 +7,7 @@
 #: import total_stars src.backend.ModuleUtils.total_stars
 #: import star_statistic_or_q src.backend.ModuleUtils.star_statistic_or_q
 #: import Clipboard kivy.core.clipboard.Clipboard
+#: import open_link webbrowser.open
 
 <MenuScreen>:
     canvas.before:
@@ -466,7 +467,8 @@
                         adapt_height: True
                         adapt_width: True
                         size_hint_x: 0.6
-                        text: '[color=4A0027]' + 'qiwi.com/p/79214378793' + '[/color]'
+                        text: '[color=0505FF][u][ref=link]click to donate via qiwi[/ref][/u][/color]'
+                        on_ref_press: open_link('https://my.qiwi.com/Grygoryi-EE-xB4c-9N')
                         pos: (qiwi_logo.x + qiwi_logo.width + self.parent.width * 0.05, qiwi_logo.y)
                         markup: True
                     Button:
@@ -476,7 +478,7 @@
                         border: 0, 0, 0, 0
                         background_normal: app.language_utils.set_texture('clipboard')
                         on_release:
-                            Clipboard.copy('102361592999')
+                            Clipboard.copy('https://my.qiwi.com/Grygoryi-EE-xB4c-9N')
                 FloatLayout:
                     Image:
                         id: sber_logo
