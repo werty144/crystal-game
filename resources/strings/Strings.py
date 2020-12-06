@@ -42,7 +42,8 @@ RU_ID_STRING_MAP = {
             'Евгений Им: разработчик\n'
             'Григорий Эмдин: дизайнер уровней\n'
             'Ангелина Иванова: оформление\n'
-            'Виктор Игнатьев: композитор\n'
+            'Виктор Игнатьев: композитор\n',
+    'qiwi': 'задонатить по qiwi'
 }
 
 ENG_ID_STRING_MAP = {
@@ -80,5 +81,6 @@ ENG_ID_STRING_MAP = {
             'Evgeniy Im: developer\n'
             'Grigoriy Emdin: level creation\n'
             'Angelina Ivanova: design\n'
-            'Victor Ignatiev: composer\n'
+            'Victor Ignatiev: composer\n',
+    'qiwi': 'click to donate via qiwi'
 }

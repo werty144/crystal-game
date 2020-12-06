@@ -467,7 +467,7 @@
                         adapt_height: True
                         adapt_width: True
                         size_hint_x: 0.6
-                        text: '[color=0505FF][u][ref=link]click to donate via qiwi[/ref][/u][/color]'
+                        text: '[color=0505FF][u][ref=link]{}[/ref][/u][/color]'.format(app.language_utils.set_string('qiwi'))
                         on_ref_press: open_link('https://my.qiwi.com/Grygoryi-EE-xB4c-9N')
                         pos: (qiwi_logo.x + qiwi_logo.width + self.parent.width * 0.05, qiwi_logo.y)
                         markup: True
